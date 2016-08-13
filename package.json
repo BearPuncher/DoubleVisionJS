@@ -1,0 +1,27 @@
+{
+  "name": "js13kentry",
+  "version": "1.0.0",
+  "description": "Entry for js13k 2016",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "js13k",
+    "js13kgames"
+  ],
+  "author": "BearPuncher",
+  "license": "MIT",
+  "devDependencies": {
+    "coffeekup": "^0.3.1",
+    "del": "^2.2.1",
+    "gulp": "^3.9.1",
+    "gulp-coffee": "^2.3.2",
+    "gulp-coffeekup": "0.0.1",
+    "gulp-coffeelint": "^0.6.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sass-lint": "^1.2.0",
+    "gulp-uglifyjs": "^0.6.2"
+  }
+}
