@@ -6,6 +6,7 @@ coffee = require('gulp-coffee')
 coffeekup = require('gulp-coffeekup')
 coffeelint = require('gulp-coffeelint')
 concat = require('gulp-concat')
+cssmin = require('gulp-cssmin')
 sass = require('gulp-sass')
 sassLint = require('gulp-sass-lint')
 uglify = require('gulp-uglifyjs')
@@ -58,6 +59,8 @@ gulp.task 'sass', ->
   .pipe(sassLint.failOnError())
   .pipe(sass.sync()
   .on('error', sass.logError))
+  .pipe(concat('main.css'))
+  .pipe(cssmin())
   .pipe gulp.dest('./dist/css')
   return
 
