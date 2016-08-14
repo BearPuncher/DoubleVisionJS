@@ -42,9 +42,14 @@ gulp.task 'coffee', ->
   gulp.src('./src/*.coffee')
   .pipe(coffee(bare: true)
   .on('error', gutil.log))
-  .pipe(concat('game.js'))
-  .pipe(uglify())
+  #.pipe(concat('game.js'))
+  #.pipe(uglify())
   .pipe gulp.dest('./dist/js')
+  return
+
+gulp.task 'vendorjs', ->
+  gulp.src('./vendor/*.js')
+  .pipe gulp.dest('./dist/js/vendor')
   return
 
 # Compile sass to css
@@ -59,7 +64,7 @@ gulp.task 'sass', ->
   .pipe(sassLint.failOnError())
   .pipe(sass.sync()
   .on('error', sass.logError))
-  .pipe(concat('main.css'))
+# .pipe(concat('main.css'))
   .pipe(cssmin())
   .pipe gulp.dest('./dist/css')
   return
@@ -77,6 +82,7 @@ gulp.task 'default', [
   'lint'
   'coffeekup'
   'coffee'
+  'vendorjs'
   'sass'
   'watch'
 ]
