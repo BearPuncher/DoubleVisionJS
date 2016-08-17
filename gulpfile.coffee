@@ -39,11 +39,14 @@ gulp.task 'coffeekup', ->
 
 # Compile coffescript to js
 gulp.task 'coffee', ->
-  gulp.src('./src/*.coffee')
+  gulp.src([
+    './src/stage.coffee',
+    './src/game_engine.coffee'
+  ])
+  .pipe(concat('engine.coffee'))
   .pipe(coffee(bare: true)
   .on('error', gutil.log))
-  #.pipe(concat('game.js'))
-  #.pipe(uglify())
+  .pipe(uglify())
   .pipe gulp.dest('./dist/js')
   return
 
