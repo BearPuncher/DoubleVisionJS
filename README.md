@@ -3,11 +3,11 @@
 Bare bones setup for my js13kentry.
 
 ## Language
-    coffeescript
+    [coffeescript](https://github.com/jashkenas/coffeescript)
 ## Templating
-    coffeekup
+    [coffeekup](https://github.com/mauricemach/coffeekup)
 ## CSS
-    sass
+    [sass](https://github.com/sass/sass)
 ## OCD Tools
-    coffee-lint
-    sass-lint
+    [coffeelint](https://github.com/clutchski/coffeelint)
+    [sass-lint](https://github.com/sasstools/sass-lint)
