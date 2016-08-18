@@ -15,9 +15,5 @@ class Stage
   render: (offset) ->
     actor.render offset for actor in @actors
 
-class Actor
-  constructor: () ->
 
-  update: (dt) ->
 
-  render: (offset) ->

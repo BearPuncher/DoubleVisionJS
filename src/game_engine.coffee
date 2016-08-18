@@ -1,3 +1,4 @@
+
 # Modeled after
 # https://github.com/kittykatattack/ga/blob/master/ga.js
 
@@ -14,11 +15,6 @@ class Game
     unless @canvas
       @canvas = document.createElement 'canvas'
       document.body.appendChild @canvas
-
-    # Set up metric
-    @stats = new Stats()
-    @stats.showPanel(0)
-    document.body.appendChild(@stats.dom)
 
     @canvas.ctx = @canvas.getContext("2d")
     @canvas.style.width = width + 'px'
@@ -58,14 +54,13 @@ class Game
       @stage.update(@dt)
 
   render: (offset) ->
+    @canvas.ctx.clearRect(0, 0, @canvas.width, @canvas.height);
     if @stage?
       @stage.render(offset)
 
   gameLoop: () =>
     unless @running?
       return
-
-    @stats.begin()
 
     # Set last timestamp, if there was none
     current = Date.now()
@@ -83,8 +78,6 @@ class Game
 
     offset = @dt / Game.skipTicks
     @render(offset)
-
-    @stats.end()
 
 # onEachFrame Fix from;
 # http://stackoverflow.com/questions/1955687/best-way-for-simple-game-loop-in-javascript

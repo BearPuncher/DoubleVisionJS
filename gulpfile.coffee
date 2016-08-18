@@ -1,5 +1,6 @@
 'use strict'
 del = require('del')
+# server = require('karma').Server
 gulp = require('gulp')
 gutil = require('gulp-util')
 coffee = require('gulp-coffee')
@@ -16,6 +17,7 @@ gulp.task 'clean', ->
   del [
     'dist/index.html'
     'dist/js/**/*'
+    'dis/js/vendor'
     'dist/css/**/*'
   ]
   return
@@ -40,6 +42,7 @@ gulp.task 'coffeekup', ->
 # Compile coffescript to js
 gulp.task 'coffee', ->
   gulp.src([
+    './src/actor.coffee',
     './src/stage.coffee',
     './src/game_engine.coffee'
   ])

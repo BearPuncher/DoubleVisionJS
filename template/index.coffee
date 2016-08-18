@@ -8,9 +8,6 @@ html ->
     link rel: 'stylesheet', href: 'css/reset.css'
     link rel: 'stylesheet', href: 'css/main.css'
 
-    script src: 'js/vendor/stats.min.js'
-    # script src: 'js/vendor/minivents.min.js'
-    #script src: 'js/stage.js'
     script src: 'js/engine.js'
   body ->
     div '.container', ->
@@ -21,6 +18,24 @@ html ->
         coffeescript ->
 
           canvas = document.getElementById('game-canvas')
+          DIRECTION = undefined
+
+          getArrowKeyDirection = (keyCode) ->
+            return {
+              37: 'left',
+              39: 'right',
+              38: 'up',
+              40: 'down'
+            }[keyCode]
+
+          isArrowKey = (keyCode) ->
+            return !!getArrowKeyDirection keyCode
+
+          document.onkeydown = (event) ->
+            if isArrowKey event.keyCode
+              DIRECTION = getArrowKeyDirection event.keyCode
+            else
+              DIRECTION = undefined
 
           GAME = new Game(512, 512, () ->
             console.log 'setup'
@@ -29,7 +44,23 @@ html ->
           , canvas)
 
           STAGE = new Stage()
+          ACTOR = new Actor(30, 40)
+          ACTOR.setUpdate((dt) ->
+            console.log(DIRECTION)
+            if DIRECTION == 'left'
+              @posX -= 5 * (dt / 1000)
+            else if DIRECTION == 'right'
+              @posX += 5 * (dt / 1000)
+          )
+
+          ACTOR.setRender((offset)->
+            GAME.canvas.ctx.fillStyle = "#FF0000"
+            GAME.canvas.ctx.fillRect @posX,@posY,150,75
+          )
+
+          STAGE.addActor(ACTOR)
 
           GAME.setStage(STAGE)
-
           GAME.start()
+
+
