@@ -18,24 +18,8 @@ html ->
         coffeescript ->
 
           canvas = document.getElementById('game-canvas')
-          DIRECTION = undefined
-
-          getArrowKeyDirection = (keyCode) ->
-            return {
-              37: 'left',
-              39: 'right',
-              38: 'up',
-              40: 'down'
-            }[keyCode]
-
-          isArrowKey = (keyCode) ->
-            return !!getArrowKeyDirection keyCode
-
-          document.onkeydown = (event) ->
-            if isArrowKey event.keyCode
-              DIRECTION = getArrowKeyDirection event.keyCode
-            else
-              DIRECTION = undefined
+          controller = Controller.get()
+          console.log controller
 
           GAME = new Game(512, 512, () ->
             console.log 'setup'
@@ -46,11 +30,12 @@ html ->
           STAGE = new Stage()
           ACTOR = new Actor(30, 40)
           ACTOR.setUpdate((dt) ->
-            console.log(DIRECTION)
-            if DIRECTION == 'left'
-              @posX -= 5 * (dt / 1000)
-            else if DIRECTION == 'right'
-              @posX += 5 * (dt / 1000)
+            if controller.isPressed(Keys.LEFT) or
+            controller.isPressed(Keys.A)
+              @posX -= 10 * (dt / 1000)
+            else if controller.isPressed(Keys.RIGHT) or
+            controller.isPressed(Keys.D)
+              @posX += 10 * (dt / 1000)
           )
 
           ACTOR.setRender((offset)->

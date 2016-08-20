@@ -42,6 +42,7 @@ gulp.task 'coffeekup', ->
 # Compile coffescript to js
 gulp.task 'coffee', ->
   gulp.src([
+    './src/controller.coffee',
     './src/actor.coffee',
     './src/stage.coffee',
     './src/game_engine.coffee'

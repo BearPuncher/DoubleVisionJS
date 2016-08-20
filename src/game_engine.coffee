@@ -1,4 +1,3 @@
-
 # Modeled after
 # https://github.com/kittykatattack/ga/blob/master/ga.js
 
@@ -54,7 +53,7 @@ class Game
       @stage.update(@dt)
 
   render: (offset) ->
-    @canvas.ctx.clearRect(0, 0, @canvas.width, @canvas.height);
+    @canvas.ctx.clearRect(0, 0, @canvas.width, @canvas.height)
     if @stage?
       @stage.render(offset)
 
@@ -79,7 +78,7 @@ class Game
     offset = @dt / Game.skipTicks
     @render(offset)
 
-# onEachFrame Fix from;
+# onEachFrame from;
 # http://stackoverflow.com/questions/1955687/best-way-for-simple-game-loop-in-javascript
 do ->
   onEachFrame = undefined
