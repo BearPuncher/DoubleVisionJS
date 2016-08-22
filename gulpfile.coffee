@@ -8,6 +8,8 @@ coffeekup = require('gulp-coffeekup')
 coffeelint = require('gulp-coffeelint')
 concat = require('gulp-concat')
 cssmin = require('gulp-cssmin')
+gzip = require('gulp-gzip')
+tar = require('gulp-tar')
 sass = require('gulp-sass')
 sassLint = require('gulp-sass-lint')
 uglify = require('gulp-uglifyjs')
@@ -83,14 +85,17 @@ gulp.task 'watch', ->
   gulp.watch('./sass/**/*.scss', ['sass'])
   return
 
-# TODO: Add compression
+gulp.task 'compress', ->
+  gulp.src('./dist/**/*')
+  .pipe(tar('release.tar'))
+  .pipe(gzip())
+  .pipe(gulp.dest('.'))
 
 gulp.task 'default', [
   'clean'
   'lint'
   'coffeekup'
   'coffee'
-  'vendorjs'
   'sass'
   'watch'
 ]

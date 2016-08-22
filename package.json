@@ -21,8 +21,10 @@
     "gulp-coffeelint": "^0.6.0",
     "gulp-concat": "^2.6.0",
     "gulp-cssmin": "^0.1.7",
+    "gulp-gzip": "^1.4.0",
     "gulp-sass": "^2.3.2",
     "gulp-sass-lint": "^1.2.0",
+    "gulp-tar": "^1.9.0",
     "gulp-uglifyjs": "^0.6.2"
   }
 }

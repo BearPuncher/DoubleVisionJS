@@ -19,10 +19,8 @@ html ->
 
           canvas = document.getElementById('game-canvas')
           controller = Controller.get()
-          console.log controller
 
           GAME = new Game(512, 512, () ->
-            console.log 'setup'
             this.backgroundColor 'white'
             this.border '1px solid black'
           , canvas)
@@ -51,7 +49,6 @@ html ->
           SQUARE.setRender(()->
             @drawDebugRectangle()
           )
-          console.log(SQUARE)
 
           STAGE.addActor(SQUARE)
 
