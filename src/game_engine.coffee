@@ -4,8 +4,8 @@
 # Game engine
 class Game
   @fps: 60
-  @skipTicks: 1000 / @fps
-  @step: 1 / @fps
+  @dt: 1 / @fps
+  @frameDuration: 1000 / @fps
 
   # Constructor for Game
   # @canvas is optional
@@ -15,13 +15,15 @@ class Game
       @canvas = document.createElement 'canvas'
       document.body.appendChild @canvas
 
-    @canvas.ctx = @canvas.getContext("2d")
-    @canvas.style.width = width + 'px'
-    @canvas.style.height = height + 'px'
+    @canvas.ctx = @canvas.getContext('2d')
+    @canvas.width = width
+    @canvas.height = height
 
     @running = false
     @setup = setup || undefined
     @stage = null
+    @startTime = 0
+    @accumulator = 0
 
     # Invoke setup callback
     if @setup
@@ -31,8 +33,9 @@ class Game
     unless stage instanceof Stage
       console.log('ERROR: ' + stage + ' is not an Stage')
       return
-
+    # Pass in reference to context to share between actors
     @stage = stage
+    @stage.setContext(@canvas.ctx)
 
   # Change background color of @canvas
   backgroundColor: (color) =>
@@ -45,12 +48,11 @@ class Game
   start: () =>
     @running = true
     @startTime = Date.now()
-    @dt = 0
     window.onEachFrame(@gameLoop)
 
   update: () ->
     if @stage?
-      @stage.update(@dt)
+      @stage.update(@timer, Game.dt)
 
   render: (offset) ->
     @canvas.ctx.clearRect(0, 0, @canvas.width, @canvas.height)
@@ -61,21 +63,20 @@ class Game
     unless @running?
       return
 
-    # Set last timestamp, if there was none
-    current = Date.now()
-    elapsedTime = current - @startTime
+    currentTime = Date.now()
+    elapsedMs = currentTime - @startTime
 
-    if (elapsedTime > 1000)
-      elapsedTime = Game.skipTicks
+    if elapsedMs > 1000
+      elapsedMs = Game.frameDuration
 
-    @startTime = current
-    @dt += elapsedTime
+    @startTime = currentTime
+    @accumulator += elapsedMs
 
-    while @dt >= Game.skipTicks
+    while @accumulator >= Game.frameDuration
       @update()
-      @dt -= Game.skipTicks
+      @accumulator -= Game.frameDuration
 
-    offset = @dt / Game.skipTicks
+    offset = @accumulator / Game.frameDuration
     @render(offset)
 
 # onEachFrame from;
@@ -108,7 +109,7 @@ do ->
       return
   else
     onEachFrame = (cb) ->
-      setInterval cb, Game.skipTicks
+      setInterval cb, Game.frameDuration
       return
   window.onEachFrame = onEachFrame
   return

@@ -8,7 +8,7 @@ html ->
     link rel: 'stylesheet', href: 'css/reset.css'
     link rel: 'stylesheet', href: 'css/main.css'
 
-    script src: 'js/engine.js'
+    script src: 'js/game.js'
   body ->
     div '.container', ->
       div '.centered', ->
@@ -28,22 +28,32 @@ html ->
           , canvas)
 
           STAGE = new Stage()
-          ACTOR = new Actor(30, 40)
-          ACTOR.setUpdate((dt) ->
-            if controller.isPressed(Keys.LEFT) or
-            controller.isPressed(Keys.A)
-              @posX -= 10 * (dt / 1000)
-            else if controller.isPressed(Keys.RIGHT) or
-            controller.isPressed(Keys.D)
-              @posX += 10 * (dt / 1000)
+          SQUARE = new Actor(30,30)
+          SQUARE.setDimensions(30, 30)
+          SQUARE.setDirection(40)
+          SQUARE.setUpdate((timer, dt) ->
+            x = @position.getX()
+            y = @position.getY()
+
+            if controller.isPressed(Keys.LEFT) or controller.isPressed(Keys.A)
+              x -= 20 * dt
+            if controller.isPressed(Keys.RIGHT) or controller.isPressed(Keys.D)
+              x += 20 * dt
+
+            if controller.isPressed(Keys.UP) or controller.isPressed(Keys.W)
+              y -= 20 * dt
+            if controller.isPressed(Keys.DOWN) or controller.isPressed(Keys.S)
+              y += 20 * dt
+
+            @setPosition(x,y)
           )
 
-          ACTOR.setRender((offset)->
-            GAME.canvas.ctx.fillStyle = "#FF0000"
-            GAME.canvas.ctx.fillRect @posX,@posY,150,75
+          SQUARE.setRender(()->
+            @drawDebugRectangle()
           )
+          console.log(SQUARE)
 
-          STAGE.addActor(ACTOR)
+          STAGE.addActor(SQUARE)
 
           GAME.setStage(STAGE)
           GAME.start()
