@@ -10,11 +10,11 @@ class Stage
     actor.setStage(@)
     @actors.push actor
 
-  update: (timer, dt) ->
-    actor.update(timer, dt) for actor in @actors
+  update: (step) ->
+    actor.update(step) for actor in @actors
 
-  render: (offset) ->
-    actor.render(offset) for actor in @actors
+  render: () ->
+    actor.render() for actor in @actors
 
   setContext: (@ctx) =>
 

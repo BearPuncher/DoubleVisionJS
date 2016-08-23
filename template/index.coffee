@@ -8,6 +8,7 @@ html ->
     link rel: 'stylesheet', href: 'css/reset.css'
     link rel: 'stylesheet', href: 'css/main.css'
 
+    script src: 'js/vendor/stats.min.js'
     script src: 'js/game.js'
   body ->
     div '.container', ->
@@ -34,24 +35,31 @@ html ->
           )
           STAGE.addActor(CIRCLE)
 
+          maxspeed = 6
+          velx = 0
+          vely = 0
+
           SQUARE = new SquareActor(30,30)
           SQUARE.setDimensions(30, 30)
           SQUARE.setDirection(40)
-          SQUARE.setUpdate((timer, dt) ->
+          SQUARE.setUpdate((step) ->
             x = @position.getX()
             y = @position.getY()
 
             if controller.isPressed(Keys.LEFT) or controller.isPressed(Keys.A)
-              x -= 20 * dt
+              if velx > -maxspeed
+                velx -= 0.5
             if controller.isPressed(Keys.RIGHT) or controller.isPressed(Keys.D)
-              x += 20 * dt
-
+              if velx < maxspeed
+                velx += 0.5
             if controller.isPressed(Keys.UP) or controller.isPressed(Keys.W)
-              y -= 20 * dt
+              if vely > -maxspeed
+                vely -= 0.5
             if controller.isPressed(Keys.DOWN) or controller.isPressed(Keys.S)
-              y += 20 * dt
+              if vely < maxspeed
+                vely += 0.5
 
-            @setPosition(x,y)
+            @setPosition(x + velx, y + vely)
           )
 
           SQUARE.setRender(()->

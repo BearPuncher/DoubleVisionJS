@@ -48,18 +48,22 @@ class Game
   start: () =>
     @running = true
     @startTime = Date.now()
-    window.onEachFrame(@gameLoop)
+    @gameStep()
+    window.onEachFrame(@render)
 
-  update: () ->
+  update: (step) ->
     if @stage?
-      @stage.update(@timer, Game.dt)
+      @stage.update(step)
 
-  render: (offset) ->
+  render: () =>
+    unless @running?
+      return
+
     @canvas.ctx.clearRect(0, 0, @canvas.width, @canvas.height)
     if @stage?
-      @stage.render(offset)
+      @stage.render()
 
-  gameLoop: () =>
+  gameStep: () =>
     unless @running?
       return
 
@@ -73,11 +77,10 @@ class Game
     @accumulator += elapsedMs
 
     while @accumulator >= Game.frameDuration
-      @update()
+      @update(Game.frameDuration)
       @accumulator -= Game.frameDuration
 
-    offset = @accumulator / Game.frameDuration
-    @render(offset)
+    setTimeout(@gameStep, Game.frameDuration)
 
 # onEachFrame from;
 # http://stackoverflow.com/questions/1955687/best-way-for-simple-game-loop-in-javascript

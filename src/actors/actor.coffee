@@ -4,13 +4,13 @@ class Actor
     @position = new Point(x, y)
     @stage = null
 
-  update: (timer, dt) ->
+  update: (step) ->
     if @_update
-      @_update timer, dt
+      @_update step
 
-  render: (offset) ->
+  render: () ->
     if @_render
-      @_render(offset)
+      @_render()
 
   setUpdate: (update = undefined) =>
     @_update = update
