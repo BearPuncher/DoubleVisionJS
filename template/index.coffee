@@ -26,7 +26,15 @@ html ->
           , canvas)
 
           STAGE = new Stage()
-          SQUARE = new Actor(30,30)
+
+          CIRCLE = new CircleActor(100, 100)
+          CIRCLE.setDimensions(20)
+          CIRCLE.setRender(()->
+            @drawDebug()
+          )
+          STAGE.addActor(CIRCLE)
+
+          SQUARE = new SquareActor(30,30)
           SQUARE.setDimensions(30, 30)
           SQUARE.setDirection(40)
           SQUARE.setUpdate((timer, dt) ->
@@ -47,7 +55,7 @@ html ->
           )
 
           SQUARE.setRender(()->
-            @drawDebugRectangle()
+            @drawDebug()
           )
 
           STAGE.addActor(SQUARE)

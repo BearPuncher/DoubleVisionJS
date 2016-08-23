@@ -46,7 +46,9 @@ gulp.task 'coffee', ->
   gulp.src([
     './src/math_helpers.coffee',
     './src/controller.coffee',
-    './src/actor.coffee',
+    './src/actors/actor.coffee',
+    './src/actors/square_actor.coffee',
+    './src/actors/circle_actor.coffee',
     './src/stage.coffee',
     './src/game_engine.coffee'
   ])
