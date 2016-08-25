@@ -17,6 +17,13 @@ class Controller
     document.onkeydown = (event) ->
       Controller.pressed[event.keyCode] = true
 
+    document.onmousemove = (event) ->
+      @mouseX = event.clientX
+      @mouseY = event.clientY
+
+  getMouseLocation: () ->
+    return {x: @mouseX, y: @mouseY}
+
   isPressed: (keyCode) ->
     return Controller.pressed[keyCode]
 

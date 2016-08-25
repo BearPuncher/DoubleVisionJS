@@ -4,6 +4,10 @@ class Actor
     @position = new Point(x, y)
     @stage = null
 
+  init: () ->
+    if @_init
+      @_init()
+
   update: (step) ->
     if @_update
       @_update step
@@ -11,6 +15,9 @@ class Actor
   render: () ->
     if @_render
       @_render()
+
+  setInit: (init = undefined ) =>
+    @_init = init
 
   setUpdate: (update = undefined) =>
     @_update = update

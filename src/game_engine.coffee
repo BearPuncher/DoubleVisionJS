@@ -4,7 +4,6 @@
 # Game engine
 class Game
   @fps: 60
-  @dt: 1 / @fps
   @frameDuration: 1000 / @fps
 
   # Constructor for Game

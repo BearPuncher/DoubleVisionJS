@@ -49,13 +49,14 @@ gulp.task 'coffee', ->
     './src/actors/actor.coffee',
     './src/actors/square_actor.coffee',
     './src/actors/circle_actor.coffee',
+    './src/actors/player.coffee',
     './src/stage.coffee',
     './src/game_engine.coffee'
   ])
   .pipe(concat('game.coffee'))
   .pipe(coffee(bare: true)
   .on('error', gutil.log))
-  .pipe(uglify())
+  #.pipe(uglify())
   .pipe gulp.dest('./dist/js')
   return
 

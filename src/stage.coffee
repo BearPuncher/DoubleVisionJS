@@ -8,6 +8,7 @@ class Stage
       console.log('ERROR: ' + actor + ' is not an Actor')
       return
     actor.setStage(@)
+    actor.init()
     @actors.push actor
 
   update: (step) ->
