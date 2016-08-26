@@ -5,6 +5,7 @@
 class Game
   @fps: 60
   @frameDuration: 1000 / @fps
+  @mousePoint: undefined
 
   # Constructor for Game
   # @canvas is optional
@@ -17,6 +18,11 @@ class Game
     @canvas.ctx = @canvas.getContext('2d')
     @canvas.width = width
     @canvas.height = height
+    @canvas.addEventListener 'mousemove', (event) ->
+      rect = this.getBoundingClientRect()
+      Game.mousePoint = new Point(
+        event.clientX - rect.left,
+        event.clientY - rect.top)
 
     @running = false
     @setup = setup || undefined
@@ -43,6 +49,9 @@ class Game
   # Change border style
   border: (border) =>
     @canvas.style.border = border
+
+  @getMouseLocation: () ->
+    return Game.mousePoint
 
   start: () =>
     @running = true

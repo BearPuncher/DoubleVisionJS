@@ -32,3 +32,10 @@ class Actor
 
   setDirection: (degrees) =>
     @direction = degrees * (Math.PI / 180)
+
+  lookAt: (point) =>
+    unless point instanceof Point
+      console.log('ERROR: ' + point + ' is not an Point')
+      return
+    @direction = Math.atan2(point.getY() - @position.getY(),
+      point.getX() - @position.getX())
