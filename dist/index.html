@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><title>js13kentry</title><meta name="description" /><link rel="stylesheet" href="css/reset.css" /><link rel="stylesheet" href="css/main.css" /><script src="js/game.js"></script></head><body><div class="container"><div class="centered"><h1>js13kgame</h1><canvas id="game-canvas"></canvas><script>var __slice = Array.prototype.slice;var __hasProp = Object.prototype.hasOwnProperty;var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };var __extends = function(child, parent) {  for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }  function ctor() { this.constructor = child; }  ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype;  return child; };var __indexOf = Array.prototype.indexOf || function(item) {  for (var i = 0, l = this.length; i < l; i++) {    if (this[i] === item) return i;  } return -1; };(function () {
+          var GAME, MIMIC, PLAYER, STAGE, canvas;
+          canvas = document.getElementById('game-canvas');
+          GAME = new Game(640, 640, function() {
+            this.backgroundColor('white');
+            return this.border('1px solid black');
+          }, canvas);
+          STAGE = new Stage(640, 640);
+          PLAYER = new Player(320, 30);
+          MIMIC = new Mimic(320, 610, PLAYER);
+          STAGE.addActor(PLAYER);
+          STAGE.addActor(MIMIC);
+          GAME.setStage(STAGE);
+          return GAME.start();
+        }).call(this);</script></div></div></body></html>
