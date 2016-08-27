@@ -5,7 +5,7 @@ class CircleActor extends Actor
 
   setDimensions: (@radius = 0) =>
 
-  drawDebug: () ->
+  drawDebug: (colour = '#FF0000') ->
     unless @stage? or @stage.getContext()?
       console.log('Stage context cannot is null, or there is no context set')
       return
@@ -13,10 +13,10 @@ class CircleActor extends Actor
     context = @stage.getContext()
     context.translate(@position.getX(), @position.getY())
     context.rotate(@direction)
-    context.fillStyle = "#FF0000"
 
     context.beginPath()
     context.arc(0, 0, @radius, 0, 2 * Math.PI)
+    context.fillStyle = colour
     context.fill()
     context.closePath()
 

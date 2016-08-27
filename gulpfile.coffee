@@ -50,6 +50,7 @@ gulp.task 'coffee', ->
     './src/actors/square_actor.coffee',
     './src/actors/circle_actor.coffee',
     './src/actors/player.coffee',
+    './src/actors/mimic.coffee',
     './src/stage.coffee',
     './src/game_engine.coffee'
   ])

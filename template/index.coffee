@@ -19,16 +19,16 @@ html ->
 
           canvas = document.getElementById('game-canvas')
 
-          GAME = new Game(512, 512, () ->
+          GAME = new Game(640, 640, () ->
             this.backgroundColor 'white'
             this.border '1px solid black'
           , canvas)
 
-          STAGE = new Stage()
-
-          PLAYER = new Player(30,30)
+          STAGE = new Stage(640, 640)
+          PLAYER = new Player(320,30)
+          MIMIC = new Mimic(320, 610, PLAYER)
           STAGE.addActor(PLAYER)
-
+          STAGE.addActor(MIMIC)
           GAME.setStage(STAGE)
           GAME.start()
 

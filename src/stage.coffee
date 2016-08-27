@@ -1,6 +1,6 @@
 # Stage, containing actors
 class Stage
-  constructor: (@ctx = undefined) ->
+  constructor: (@width, @height, @ctx = undefined) ->
     @actors = []
 
   addActor: (actor) =>
