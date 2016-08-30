@@ -9,8 +9,9 @@ class SquareActor extends Actor
     unless @stage? or @stage.getContext()?
       console.log('Stage context cannot is null, or there is no context set')
       return
+
     context = @stage.getContext()
-    context.translate(@position.getX(), @position.getY())
+    context.translate(@position.x, @position.y)
     context.rotate(@direction)
 
     # Translate out and draw with position at center
@@ -29,4 +30,4 @@ class SquareActor extends Actor
     context.closePath()
 
     context.rotate(-@direction)
-    context.translate(-@position.getX(), -@position.getY())
+    context.translate(-@position.x, -@position.y)

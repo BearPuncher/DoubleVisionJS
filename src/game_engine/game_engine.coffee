@@ -1,3 +1,14 @@
+# Asset Loader
+Loader =
+  images: {}
+  loadImage: (key, src) ->
+    downloadingImage = new Image()
+    downloadingImage.onload = () ->
+      images[key] = downloadingImage
+    downloadingImage.src = src
+  getImage: (key) ->
+    return images[key]
+
 # Modeled after
 # https://github.com/kittykatattack/ga/blob/master/ga.js
 
@@ -20,7 +31,7 @@ class Game
     @canvas.height = height
     @canvas.addEventListener 'mousemove', (event) ->
       rect = this.getBoundingClientRect()
-      Game.mousePoint = new Point(
+      Game.mousePoint = new Vector(
         event.clientX - rect.left,
         event.clientY - rect.top)
 
@@ -29,6 +40,7 @@ class Game
     @stage = null
     @startTime = 0
     @accumulator = 0
+    @actualFps = 0
 
     # Invoke setup callback
     if @setup
@@ -68,6 +80,10 @@ class Game
       return
 
     @canvas.ctx.clearRect(0, 0, @canvas.width, @canvas.height)
+    @canvas.ctx.fillStyle = "Black"
+    @canvas.ctx.font = "normal 16pt Arial"
+    @canvas.ctx.fillText(Math.round(@actualFps), @canvas.width - 30, 20)
+
     if @stage?
       @stage.render()
 
@@ -80,6 +96,8 @@ class Game
 
     if elapsedMs > 1000
       elapsedMs = Game.frameDuration
+
+    @actualFps = 1000 / elapsedMs
 
     @startTime = currentTime
     @accumulator += elapsedMs

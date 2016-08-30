@@ -1,7 +1,13 @@
 // Main.scss
 
+$colour-1: #f00;
+$colour-2: #00f;
+
 h1 {
+  color: $colour-1;
   font-size: 2.4em;
+  margin-bottom: .2em;
+  text-shadow: 2px 2px $colour-2;
 }
 
 .container {
@@ -11,4 +17,8 @@ h1 {
 
 .centered {
   text-align: center;
+}
+
+#game-canvas {
+  cursor: none;
 }

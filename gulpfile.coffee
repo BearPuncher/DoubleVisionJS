@@ -41,18 +41,30 @@ gulp.task 'coffeekup', ->
   .pipe gulp.dest('./dist')
   return
 
-# Compile coffescript to js
-gulp.task 'coffee', ->
+# Game Engine specific
+gulp.task 'game-engine-coffee', ->
   gulp.src([
-    './src/math_helpers.coffee',
-    './src/controller.coffee',
-    './src/actors/actor.coffee',
-    './src/actors/square_actor.coffee',
-    './src/actors/circle_actor.coffee',
-    './src/actors/player.coffee',
-    './src/actors/mimic.coffee',
-    './src/stage.coffee',
-    './src/game_engine.coffee'
+    './src/game_engine/math_helpers.coffee',
+    './src/game_engine/controller.coffee',
+    './src/game_engine/actors/actor.coffee',
+    './src/game_engine/actors/square_actor.coffee',
+    './src/game_engine/actors/circle_actor.coffee',
+    './src/game_engine/stage.coffee',
+    './src/game_engine/game_engine.coffee'
+  ])
+  .pipe(concat('game_engine.coffee'))
+  .pipe(coffee(bare: true)
+  .on('error', gutil.log))
+  #.pipe(uglify())
+  .pipe gulp.dest('./dist/js')
+  return
+
+# Game specific
+gulp.task 'game-coffee', ->
+  gulp.src([
+    './src/game/player.coffee',
+    './src/game/left_player.coffee',
+    './src/game/right_player.coffee',
   ])
   .pipe(concat('game.coffee'))
   .pipe(coffee(bare: true)
@@ -60,6 +72,9 @@ gulp.task 'coffee', ->
   #.pipe(uglify())
   .pipe gulp.dest('./dist/js')
   return
+
+# Compile coffescript to js
+gulp.task 'coffee', ['game-engine-coffee', 'game-coffee']
 
 gulp.task 'vendorjs', ->
   gulp.src('./vendor/*.js')
@@ -71,7 +86,8 @@ gulp.task 'sass', ->
   gulp.src('./sass/**/*.scss')
   .pipe(sassLint({
     rules: {
-      'single-line-per-selector': 0
+      'single-line-per-selector': 0,
+      'no-ids': 0,
     }
   }))
   .pipe(sassLint.format())
@@ -101,5 +117,6 @@ gulp.task 'default', [
   'coffeekup'
   'coffee'
   'sass'
+  'vendorjs'
   'watch'
 ]

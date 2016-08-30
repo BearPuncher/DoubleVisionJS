@@ -11,8 +11,8 @@ class Player extends CircleActor
     @drawDebug()
 
   _update: (step) =>
-    x = @position.getX()
-    y = @position.getY()
+    x = @position.x
+    y = @position.y
 
     stepFraction = (step / 100)
 

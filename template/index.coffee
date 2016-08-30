@@ -8,27 +8,30 @@ html ->
     link rel: 'stylesheet', href: 'css/reset.css'
     link rel: 'stylesheet', href: 'css/main.css'
 
+    script src: 'js/vendor/SAT.min.js'
+    script src: 'js/game_engine.js'
     script src: 'js/game.js'
+
   body ->
     div '.container', ->
       div '.centered', ->
-        h1 'js13kgame'
+        h1 'DoubleVision'
         canvas '#game-canvas', ->
 
         coffeescript ->
 
           canvas = document.getElementById('game-canvas')
 
-          GAME = new Game(640, 640, () ->
+          GAME = new Game(480, 320, () ->
             this.backgroundColor 'white'
             this.border '1px solid black'
           , canvas)
 
-          STAGE = new Stage(640, 640)
-          PLAYER = new Player(320,30)
-          MIMIC = new Mimic(320, 610, PLAYER)
-          STAGE.addActor(PLAYER)
-          STAGE.addActor(MIMIC)
+          STAGE = new Stage(480, 320)
+          LEFT_PLAYER = new LeftPlayer(30,160)
+          RIGHT_PLAYER = new RightPlayer(450, 160)
+          STAGE.addActor(LEFT_PLAYER)
+          STAGE.addActor(RIGHT_PLAYER)
           GAME.setStage(STAGE)
           GAME.start()
 

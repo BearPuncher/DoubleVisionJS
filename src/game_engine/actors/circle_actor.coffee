@@ -11,7 +11,7 @@ class CircleActor extends Actor
       return
 
     context = @stage.getContext()
-    context.translate(@position.getX(), @position.getY())
+    context.translate(@position.x, @position.y)
     context.rotate(@direction)
 
     context.beginPath()
@@ -30,4 +30,4 @@ class CircleActor extends Actor
     context.closePath()
 
     context.rotate(-@direction)
-    context.translate(-@position.getX(), -@position.getY())
+    context.translate(-@position.x, -@position.y)

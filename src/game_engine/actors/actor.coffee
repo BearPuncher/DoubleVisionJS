@@ -1,7 +1,7 @@
 # Actor, has a stage
 class Actor
   constructor: (x, y, @direction = 0) ->
-    @position = new Point(x, y)
+    @position = new Vector(x, y)
     @stage = null
 
   init: () ->
@@ -28,14 +28,14 @@ class Actor
   setStage: (@stage) =>
 
   setPosition: (x = 0, y = 0) =>
-    @position = new Point(x, y)
+    @position = new Vector(x, y)
 
   setDirection: (degrees) =>
     @direction = degrees * (Math.PI / 180)
 
   lookAt: (point) =>
-    unless point instanceof Point
+    unless point instanceof Vector
       console.log('ERROR: ' + point + ' is not an Point')
       return
-    @direction = Math.atan2(point.getY() - @position.getY(),
-      point.getX() - @position.getX())
+    @direction = Math.atan2(point.x - @position.y,
+      point.x - @position.x)
