@@ -33,5 +33,4 @@ class LeftPlayer extends Player
       @vely = 0 if @vely < 0
 
     @setPosition(x, y + @vely)
-    mouseLoc = Game.getMouseLocation()
-    @lookAt(mouseLoc) if mouseLoc
+    @updateBody()

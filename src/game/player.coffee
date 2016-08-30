@@ -58,3 +58,4 @@ class Player extends CircleActor
     @setPosition(x + @velx, y + @vely)
     mouseLoc = Game.getMouseLocation()
     @lookAt(mouseLoc) if mouseLoc
+    @updateBody()

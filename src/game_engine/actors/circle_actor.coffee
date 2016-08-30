@@ -2,8 +2,12 @@
 class CircleActor extends Actor
   constructor: (x, y, direction = 0, @radius = 0) ->
     super(x, y, direction)
+    @body = new Circle(@position, @radius)
 
-  setDimensions: (@radius = 0) =>
+  updateBody: () =>
+    #@body = new Circle(@position, @radius)
+    @body.pos = @position
+    @body.r = @radius
 
   drawDebug: (colour = '#FF0000') ->
     unless @stage? or @stage.getContext()?
@@ -11,11 +15,11 @@ class CircleActor extends Actor
       return
 
     context = @stage.getContext()
-    context.translate(@position.x, @position.y)
+    context.translate(@body.pos.x, @body.pos.y)
     context.rotate(@direction)
 
     context.beginPath()
-    context.arc(0, 0, @radius, 0, 2 * Math.PI)
+    context.arc(0, 0, @body.r, 0, 2 * Math.PI)
     context.fillStyle = colour
     context.fill()
     context.closePath()
@@ -23,11 +27,11 @@ class CircleActor extends Actor
     # Draw direction
     context.beginPath()
     context.moveTo(0, 0)
-    context.lineTo(@radius, 0)
+    context.lineTo(@body.r, 0)
     context.lineWidth = 1
     context.strokeStyle = "#000000"
     context.stroke()
     context.closePath()
 
     context.rotate(-@direction)
-    context.translate(-@position.x, -@position.y)
+    context.translate(-@body.pos.x, -@body.pos.y)
