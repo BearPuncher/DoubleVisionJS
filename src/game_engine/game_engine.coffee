@@ -9,17 +9,22 @@ Loader =
   getImage: (key) ->
     return Loader.images[key]
 
-# Modeled after
-# https://github.com/kittykatattack/ga/blob/master/ga.js
-
-# Game engine
+# The Game engine
+# @mixin
+# @author Daniel Jeffery
 class Game
+  # @property [Integer] the desired fps
   @fps: 60
+  # @property [Float] the frame duration (ms)
   @frameDuration: 1000 / @fps
+  # @property [Vector] The mouse point
   @mousePoint: undefined
 
   # Constructor for Game
-  # @canvas is optional
+  # @param width [Integer] the canvas width
+  # @param height [Integer] the canvas height
+  # @param setup [Callback] to execute at the end of initialization
+  # @param canvas [Canvas] optional
   constructor: (width, height, setup, @canvas = undefined) ->
     # Create new canvas if we don't receive one
     unless @canvas

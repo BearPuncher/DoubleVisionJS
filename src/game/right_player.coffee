@@ -17,7 +17,6 @@ class RightPlayer extends Player
 
     # LEFT - FIRE
     if @controller.isPressed(Keys.LEFT)
-      console.log(@direction)
       @shoot(step)
 
     # Up - UP

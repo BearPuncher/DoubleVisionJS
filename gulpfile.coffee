@@ -3,7 +3,6 @@ del = require('del')
 # server = require('karma').Server
 gulp = require('gulp')
 gutil = require('gulp-util')
-codo = require('gulp-codo')
 coffee = require('gulp-coffee')
 coffeekup = require('gulp-coffeekup')
 coffeelint = require('gulp-coffeelint')
@@ -13,6 +12,7 @@ gzip = require('gulp-gzip')
 tar = require('gulp-tar')
 sass = require('gulp-sass')
 sassLint = require('gulp-sass-lint')
+
 uglify = require('gulp-uglifyjs')
 
 # Clean ./dist dir
@@ -35,15 +35,6 @@ gulp.task 'lint', ->
   .pipe coffeelint.reporter()
   return
 
-  ###gulp.task 'doc', ->
-  gulp.src('./src/game_engine/**\/\*.coffee')
-  .pipe(codo({
-    name: 'Game Engine',
-    title: 'Game Engine written in Coffeescript',
-    readme: 'greeter.md',
-    extra: 'LICENSE.md'
-  }))###
-
 # Compile coffeekup templates
 gulp.task 'coffeekup', ->
   gulp.src('./template/**/*.coffee')
@@ -65,13 +56,14 @@ gulp.task 'game-engine-coffee', ->
   .pipe(concat('game_engine.coffee'))
   .pipe(coffee(bare: true)
   .on('error', gutil.log))
-  #.pipe(uglify())
+  .pipe(uglify())
   .pipe gulp.dest('./dist/js')
   return
 
 # Game specific
 gulp.task 'game-coffee', ->
   gulp.src([
+    './src/game/split_stage.coffee',
     './src/game/player.coffee',
     './src/game/left_player.coffee',
     './src/game/right_player.coffee',
@@ -80,7 +72,7 @@ gulp.task 'game-coffee', ->
   .pipe(concat('game.coffee'))
   .pipe(coffee(bare: true)
   .on('error', gutil.log))
-  #.pipe(uglify())
+  .pipe(uglify())
   .pipe gulp.dest('./dist/js')
   return
 

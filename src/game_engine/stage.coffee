@@ -13,10 +13,19 @@ class Stage
     @actors.push actor
 
   update: (step) ->
+    if @_update
+      @_update step
     actor.update(step) for actor in @actors
 
   render: () ->
+    if @_render
+      @_render()
     actor.render() for actor in @actors
+
+  setContext: (@ctx) =>
+
+  getContext: () ->
+    return @ctx
 
   isCircleInBounds: (circle)->
     unless circle instanceof Circle
@@ -26,8 +35,3 @@ class Stage
     if collided and response.aInB
       return true
     return false
-
-  setContext: (@ctx) =>
-
-  getContext: () ->
-    return @ctx

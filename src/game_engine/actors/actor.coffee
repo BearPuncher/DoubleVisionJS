@@ -3,6 +3,8 @@ class Actor
   constructor: (x, y, @direction = 0) ->
     @position = new Vector(x, y)
     @stage = null
+    @body = null
+    @destroy = false
 
   init: () ->
     if @_init
@@ -16,13 +18,13 @@ class Actor
     if @_render
       @_render()
 
-  setInit: (init = undefined ) =>
+  setInit: (init = undefined) =>
     @_init = init
 
   setUpdate: (update = undefined) =>
     @_update = update
 
-  setRender: (render = undefined ) =>
+  setRender: (render = undefined) =>
     @_render = render
 
   setStage: (@stage) =>
@@ -32,6 +34,9 @@ class Actor
 
   setDirection: (degrees) =>
     @direction = degrees * (Math.PI / 180)
+
+  shouldDestroy: () ->
+    return @destroy
 
   lookAt: (point) =>
     unless point instanceof Vector

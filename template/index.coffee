@@ -26,15 +26,14 @@ html ->
 
           canvas = document.getElementById('game-canvas')
 
-          GAME = new Game(480, 320, () ->
+          GAME = new Game(640, 320, () ->
             this.backgroundColor 'white'
             this.border '1px solid black'
           , canvas)
 
-
-          STAGE = new Stage(480, 320)
+          STAGE = new SplitStage(640, 320)
           LEFT_PLAYER = new LeftPlayer(30,160)
-          RIGHT_PLAYER = new RightPlayer(450, 160)
+          RIGHT_PLAYER = new RightPlayer(610, 160)
           STAGE.addActor(LEFT_PLAYER)
           STAGE.addActor(RIGHT_PLAYER)
           GAME.setStage(STAGE)
