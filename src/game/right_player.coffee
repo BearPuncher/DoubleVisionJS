@@ -1,6 +1,7 @@
 class RightPlayer extends Player
   constructor: (x, y) ->
     super(x, y)
+    @direction = MathHelpers.toRadians(180)
 
   _render: () ->
     @drawDebug('#0000FF')
@@ -14,23 +15,31 @@ class RightPlayer extends Player
     friction = 1.5
     acceleration = 2
 
-    # Up
+    # LEFT - FIRE
+    if @controller.isPressed(Keys.LEFT)
+      console.log(@direction)
+      @shoot(step)
+
+    # Up - UP
     if @controller.isPressed(Keys.UP)
-      if @vely > -@maxspeed
+      if @vely > -@maxSpeed
         @vely -= acceleration * stepFraction
-        @vely = -@maxspeed if @vely < -@maxspeed
+        @vely = -@maxSpeed if @vely < -@maxSpeed
     else if @vely < 0
       @vely += friction * stepFraction
       @vely = 0 if @vely > 0
 
-    # Down
+    # Down - DOWN
     if @controller.isPressed(Keys.DOWN)
-      if @vely < @maxspeed
+      if @vely < @maxSpeed
         @vely += acceleration * stepFraction
-        @vely = @maxspeed if @vely > @maxspeed
+        @vely = @maxSpeed if @vely > @maxSpeed
     else if @vely > 0
       @vely -= friction * stepFraction
       @vely = 0 if @vely < 0
 
-    @setPosition(x, y + @vely)
+    newPosition = new Circle(new Vector(x, y + @vely), @radius)
+    if @stage.isCircleInBounds(newPosition)
+      @setPosition(x, y + @vely)
+
     @updateBody()

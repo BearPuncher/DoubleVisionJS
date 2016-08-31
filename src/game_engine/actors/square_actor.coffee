@@ -2,8 +2,12 @@
 class SquareActor extends Actor
   constructor: (x, y, direction = 0, @width = 0, @height = 0) ->
     super(x, y, direction)
+    @body = new Box(@position, @width, @height).toPolygon()
+    @body.rotate(direction)
 
-  setDimensions: (@width, @height) =>
+  updateBody: () =>
+    @body = new Box(@position, @width, @height).toPolygon()
+    @body.rotate(direction)
 
   drawDebug: () ->
     unless @stage? or @stage.getContext()?

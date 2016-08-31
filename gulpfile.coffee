@@ -3,6 +3,7 @@ del = require('del')
 # server = require('karma').Server
 gulp = require('gulp')
 gutil = require('gulp-util')
+codo = require('gulp-codo')
 coffee = require('gulp-coffee')
 coffeekup = require('gulp-coffeekup')
 coffeelint = require('gulp-coffeelint')
@@ -18,8 +19,8 @@ uglify = require('gulp-uglifyjs')
 gulp.task 'clean', ->
   del [
     'dist/index.html'
+    'dist/js/vendor/**/*'
     'dist/js/**/*'
-    'dis/js/vendor'
     'dist/css/**/*'
   ]
   return
@@ -33,6 +34,15 @@ gulp.task 'lint', ->
   ]).pipe(coffeelint())
   .pipe coffeelint.reporter()
   return
+
+  ###gulp.task 'doc', ->
+  gulp.src('./src/game_engine/**\/\*.coffee')
+  .pipe(codo({
+    name: 'Game Engine',
+    title: 'Game Engine written in Coffeescript',
+    readme: 'greeter.md',
+    extra: 'LICENSE.md'
+  }))###
 
 # Compile coffeekup templates
 gulp.task 'coffeekup', ->
@@ -65,6 +75,7 @@ gulp.task 'game-coffee', ->
     './src/game/player.coffee',
     './src/game/left_player.coffee',
     './src/game/right_player.coffee',
+    './src/game/bullet.coffee'
   ])
   .pipe(concat('game.coffee'))
   .pipe(coffee(bare: true)

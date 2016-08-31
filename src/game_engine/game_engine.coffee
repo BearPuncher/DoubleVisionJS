@@ -4,10 +4,10 @@ Loader =
   loadImage: (key, src) ->
     downloadingImage = new Image()
     downloadingImage.onload = () ->
-      images[key] = downloadingImage
+      Loader.images[key] = downloadingImage
     downloadingImage.src = src
   getImage: (key) ->
-    return images[key]
+    return Loader.images[key]
 
 # Modeled after
 # https://github.com/kittykatattack/ga/blob/master/ga.js

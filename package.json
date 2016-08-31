@@ -13,9 +13,11 @@
   "author": "BearPuncher",
   "license": "MIT",
   "devDependencies": {
+    "codo": "^2.1.2",
     "coffeekup": "^0.3.1",
     "del": "^2.2.1",
     "gulp": "^3.9.1",
+    "gulp-codo": "^1.0.4",
     "gulp-coffee": "^2.3.2",
     "gulp-coffeekup": "0.0.1",
     "gulp-coffeelint": "^0.6.0",

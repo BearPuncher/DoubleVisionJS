@@ -15,7 +15,11 @@ html ->
   body ->
     div '.container', ->
       div '.centered', ->
-        h1 'DoubleVision'
+        div '#overlay', ->
+          h1 'DoubleVision'
+          # button '#start-button', type: 'button', ->
+          #  'Start Game'
+
         canvas '#game-canvas', ->
 
         coffeescript ->
@@ -27,6 +31,7 @@ html ->
             this.border '1px solid black'
           , canvas)
 
+
           STAGE = new Stage(480, 320)
           LEFT_PLAYER = new LeftPlayer(30,160)
           RIGHT_PLAYER = new RightPlayer(450, 160)
@@ -34,5 +39,10 @@ html ->
           STAGE.addActor(RIGHT_PLAYER)
           GAME.setStage(STAGE)
           GAME.start()
-
-
+          ###
+          button = document.getElementById('start-button')
+          button.addEventListener('click', (e) ->
+            document.getElementById('overlay').className = 'hidden'
+            GAME.start()
+          )
+          ###

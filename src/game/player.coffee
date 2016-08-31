@@ -5,7 +5,15 @@ class Player extends CircleActor
     @controller = Controller.get()
     @velx = 0
     @vely = 0
-    @maxspeed = 4
+    @maxSpeed = 4
+    @shootSpeed = 100
+    @elapsedTime = 0
+
+  shoot: (step) ->
+    @elapsedTime += step
+    if @elapsedTime >= @shootSpeed
+      @elapsedTime -= @shootSpeed
+      @stage.addActor(new Bullet(@position.x, @position.y, @direction))
 
   _render: () ->
     @drawDebug()
@@ -21,36 +29,36 @@ class Player extends CircleActor
 
     # Left
     if @controller.isPressed(Keys.LEFT) or @controller.isPressed(Keys.A)
-      if @velx > -@maxspeed
+      if @velx > -@maxSpeed
         @velx -= acceleration * stepFraction
-        @velx = -@maxspeed if @velx < -@maxspeed
+        @velx = -@maxSpeed if @velx < -@maxSpeed
     else if @velx < 0
       @velx += friction * stepFraction
       @velx = 0 if @velx > 0
 
     # Right
     if @controller.isPressed(Keys.RIGHT) or @controller.isPressed(Keys.D)
-      if @velx < @maxspeed
+      if @velx < @maxSpeed
         @velx += acceleration * stepFraction
-        @velx = @maxspeed if @velx > @maxspeed
+        @velx = @maxSpeed if @velx > @maxSpeed
     else if @velx > 0
       @velx -= friction * stepFraction
       @velx = 0 if @velx < 0
 
     # Up
     if @controller.isPressed(Keys.UP) or @controller.isPressed(Keys.W)
-      if @vely > -@maxspeed
+      if @vely > -@maxSpeed
         @vely -= acceleration * stepFraction
-        @vely = -@maxspeed if @vely < -@maxspeed
+        @vely = -@maxSpeed if @vely < -@maxSpeed
     else if @vely < 0
       @vely += friction * stepFraction
       @vely = 0 if @vely > 0
 
     # Down
     if @controller.isPressed(Keys.DOWN) or @controller.isPressed(Keys.S)
-      if @vely < @maxspeed
+      if @vely < @maxSpeed
         @vely += acceleration * stepFraction
-        @vely = @maxspeed if @vely > @maxspeed
+        @vely = @maxSpeed if @vely > @maxSpeed
     else if @vely > 0
       @vely -= friction * stepFraction
       @vely = 0 if @vely < 0

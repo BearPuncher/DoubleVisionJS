@@ -14,23 +14,30 @@ class LeftPlayer extends Player
     friction = 1.5
     acceleration = 2
 
-    # Up
+    # D - FIRE
+    if @controller.isPressed(Keys.D)
+      @shoot(step)
+
+    # W - UP
     if @controller.isPressed(Keys.W)
-      if @vely > -@maxspeed
+      if @vely > -@maxSpeed
         @vely -= acceleration * stepFraction
-        @vely = -@maxspeed if @vely < -@maxspeed
+        @vely = -@maxSpeed if @vely < -@maxSpeed
     else if @vely < 0
       @vely += friction * stepFraction
       @vely = 0 if @vely > 0
 
-    # Down
+    # S - DOWN
     if @controller.isPressed(Keys.S)
-      if @vely < @maxspeed
+      if @vely < @maxSpeed
         @vely += acceleration * stepFraction
-        @vely = @maxspeed if @vely > @maxspeed
+        @vely = @maxSpeed if @vely > @maxSpeed
     else if @vely > 0
       @vely -= friction * stepFraction
       @vely = 0 if @vely < 0
 
-    @setPosition(x, y + @vely)
+    newPosition = new Circle(new Vector(x, y + @vely), @radius)
+    if @stage.isCircleInBounds(newPosition)
+      @setPosition(x, y + @vely)
+
     @updateBody()
