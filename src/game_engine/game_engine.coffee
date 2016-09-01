@@ -67,7 +67,7 @@ class Game
   border: (border) =>
     @canvas.style.border = border
 
-  @getMouseLocation: () ->
+  getMouseLocation: () ->
     return Game.mousePoint
 
   start: () =>

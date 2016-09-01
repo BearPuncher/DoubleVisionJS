@@ -64,10 +64,12 @@ gulp.task 'game-engine-coffee', ->
 gulp.task 'game-coffee', ->
   gulp.src([
     './src/game/split_stage.coffee',
-    './src/game/player.coffee',
-    './src/game/left_player.coffee',
-    './src/game/right_player.coffee',
-    './src/game/bullet.coffee'
+    './src/game/actors/monster.coffee',
+    './src/game/actors/monster_spawner.coffee',
+    './src/game/actors/player.coffee',
+    './src/game/actors/left_player.coffee',
+    './src/game/actors/right_player.coffee',
+    './src/game/actors/bullet.coffee'
   ])
   .pipe(concat('game.coffee'))
   .pipe(coffee(bare: true)

@@ -5,6 +5,8 @@ class SplitStage extends Stage
     super(width, height, ctx)
     @wall = new Box(new Vector(width/2 - SplitStage.wallWidth/2, 0),
       SplitStage.wallWidth, height).toPolygon()
+    @monsterSpawner = new MonsterSpawner(width/2, height/2)
+    @addActor(@monsterSpawner)
 
   _render: () ->
     ctx = @getContext()

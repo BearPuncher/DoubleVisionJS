@@ -15,9 +15,10 @@ html ->
   body ->
     div '.container', ->
       div '.centered', ->
-        div '#overlay', ->
-          h1 'DoubleVision'
-          # button '#start-button', type: 'button', ->
+        h1 'DoubleVision'
+        #div '#overlay', ->
+          #
+          # button '#start-button', type: 'button', disabled: true, ->
           #  'Start Game'
 
         canvas '#game-canvas', ->
@@ -38,10 +39,11 @@ html ->
           STAGE.addActor(RIGHT_PLAYER)
           GAME.setStage(STAGE)
           GAME.start()
-          ###
-          button = document.getElementById('start-button')
+
+        ###  button = document.getElementById('start-button')
+          button.disabled = false
           button.addEventListener('click', (e) ->
             document.getElementById('overlay').className = 'hidden'
             GAME.start()
           )
-          ###
+        ###
