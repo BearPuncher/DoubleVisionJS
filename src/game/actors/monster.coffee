@@ -1,13 +1,12 @@
 class Monster extends CircleActor
-  constructor: (x, y, direction = 0) ->
+  constructor: (x, y, direction = 0, @color = '#00FF00') ->
     super(x, y, direction, 15)
-    @speed = 5
+    @speed = 4
 
   _render: () ->
-    @drawDebug('#00FFFF')
+    @drawDebug(@color)
 
   _update: (step) ->
-
     stepFraction = (step / 100)
     adjustedSpeed = @speed * stepFraction
 
