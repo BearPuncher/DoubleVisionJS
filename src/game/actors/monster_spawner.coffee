@@ -1,21 +1,20 @@
 Mode = {
   MIRROR: 0
-  FLIPPED_MIRROR: 1
+  FLIPPED: 1
   VARIANCE:2
 }
-
 
 class MonsterSpawner extends Actor
   constructor: (x, y) ->
     super(x, y)
     @spawnSpeed = 2000
-    @elapsedTime = 0
+    @spawnTime = 0
     @mode = Mode.MIRROR
 
   _update: (step) =>
-    @elapsedTime += step
-    if @elapsedTime >= @spawnSpeed
-      @elapsedTime -= @spawnSpeed
+    @spawnTime += step
+    if @spawnTime >= @spawnSpeed
+      @spawnTime -= @spawnSpeed
       @spawnMonsters()
 
   spawnMonsters: () ->
@@ -37,6 +36,6 @@ class MonsterSpawner extends Actor
       else
         spawnA = spawnB = Math.floor(Math.random() * max) + min
 
-    @stage.addActor(new Monster(@stage.width/2, spawnA, 0, '#FF0000'))
-    @stage.addActor(new Monster(@stage.width/2,
+    @stage.addActor(new Monster(@stage.width/2 + 15, spawnA, 0, '#FF0000'))
+    @stage.addActor(new Monster(@stage.width/2 - 15,
       spawnB, MathHelpers.toRadians(180), '#0000FF'))
