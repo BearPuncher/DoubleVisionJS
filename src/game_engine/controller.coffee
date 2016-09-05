@@ -8,7 +8,7 @@ class Controller
   @get: ->
     if not @instance?
       instance = new @
-    instance
+    return instance
 
   constructor: () ->
     document.onkeyup = (event) ->

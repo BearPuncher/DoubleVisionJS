@@ -2,10 +2,14 @@ class LeftPlayer extends Player
   constructor: (x, y) ->
     super(x, y)
 
+    @reloadTimer = new Timer(500)
+
   _render: () ->
     @drawDebug()
 
   _update: (step) =>
+    @reloadTimer.tick(step)
+
     x = @position.x
     y = @position.y
 
@@ -14,9 +18,10 @@ class LeftPlayer extends Player
     friction = 1.5
     acceleration = 2
 
-    # D - FIRE
-    if @controller.isPressed(Keys.D)
-      @shoot(step)
+    # D - FIRE, if our reload timer is over
+    if @reloadTimer.hasEnded() and @controller.isPressed(Keys.D)
+      @reloadTimer.restart()
+      @stage.addActor(new Bullet(@position.x, @position.y, @direction))
 
     # W - UP
     if @controller.isPressed(Keys.W)

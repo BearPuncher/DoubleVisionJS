@@ -6,14 +6,6 @@ class Player extends CircleActor
     @velx = 0
     @vely = 0
     @maxSpeed = 4
-    @shootSpeed = 100
-    @spawnTime = 0
-
-  shoot: (step) ->
-    @spawnTime += step
-    if @spawnTime >= @shootSpeed
-      @spawnTime -= @shootSpeed
-      @stage.addActor(new Bullet(@position.x, @position.y, @direction))
 
   _render: () ->
     @drawDebug()

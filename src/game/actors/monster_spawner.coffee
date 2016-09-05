@@ -8,21 +8,22 @@ Mode = {
 class MonsterSpawner extends Actor
   constructor: (x, y) ->
     super(x, y)
-    @spawnTimeout = 2000
-    @spawnTime = 0
-    @modeTimeout = 10000
-    @modeTime = 0
     @mode = Mode.MIRROR
 
-  # Update timers
+    @spawnTimer = new Timer(2000)
+    @modeTimer = new Timer(10000)
+
+# Update timers
   _update: (step) =>
-    @spawnTime += step
-    @modeTime += step
-    if @spawnTime >= @spawnTimeout
-      @spawnTime -= @spawnTimeout
+    @spawnTimer.tick(step)
+    @modeTimer.tick(step)
+
+    if @spawnTimer.hasEnded()
+      @spawnTimer.restart()
       @spawnMonsters()
-    if @modeTime >= @modeTimeout
-      @modeTime -= @modeTimeout
+
+    if @modeTimer.hasEnded()
+      @modeTimer.restart()
       @updateMode()
 
   # Spawn monsters according to @mode settings
