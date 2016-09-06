@@ -46,9 +46,9 @@ class MonsterSpawner extends Actor
       else
         spawnA = spawnB = Math.floor(Math.random() * max) + min
 
-    @stage.addActor(new Monster(@stage.width/2 + 15, spawnA, 0, '#FF0000'))
-    @stage.addActor(new Monster(@stage.width/2 - 15,
-      spawnB, MathHelpers.toRadians(180), '#0000FF'))
+    @stage.addActor(new Monster(@stage.width/2, spawnA, 0, '#FF0000'))
+    @stage.addActor(new Monster(@stage.width/2, spawnB,
+      MathHelpers.toRadians(180), '#0000FF'))
 
   # Choose a new mode
   # From all modes, pick a new one and assign @node
