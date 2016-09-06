@@ -1,5 +1,5 @@
 class Bullet extends CircleActor
-  constructor: (x, y, direction = 0) ->
+  constructor: (x, y, direction = 0, @firedBy) ->
     super(x, y, direction, 5)
     @bulletSpeed = 120
 

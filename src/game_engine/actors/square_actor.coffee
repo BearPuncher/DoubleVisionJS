@@ -15,6 +15,7 @@ class SquareActor extends Actor
       return
 
     context = @stage.getContext()
+    context.save()
     context.translate(@position.x, @position.y)
     context.rotate(@direction)
 
@@ -33,5 +34,4 @@ class SquareActor extends Actor
     context.stroke()
     context.closePath()
 
-    context.rotate(-@direction)
-    context.translate(-@position.x, -@position.y)
+    context.restore()

@@ -7,6 +7,7 @@ class RightPlayer extends Player
   _render: () ->
     @drawDebug('#0000FF')
 
+
   _update: (step) =>
     @reloadTimer.tick(step)
 
@@ -21,7 +22,7 @@ class RightPlayer extends Player
     # LEFT - FIRE, if our reload timer is over
     if @reloadTimer.hasEnded() and @controller.isPressed(Keys.LEFT)
       @reloadTimer.restart()
-      @stage.addActor(new Bullet(@position.x, @position.y, @direction))
+      @stage.addActor(new Bullet(@position.x - 10, @position.y, @direction, @))
 
     # Up - UP
     if @controller.isPressed(Keys.UP)

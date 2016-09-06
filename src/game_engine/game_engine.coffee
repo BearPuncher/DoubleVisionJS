@@ -58,6 +58,7 @@ class Game
     # Pass in reference to context to share between actors
     @stage = stage
     @stage.setContext(@canvas.ctx)
+    @stage.init()
 
   # Change background color of @canvas
   backgroundColor: (color) =>
@@ -84,10 +85,12 @@ class Game
     unless @running?
       return
 
+    @canvas.ctx.save()
     @canvas.ctx.clearRect(0, 0, @canvas.width, @canvas.height)
     @canvas.ctx.fillStyle = "Black"
     @canvas.ctx.font = "normal 16pt Arial"
     @canvas.ctx.fillText(Math.round(@actualFps), @canvas.width - 30, 20)
+    @canvas.ctx.restore()
 
     if @stage?
       @stage.render()

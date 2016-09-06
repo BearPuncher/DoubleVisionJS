@@ -12,6 +12,10 @@ class Stage
     actor.init()
     @actors.push actor
 
+  init: () ->
+    if @_init
+      @_init()
+
   update: (step) ->
     if @_update
       @_update step

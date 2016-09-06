@@ -33,10 +33,6 @@ html ->
           , canvas)
 
           STAGE = new SplitStage(640, 320)
-          LEFT_PLAYER = new LeftPlayer(30,160)
-          RIGHT_PLAYER = new RightPlayer(610, 160)
-          STAGE.addActor(LEFT_PLAYER)
-          STAGE.addActor(RIGHT_PLAYER)
           GAME.setStage(STAGE)
           GAME.start()
 
