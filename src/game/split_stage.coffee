@@ -44,17 +44,20 @@ class SplitStage extends Stage
     ctx.fillStyle = '#000000'
     ctx.fillRect(0, @height, @width, @height + SplitStage.gutterHeight)
 
+    heightAdjustment = 26
+    widthAdjustment = 10
+
     ctx.fillStyle = 'White'
-    ctx.font = 'normal 16pt Arial'
+    ctx.font = 'normal 12pt Arial'
     ctx.fillText('Anomalies resolved: ' + @leftPlayer.score,
-      10, @height + 26)
+      widthAdjustment, @height + heightAdjustment)
 
     ctx.save()
     ctx.scale(-1, 1)
     ctx.fillStyle = 'White'
-    ctx.font = 'normal 16pt Arial'
+    ctx.font = 'normal 12pt Arial'
     ctx.fillText('Anomalies resolved: ' + @rightPlayer.score,
-     -@width + 10, @height + 26 )
+     -@width + widthAdjustment, @height + heightAdjustment)
     ctx.restore()
 
   testBulletCollisions: () ->
