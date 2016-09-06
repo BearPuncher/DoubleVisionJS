@@ -50,6 +50,7 @@ gulp.task 'game-engine-coffee', ->
     './src/game_engine/actors/actor.coffee',
     './src/game_engine/actors/square_actor.coffee',
     './src/game_engine/actors/circle_actor.coffee',
+    './src/game_engine/tile_map.coffee',
     './src/game_engine/timer.coffee',
     './src/game_engine/stage.coffee',
     './src/game_engine/game_engine.coffee'
@@ -64,6 +65,7 @@ gulp.task 'game-engine-coffee', ->
 # Game specific
 gulp.task 'game-coffee', ->
   gulp.src([
+    './src/game/split_tile_map.coffee',
     './src/game/split_stage.coffee',
     './src/game/actors/monster.coffee',
     './src/game/actors/monster_spawner.coffee',

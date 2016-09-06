@@ -1,11 +1,28 @@
+TILES = [
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+]
+
 class SplitStage extends Stage
-  @wallWidth: 10
-  @gutterHeight: 40
+  @tileWidth: 32
+  @wallWidth: SplitStage.tileWidth
+  @gutterHeight: SplitStage.tileWidth
 
   constructor: (width, height, ctx) ->
     super(width, height - SplitStage.gutterHeight, ctx)
 
   _init: () =>
+    cols = @width / SplitStage.tileWidth
+    rows = @height / SplitStage.tileWidth
+    @tilemap = new SplitTileMap(cols, rows, SplitStage.tileWidth, TILES, @ctx)
+
     @wall = new Box(new Vector(@width/2 - SplitStage.wallWidth/2, 0),
       SplitStage.wallWidth, @height).toPolygon()
 
@@ -19,6 +36,7 @@ class SplitStage extends Stage
     @addActor(@monsterSpawner)
 
   _render: () ->
+    @tilemap.render()
     @drawWall()
     @drawGutter()
 
@@ -44,20 +62,20 @@ class SplitStage extends Stage
     ctx.fillStyle = '#000000'
     ctx.fillRect(0, @height, @width, @height + SplitStage.gutterHeight)
 
-    heightAdjustment = 26
-    widthAdjustment = 10
+    xPadding = 11
+    yPadding = 22
 
     ctx.fillStyle = 'White'
     ctx.font = 'normal 12pt Arial'
     ctx.fillText('Anomalies resolved: ' + @leftPlayer.score,
-      widthAdjustment, @height + heightAdjustment)
+      xPadding, @height + yPadding)
 
     ctx.save()
     ctx.scale(-1, 1)
     ctx.fillStyle = 'White'
     ctx.font = 'normal 12pt Arial'
     ctx.fillText('Anomalies resolved: ' + @rightPlayer.score,
-     -@width + widthAdjustment, @height + heightAdjustment)
+     -@width + xPadding, @height + yPadding)
     ctx.restore()
 
   testBulletCollisions: () ->
