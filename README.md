@@ -1,6 +1,4 @@
-# js13kentry-coffeescript-sass
-
-Bare bones setup for my js13kentry.
+# DoubleVisionJS
 
 ## Language
 [coffeescript](https://github.com/jashkenas/coffeescript)
