@@ -28,7 +28,7 @@ class MonsterSpawner extends Actor
 
   # Spawn monsters according to @mode settings
   spawnMonsters: () ->
-    min = 15
+    min = 20
     max = @stage.height - (min * 2)
 
     spawnA = 0

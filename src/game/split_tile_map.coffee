@@ -3,12 +3,17 @@
 class SplitTileMap extends TileMap
   @tile: 'tile'
   @tiledata:
-    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA
-      wElEQVRYR+2XwQ3AIAhF6wbuv5EjuIUbtNHExloUUBI50Gv98IwgXxdjvFNK18rnvS+yHb
-      0LIdw5EDdIq9nRF4C8C04QaO2q/gWgQswSUSD6NR8ADGIlQVtbkP4HMIKgJK/JOEcEAvQQ
-      nOQQxEw/BKgQu22G6fUCSPU5Vtj6ilC6z1ltSKl2aUAdVzFl5/20lCpSd3wcHwcwP1ANCX
-      ZjzSYd5d9ojfkB8wPmB8wP6HmYcEYyx/dDj95Wf/5xenocP9OrvDDCnV6DAAAAAElFTkSu
-      QmCC"
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAB
+2klEQVR4Xu1bWa6DMAykJ0Dc/4sTAifgKVUtWZS8JLaLsww/VaWaxhPPeIG81nU9p4GvVw
+BgWRYRBNu2ve1atgcAiIDGKSClX6BuoHDzFBgaAJFyM6PmI2B4ACzSsEoDLHYgVkcE51L8
+7hqAHHC7ByAVBdUAkFpobDfJAWk5XR0ApUBYOCAFz6QQop2VOsIjgO6VEj4eTdL/5et+Z4
+EcwYn9hhZ858zV5upcjk3qHrSTUh8AQGk3qBWuWAiTfpToiBkFnuTdHQBSIXMBQMq1OzsL
+B6TgmWSBGhwAAMqZpKoZQgRgKoyxOJ4LaFXY2x4iWFoKW3djTUeAtir0SqO871BRoCUAuN
+N83ep2WAuCtz0AeFoEeb/vpQFfI7GSeYBVFrAYrFgAqBJB6QKus0CPDXCfBwwdAUSjfd+n
+8zyTzwBjmUIagVVoAB9nD0kBAPB5RyenF4iNyoeiwB0IQwHwq7G6Sx3AVTiHAsgCEQS6os
+BxHNM8z1P4pCt8/+/qCgBJW2wGgOTPW7AJBVbqHYRu5wE5zodNRBZ4eiBiNU+wKqURAYiA
+xg9MaCtJFQW0qdAijwMAvCGiO7anokANIZxLAeo1rml4GABi8wQAgDoAdQAOT6vOC2iLIW
+/7Pz5XfO69YfJbAAAAAElFTkSuQmCC"
 
   constructor: (cols, rows, tileSize, tiles, ctx) ->
     super(cols, rows, tileSize, tiles, ctx)
@@ -26,9 +31,30 @@ class SplitTileMap extends TileMap
         x = c * @tileSize
         y = r * @tileSize
 
-        if (tile == 0)
-          @ctx.drawImage(Loader.getImage(SplitTileMap.tile), x, y)
-        else
-          @ctx.fillStyle = "#000000"
-          @ctx.fillRect(x, y, @tileSize, @tileSize)
+        xOffset = 0
+        yOffset = 0
 
+        if tile == 0
+          xOffset = 0
+          yOffset = 0
+        else if tile = 1
+          xOffset = 1
+          yOffset = 0
+        else if tile = 2
+          xOffset = 0
+          yOffset = 1
+        else if tile = 3
+          xOffset = 1
+          yOffset = 1
+
+        @ctx.save()
+        @ctx.drawImage(Loader.getImage(SplitTileMap.tile),
+          xOffset * @tileSize,
+          yOffset * @tileSize,
+          @tileSize,
+          @tileSize,
+          x,
+          y,
+          @tileSize,
+          @tileSize)
+        @ctx.restore()

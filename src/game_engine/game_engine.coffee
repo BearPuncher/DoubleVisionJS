@@ -1,4 +1,5 @@
 # Asset Loader
+# TODO: Make preloader wait until all loaded
 Loader =
   images: {}
   loadImage: (key, src) ->

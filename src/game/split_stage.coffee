@@ -1,4 +1,4 @@
-TILES = [
+EMPTY = [
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -10,18 +10,36 @@ TILES = [
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
 
+RANDOM_TILES = []
+
+for i in [0..179]
+  RANDOM_TILES.push(Math.round(Math.random() * 3))
+
 class SplitStage extends Stage
   @tileWidth: 32
   @wallWidth: SplitStage.tileWidth
   @gutterHeight: SplitStage.tileWidth
+  @portal: 'portal'
+  @portaldata:
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAEgCAYAAADVDXFAAAAB
+  e0lEQVR4Xu3dQRLBMBgG0DqCK9i5kOPIpMdxITtXcASmpR2ihChq5lkhzZ/PkzTdZVYVvm
+  KMh8uuIYRZSam2U1qspFBJnya0AAQI3Agsw7pdUfuSdfWgz/zcto11f9XgMpxsgN2LIovk
+  +rcFBJicQBoo/c8/PgcEIDCqQHPT2lSHq2e8dC9IBywN0N0gV9Xpaax/kBSAAAECBAgQIE
+  CAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQ
+  IECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBA
+  gQIECAAAECBAgQIECAAAECBAgQIECAAIGfCsQY+zPPl2HdHk3+qXPPt7Hujj6vQginw88F
+  IPCXAv1UvvNmkXw/P38ebRUI8HWB3IC59rfnQG6AXPvTAXKFxmwf3AvGHCBXSwAC0xHIzd
+  ah9ssdtGlvfk1JnSMv4vF75/xKqwAAAABJRU5ErkJggg=="
 
   constructor: (width, height, ctx) ->
     super(width, height - SplitStage.gutterHeight, ctx)
+    Loader.loadImage(SplitStage.portal, SplitStage.portaldata)
 
   _init: () =>
     cols = @width / SplitStage.tileWidth
     rows = @height / SplitStage.tileWidth
-    @tilemap = new SplitTileMap(cols, rows, SplitStage.tileWidth, TILES, @ctx)
+    @tilemap = new SplitTileMap(
+      cols, rows, SplitStage.tileWidth, RANDOM_TILES, @ctx)
 
     @wall = new Box(new Vector(@width/2 - SplitStage.wallWidth/2, 0),
       SplitStage.wallWidth, @height).toPolygon()
@@ -51,11 +69,19 @@ class SplitStage extends Stage
     @actors = newActors
 
   drawWall: () ->
-    if @wall?
-      ctx = @getContext()
-      ctx.fillStyle = '#000000'
-      ctx.fillRect(@wall.pos.x, @wall.pos.y,
-        SplitStage.wallWidth, @height)
+    portal = Loader.getImage(SplitStage.portal)
+
+    unless portal
+      return
+
+    ctx = @getContext()
+    ctx.save()
+    ctx.drawImage(Loader.getImage(SplitStage.portal),
+      @wall.pos.x,
+      @wall.pos.y,
+      SplitStage.wallWidth,
+      @height)
+    ctx.restore()
 
   drawGutter: () ->
     ctx = @getContext()
