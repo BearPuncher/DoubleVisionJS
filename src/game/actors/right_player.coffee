@@ -7,7 +7,6 @@ class RightPlayer extends Player
   _render: () ->
     @drawDebug('#0000FF')
 
-
   _update: (step) =>
     @reloadTimer.tick(step)
 
@@ -16,8 +15,11 @@ class RightPlayer extends Player
 
     stepFraction = (step / 100)
 
-    friction = 1.5
+    friction = 100
     acceleration = 2
+
+    if not @controller.isPressed(Keys.LEFT)
+      @reloadTimer.end()
 
     # LEFT - FIRE, if our reload timer is over
     if @reloadTimer.hasEnded() and @controller.isPressed(Keys.LEFT)

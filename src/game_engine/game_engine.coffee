@@ -1,15 +1,3 @@
-# Asset Loader
-# TODO: Make preloader wait until all loaded
-Loader =
-  images: {}
-  loadImage: (key, src) ->
-    downloadingImage = new Image()
-    downloadingImage.onload = () ->
-      Loader.images[key] = downloadingImage
-    downloadingImage.src = src
-  getImage: (key) ->
-    return Loader.images[key]
-
 # The Game engine
 # @mixin
 # @author Daniel Jeffery
@@ -79,10 +67,16 @@ class Game
     window.onEachFrame(@render)
 
   update: (step) ->
+    if not Loader.doneLoading()
+      return
+
     if @stage?
       @stage.update(step)
 
   render: () =>
+    if not Loader.doneLoading()
+      return
+
     unless @running?
       return
 

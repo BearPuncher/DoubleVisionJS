@@ -5,6 +5,9 @@ class Timer
   tick: (step) =>
     @elapsed += step
 
+  end: (step) =>
+    @elapsed = @timeout
+
   hasEnded: () ->
     return @elapsed >= @timeout
 

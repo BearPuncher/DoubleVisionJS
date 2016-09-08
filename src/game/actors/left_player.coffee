@@ -4,7 +4,11 @@ class LeftPlayer extends Player
     @reloadTimer = new Timer(500)
 
   _render: () ->
+    context = @stage.getContext()
+    context.save()
+
     @drawDebug()
+    context.restore()
 
   _update: (step) =>
     @reloadTimer.tick(step)
@@ -14,8 +18,12 @@ class LeftPlayer extends Player
 
     stepFraction = (step / 100)
 
-    friction = 1.5
+    friction = 100
     acceleration = 2
+
+    # If not firing, instantly reload
+    if not @controller.isPressed(Keys.D)
+      @reloadTimer.end()
 
     # D - FIRE, if our reload timer is over
     if @reloadTimer.hasEnded() and @controller.isPressed(Keys.D)

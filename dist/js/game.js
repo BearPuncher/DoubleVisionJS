@@ -1,1 +1,497 @@
-var Bullet,EMPTY,LeftPlayer,Mode,Monster,MonsterSpawner,Player,RANDOM_TILES,RightPlayer,SplitStage,SplitTileMap,i,j,extend=function(t,e){function i(){this.constructor=t}for(var s in e)hasProp.call(e,s)&&(t[s]=e[s]);return i.prototype=e.prototype,t.prototype=new i,t.__super__=e.prototype,t},hasProp={}.hasOwnProperty,bind=function(t,e){return function(){return t.apply(e,arguments)}};for(SplitTileMap=function(t){function e(t,i,s,n,o){e.__super__.constructor.call(this,t,i,s,n,o),Loader.loadImage(e.tile,e.tiledata)}return extend(e,t),e.tile="tile",e.tiledata="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAB 2klEQVR4Xu1bWa6DMAykJ0Dc/4sTAifgKVUtWZS8JLaLsww/VaWaxhPPeIG81nU9p4GvVw BgWRYRBNu2ve1atgcAiIDGKSClX6BuoHDzFBgaAJFyM6PmI2B4ACzSsEoDLHYgVkcE51L8 7hqAHHC7ByAVBdUAkFpobDfJAWk5XR0ApUBYOCAFz6QQop2VOsIjgO6VEj4eTdL/5et+Z4 EcwYn9hhZ858zV5upcjk3qHrSTUh8AQGk3qBWuWAiTfpToiBkFnuTdHQBSIXMBQMq1OzsL B6TgmWSBGhwAAMqZpKoZQgRgKoyxOJ4LaFXY2x4iWFoKW3djTUeAtir0SqO871BRoCUAuN N83ep2WAuCtz0AeFoEeb/vpQFfI7GSeYBVFrAYrFgAqBJB6QKus0CPDXCfBwwdAUSjfd+n 8zyTzwBjmUIagVVoAB9nD0kBAPB5RyenF4iNyoeiwB0IQwHwq7G6Sx3AVTiHAsgCEQS6os BxHNM8z1P4pCt8/+/qCgBJW2wGgOTPW7AJBVbqHYRu5wE5zodNRBZ4eiBiNU+wKqURAYiA xg9MaCtJFQW0qdAijwMAvCGiO7anokANIZxLAeo1rml4GABi8wQAgDoAdQAOT6vOC2iLIW /7Pz5XfO69YfJbAAAAAElFTkSuQmCC",e.prototype._render=function(){var t,i,s,n,o,r,h,a,l,u;if(r=Loader.getImage(e.tile),null!=r){for(o=[],t=i=0,n=this.cols;0<=n?i<=n:i>=n;t=0<=n?++i:--i)o.push(function(){var i,n,o;for(o=[],s=i=0,n=this.rows;0<=n?i<=n:i>=n;s=0<=n?++i:--i)r=this.getTile(t,s),h=t*this.tileSize,l=s*this.tileSize,a=0,u=0,0===r?(a=0,u=0):(r=1)?(a=1,u=0):(r=2)?(a=0,u=1):(r=3)&&(a=1,u=1),this.ctx.save(),this.ctx.drawImage(Loader.getImage(e.tile),a*this.tileSize,u*this.tileSize,this.tileSize,this.tileSize,h,l,this.tileSize,this.tileSize),o.push(this.ctx.restore());return o}.call(this));return o}},e}(TileMap),EMPTY=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],RANDOM_TILES=[],i=j=0;j<=179;i=++j)RANDOM_TILES.push(Math.round(3*Math.random()));SplitStage=function(t){function e(t,i,s){this._update=bind(this._update,this),this._init=bind(this._init,this),e.__super__.constructor.call(this,t,i-e.gutterHeight,s),Loader.loadImage(e.portal,e.portaldata)}return extend(e,t),e.tileWidth=32,e.wallWidth=e.tileWidth,e.gutterHeight=e.tileWidth,e.portal="portal",e.portaldata="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAEgCAYAAADVDXFAAAAB e0lEQVR4Xu3dQRLBMBgG0DqCK9i5kOPIpMdxITtXcASmpR2ihChq5lkhzZ/PkzTdZVYVvm KMh8uuIYRZSam2U1qspFBJnya0AAQI3Agsw7pdUfuSdfWgz/zcto11f9XgMpxsgN2LIovk +rcFBJicQBoo/c8/PgcEIDCqQHPT2lSHq2e8dC9IBywN0N0gV9Xpaax/kBSAAAECBAgQIE CAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQ IECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBA gQIECAAAECBAgQIECAAAECBAgQIECAAIGfCsQY+zPPl2HdHk3+qXPPt7Hujj6vQginw88F IPCXAv1UvvNmkXw/P38ebRUI8HWB3IC59rfnQG6AXPvTAXKFxmwf3AvGHCBXSwAC0xHIzd ah9ssdtGlvfk1JnSMv4vF75/xKqwAAAABJRU5ErkJggg==",e.prototype._init=function(){var t,i;return t=this.width/e.tileWidth,i=this.height/e.tileWidth,this.tilemap=new SplitTileMap(t,i,e.tileWidth,RANDOM_TILES,this.ctx),this.wall=new Box(new Vector(this.width/2-e.wallWidth/2,0),e.wallWidth,this.height).toPolygon(),this.leftPlayer=new LeftPlayer(30,this.height/2),this.addActor(this.leftPlayer),this.rightPlayer=new RightPlayer(610,this.height/2),this.addActor(this.rightPlayer),this.monsterSpawner=new MonsterSpawner(this.width/2,this.height/2),this.addActor(this.monsterSpawner)},e.prototype._render=function(){return this.tilemap.render(),this.drawWall(),this.drawGutter()},e.prototype._update=function(t){var e,i,s,n,o;for(this.testBulletCollisions(),n=[],o=this.actors,i=0,s=o.length;i<s;i++)e=o[i],e.shouldDestroy()||n.push(e);return this.actors=n},e.prototype.drawWall=function(){var t,i;if(i=Loader.getImage(e.portal))return t=this.getContext(),t.save(),t.drawImage(Loader.getImage(e.portal),this.wall.pos.x,this.wall.pos.y,e.wallWidth,this.height),t.restore()},e.prototype.drawGutter=function(){var t,i,s;return t=this.getContext(),t.fillStyle="#000000",t.fillRect(0,this.height,this.width,this.height+e.gutterHeight),i=11,s=22,t.fillStyle="White",t.font="normal 12pt Arial",t.fillText("Anomalies resolved: "+this.leftPlayer.score,i,this.height+s),t.save(),t.scale(-1,1),t.fillStyle="White",t.font="normal 12pt Arial",t.fillText("Anomalies resolved: "+this.rightPlayer.score,-this.width+i,this.height+s),t.restore()},e.prototype.testBulletCollisions=function(){var t,e,i,s,n,o,r,h,a,l;for(e=this.actors.filter(this.isInstanceOfBullet),s=0,o=e.length;s<o;s++)t=e[s],i=SAT.testCirclePolygon(t.body,this.wall),i&&(t.destroy=!0);for(a=this.actors.filter(this.isInstanceOfMonster),l=[],n=0,r=a.length;n<r;n++)h=a[n],l.push(function(){var s,n,o;for(o=[],n=0,s=e.length;n<s;n++)t=e[n],i=SAT.testCircleCircle(t.body,h.body),i?(t.firedBy instanceof Player&&t.firedBy.addScore(1),t.destroy=!0,o.push(h.destroy=!0)):o.push(void 0);return o}());return l},e.prototype.isInstanceOfBullet=function(t){return t instanceof Bullet},e.prototype.isInstanceOfMonster=function(t){return t instanceof Monster},e}(Stage),Monster=function(t){function e(t,i,s,n){null==s&&(s=0),this.color=null!=n?n:"#00FF00",e.__super__.constructor.call(this,t,i,s,16),this.speed=Math.round(2*Math.random())+3}return extend(e,t),e.prototype._render=function(){return this.drawDebug(this.color)},e.prototype._update=function(t){var e,i,s;return s=t/100,e=this.speed*s,i=new Vector(e,0),i.rotate(this.direction),this.position.add(i),this.stage.isCircleInBounds(this.body)||(this.destroy=!0),this.updateBody()},e}(CircleActor),Mode={MIRROR:0,FLIPPED:1,VARIANCE:2},MonsterSpawner=function(t){function e(t,i){this.updateMode=bind(this.updateMode,this),this._update=bind(this._update,this),e.__super__.constructor.call(this,t,i),this.mode=Mode.MIRROR,this.spawnTimer=new Timer(2e3),this.modeTimer=new Timer(1e4)}return extend(e,t),e.prototype._update=function(t){if(this.spawnTimer.tick(t),this.modeTimer.tick(t),this.spawnTimer.hasEnded()&&(this.spawnTimer.restart(),this.spawnMonsters()),this.modeTimer.hasEnded())return this.modeTimer.restart(),this.updateMode()},e.prototype.spawnMonsters=function(){var t,e,i,s;switch(e=20,t=this.stage.height-2*e,i=0,s=0,this.mode){case Mode.MIRROR:i=s=Math.floor(Math.random()*t)+e;break;case Mode.FLIPPED:i=Math.floor(Math.random()*t)+e,s=this.stage.height-i;break;case Mode.VARIANCE:i=Math.floor(Math.random()*t)+e,s=Math.floor(Math.random()*t)+e;break;default:i=s=Math.floor(Math.random()*t)+e}return this.stage.addActor(new Monster(this.stage.width/2,i,0,"#FF0000")),this.stage.addActor(new Monster(this.stage.width/2,s,MathHelpers.toRadians(180),"#0000FF"))},e.prototype.updateMode=function(){var t,e;return e=[Mode.MIRROR,Mode.FLIPPED,Mode.VARIANCE],e.splice(this.mode,1),t=Math.floor(Math.random()*e.length),this.mode=e[t]},e}(Actor),Player=function(t){function e(t,i){this.addScore=bind(this.addScore,this),e.__super__.constructor.call(this,t,i,0,16),this.controller=Controller.get(),this.velx=0,this.vely=0,this.maxSpeed=4,this.score=0}return extend(e,t),e.prototype.addScore=function(t){return this.score+=t},e.prototype._render=function(){return this.drawDebug()},e}(CircleActor),LeftPlayer=function(t){function e(t,i){this._update=bind(this._update,this),e.__super__.constructor.call(this,t,i),this.reloadTimer=new Timer(500)}return extend(e,t),e.prototype._render=function(){return this.drawDebug()},e.prototype._update=function(t){var e,i,s,n,o,r;return this.reloadTimer.tick(t),o=this.position.x,r=this.position.y,n=t/100,i=1.5,e=2,this.reloadTimer.hasEnded()&&this.controller.isPressed(Keys.D)&&(this.reloadTimer.restart(),this.stage.addActor(new Bullet(this.position.x+10,this.position.y,this.direction,this))),this.controller.isPressed(Keys.W)?this.vely>-this.maxSpeed&&(this.vely-=e*n,this.vely<-this.maxSpeed&&(this.vely=-this.maxSpeed)):this.vely<0&&(this.vely+=i*n,this.vely>0&&(this.vely=0)),this.controller.isPressed(Keys.S)?this.vely<this.maxSpeed&&(this.vely+=e*n,this.vely>this.maxSpeed&&(this.vely=this.maxSpeed)):this.vely>0&&(this.vely-=i*n,this.vely<0&&(this.vely=0)),s=new Circle(new Vector(o,r+this.vely),this.radius),this.stage.isCircleInBounds(s)&&this.setPosition(o,r+this.vely),this.updateBody()},e}(Player),RightPlayer=function(t){function e(t,i){this._update=bind(this._update,this),e.__super__.constructor.call(this,t,i),this.direction=MathHelpers.toRadians(180),this.reloadTimer=new Timer(500)}return extend(e,t),e.prototype._render=function(){return this.drawDebug("#0000FF")},e.prototype._update=function(t){var e,i,s,n,o,r;return this.reloadTimer.tick(t),o=this.position.x,r=this.position.y,n=t/100,i=1.5,e=2,this.reloadTimer.hasEnded()&&this.controller.isPressed(Keys.LEFT)&&(this.reloadTimer.restart(),this.stage.addActor(new Bullet(this.position.x-10,this.position.y,this.direction,this))),this.controller.isPressed(Keys.UP)?this.vely>-this.maxSpeed&&(this.vely-=e*n,this.vely<-this.maxSpeed&&(this.vely=-this.maxSpeed)):this.vely<0&&(this.vely+=i*n,this.vely>0&&(this.vely=0)),this.controller.isPressed(Keys.DOWN)?this.vely<this.maxSpeed&&(this.vely+=e*n,this.vely>this.maxSpeed&&(this.vely=this.maxSpeed)):this.vely>0&&(this.vely-=i*n,this.vely<0&&(this.vely=0)),s=new Circle(new Vector(o,r+this.vely),this.radius),this.stage.isCircleInBounds(s)&&this.setPosition(o,r+this.vely),this.updateBody()},e}(Player),Bullet=function(t){function e(t,i,s,n){null==s&&(s=0),this.firedBy=n,e.__super__.constructor.call(this,t,i,s,5),this.bulletSpeed=120}return extend(e,t),e.prototype._render=function(){return this.drawDebug("#00FF00")},e.prototype._update=function(t){var e,i,s;return s=t/100,i=this.bulletSpeed*s,e=new Vector(i,0),e.rotate(this.direction),this.position.add(e),this.stage.isCircleInBounds(this.body)||(this.destroy=!0),this.updateBody()},e}(CircleActor);
+var Bullet, EMPTY, Images, LeftPlayer, Mode, Monster, MonsterSpawner, Player, RANDOM_TILES, RightPlayer, SplitStage, SplitTileMap, i, j,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+Images = {
+  TILES: 'tiles',
+  TILES_DATA: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAA CqaXHeAAACEElEQVR4Xu1bQW6EMAzcfRXHqh/qseoTqh575i9Vj7xqq6C6Qj QwSewQB4YrOMQTz9gx4T6O4+N24eseAHh+Goog+PqeZrue7QkAI6BzCpTSL1 A3ULgqBd4/Pm9vry+b+mKhIV0AsAWEFoAi5V4YVY8ANEEC4CCNqjQArTC6vx cBSD9ExLR1iFsAEHiXAABFgVZD1CIoq4QmurWa4sA0TbvpEtmXpkJzAHKBsF hBFxoQHA/XXtETW8VlBCztU4G0AHAWwRTB2XpGwk8mszfWOlRTbNbjxcK9ZB wZlwDk7gYlPFPDdC8iYhTIGdeMAjkqmjNBRK3TZAHkaM001jQLWISg1gGtva oUJgAOdnOMAGVXmhTIrQOWik4NoAbwy9DMiJxK0guFQkU7DIPuu0BpBSh2LT RkWcqbNURKgWgFgPQe/gAodeAMdup+QO8gHF4IrTnYWkQPByA4LCC00IB1Fm oCQMss4AYAycOXpAAj4BcBaoCDzVQXIljrhIm6FD4yhGMgWLy/iwio2VYnAG yJdX5QUltIkQLa8wGet8OhVYfODpy2H5DifFg8UoBZgFmAv8zAf4Zqbka0eV xrrxJBbQq02MyYA2B5CAoBVBOAlNNs/7bDuc7XdACBF+6j9yMQov2AHBDQBJ ATHuxVGuDBAXMNQKvm5fN2CgWQL121xGLOWEQgKcC9gPJ/AcQz7/d/AFxCoC 6C3spXAAAAAElFTkSuQmCC',
+  PORTAL: 'portal',
+  PORTAL_DATA: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAEgCAYAAA DVDXFAAAABe0lEQVR4Xu3dQRLBMBgG0DqCK9i5kOPIpMdxITtXcASmpR2ihC hq5lkhzZ/PkzTdZVYVvmKMh8uuIYRZSam2U1qspFBJnya0AAQI3Agsw7pdUf uSdfWgz/zcto11f9XgMpxsgN2LIovk+rcFBJicQBoo/c8/PgcEIDCqQHPT2l SHq2e8dC9IBywN0N0gV9Xpaax/kBSAAAECBAgQIECAAAECBAgQIECAAAECBA gQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBA gQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBA gQIECAAAECBAgQIECAAAECBAgQIECAAIGfCsQY+zPPl2HdHk3+qXPPt7Hujj 6vQginw88FIPCXAv1UvvNmkXw/P38ebRUI8HWB3IC59rfnQG6AXPvTAXKFxm wf3AvGHCBXSwAC0xHIzdah9ssdtGlvfk1JnSMv4vF75/xKqwAAAABJRU5Erk Jggg==',
+  P1: 'player1',
+  P1_DATA: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAgCAYAAA DtwH1UAAACeklEQVRoQ+1abZKDIAylJ9DbLUdsb6cnYCdaLB/5tNgZRWd/Wc gj7yURwj6c4QnOBcNw93Dw1+65Ij5LEOrw86lj1PtqnFWQHvBRATLHtYRLsi SCSEL0hF8JsDnfivhSmLcQlAi94WcCNHU+LUGlmIQIPeJ/LwBFdHyPZVJLAU 6OXwtgLT0U0VwGQFnyvtolLRnQGX47AYBUC3mtBTgp/vclSNr9YL+3LEEnx7 93QYWATTcCiuC7zwEISb88h9wnYaaE/eIkzgowDMPS+5mmaV3mw9baGYfBzf NcTQK72PuSix7wUUaj4xn5Oz524zhWAkTbnAA94WcCaBwHUls8VGZE21vWFW BXw98EqNIdYbmV89F0KkKv+JkAR0ddqWkpQI/4rACtI94qQA/4iwBc+h9BQl n/e8YXBQCBQIRpnutej/cOtppV6YDtKtKCpu4ApPp/ZfzqI1xtPePen2grlw LA8BCvguMc4RImzcLe8NFDUlqr0ch/t5PXg9b7kJZMAt7/fG5auoaM09Ot8C IGlnkXwiePtltZAALgSTPAe/d68v8gsQa98eiciNgLvtBbCCHynkZ0JB9Ipq 4APvcx+0Vw7vr4jABhCXHmRnGLV16EvQL0gc8KoCNWQ9QeET7RX54f0vJWfj OwNomm8Uc1Aqm2y8fmd/6LzTh5AesIiQgLCZItwIv2NGPT8ZQ/6XuNzdyfEI aB75FR/ou7IG7BR5CgcT6uCfC1448KAE3wpest+bwFQCJMIyrWSJSyCwuC0w ugiUBL9O+xpxGMKoNNBNAsWluHtc6U9qh5VvJjFFvtadatygBpARKR1oVTac s5tJdUqUS0+N3q/z9kqbE/560lDAAAAABJRU5ErkJgggAA',
+  P2: 'player2',
+  P2_DATA: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAgCAYAAA DtwH1UAAACXUlEQVRoQ+2abZaDIAxFdQW4u+kSO7vTFTAHNQqYT47aKejPmv IgN4QA9p3q8V5lthn1vc1esq5Xn3DUccDvt+Sk5f3rhdlZgbSjnwHYB651uI QlBSKBaE8/ArAM/izH52B2EBSENvVXAPjg4+g9AwwNoV19FkCc02MApWCsAF rQ3wBgEc45Gt5ZZ8byvzwNed+qPguAWmBLZ8Ae0ToALeiLKUiqcizvS1KQpX 3J9j/qP1XQRu0zVdizD0imzf37kGcnjOat+3biGwDnnJ+m6QBk+X2U0isaR8 MwzL9j7eYNtqqfAMCcFRwzjjYAsXMBggQi6LSofwBgCnXEmIIlgQAArenPAM 4aPDiPmzFYWmpZ/xIAEogAIV4XzgbwTfqXAqAccReAb9BPqp4rIhFLR1R11K I+uQ/ID8fCNj6vjpdIHg93CMHWuaGTFmS6PD0eztWqz27EAAKcofiuTyhQAO Jj5BiaVAntFVB6LFCzPnN5nsa7f/+iF76Dc+gsAAhhJsSPZlO22Lehr/p6wX edl+4q+9dPYgJRCwD0jj/uBGrWFwHMgw8PdfMSPL2+CxDgmWfMOg36LuSusq d2fdExbPTl36Aw11qlEGrXZwGw0bc6HxwrOaoEgKYshdR2hb5l/FJfqRRMAr A2KNlLh3F5gtK0F7epsbesQ1J74zSFvGo6S8P0UQCSODgLGtTaWyBo2wx90N pq9bXtWY9THgCGuwlNyVA1AM0p7VUzsGQGWPobwy1OQVb6edrSRBg3qCv1NQ Co9YT672mLMLeQcR23LIBaOJaF26pvdWRpn/8A7JDUP/ydXlgAAAAASUVORK 5CYIIA'
+};
+
+Loader.loadImage(Images.TILES, Images.TILES_DATA);
+
+Loader.loadImage(Images.PORTAL, Images.PORTAL_DATA);
+
+Loader.loadImage(Images.P1, Images.P1_DATA);
+
+Loader.loadImage(Images.P2, Images.P2_DATA);
+
+SplitTileMap = (function(superClass) {
+  extend(SplitTileMap, superClass);
+
+  function SplitTileMap(cols, rows, tileSize, tiles, ctx) {
+    SplitTileMap.__super__.constructor.call(this, cols, rows, tileSize, tiles, ctx);
+  }
+
+  SplitTileMap.prototype._render = function() {
+    var c, image, j, r, ref, results, tile, x, xOffset, y, yOffset;
+    image = Loader.getImage(Images.TILES);
+    results = [];
+    for (c = j = 0, ref = this.cols; 0 <= ref ? j <= ref : j >= ref; c = 0 <= ref ? ++j : --j) {
+      results.push((function() {
+        var k, ref1, results1;
+        results1 = [];
+        for (r = k = 0, ref1 = this.rows; 0 <= ref1 ? k <= ref1 : k >= ref1; r = 0 <= ref1 ? ++k : --k) {
+          tile = this.getTile(c, r);
+          x = c * this.tileSize;
+          y = r * this.tileSize;
+          xOffset = 0;
+          yOffset = 0;
+          if (tile === 0) {
+            xOffset = 0;
+            yOffset = 0;
+          } else if (tile = 1) {
+            xOffset = 1;
+            yOffset = 0;
+          } else if (tile = 2) {
+            xOffset = 0;
+            yOffset = 1;
+          } else if (tile = 3) {
+            xOffset = 1;
+            yOffset = 1;
+          }
+          this.ctx.save();
+          this.ctx.drawImage(image, xOffset * this.tileSize, yOffset * this.tileSize, this.tileSize, this.tileSize, x, y, this.tileSize, this.tileSize);
+          results1.push(this.ctx.restore());
+        }
+        return results1;
+      }).call(this));
+    }
+    return results;
+  };
+
+  return SplitTileMap;
+
+})(TileMap);
+
+EMPTY = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+RANDOM_TILES = [];
+
+for (i = j = 0; j <= 179; i = ++j) {
+  RANDOM_TILES.push(Math.round(Math.random() * 3));
+}
+
+SplitStage = (function(superClass) {
+  extend(SplitStage, superClass);
+
+  SplitStage.tileWidth = 32;
+
+  SplitStage.wallWidth = SplitStage.tileWidth;
+
+  SplitStage.gutterHeight = SplitStage.tileWidth;
+
+  function SplitStage(width, height, ctx) {
+    this._update = bind(this._update, this);
+    this._init = bind(this._init, this);
+    SplitStage.__super__.constructor.call(this, width, height - SplitStage.gutterHeight, ctx);
+  }
+
+  SplitStage.prototype._init = function() {
+    var cols, rows;
+    cols = this.width / SplitStage.tileWidth;
+    rows = this.height / SplitStage.tileWidth;
+    this.tilemap = new SplitTileMap(cols, rows, SplitStage.tileWidth, RANDOM_TILES, this.ctx);
+    this.wall = new Box(new Vector(this.width / 2 - SplitStage.wallWidth / 2, 0), SplitStage.wallWidth, this.height).toPolygon();
+    this.leftPlayer = new LeftPlayer(30, this.height / 2);
+    this.addActor(this.leftPlayer);
+    this.rightPlayer = new RightPlayer(610, this.height / 2);
+    this.addActor(this.rightPlayer);
+    this.monsterSpawner = new MonsterSpawner(this.width / 2, this.height / 2);
+    return this.addActor(this.monsterSpawner);
+  };
+
+  SplitStage.prototype._render = function() {
+    this.tilemap.render();
+    this.drawWall();
+    return this.drawGutter();
+  };
+
+  SplitStage.prototype._update = function(step) {
+    var actor, k, len, newActors, ref;
+    this.testBulletCollisions();
+    newActors = [];
+    ref = this.actors;
+    for (k = 0, len = ref.length; k < len; k++) {
+      actor = ref[k];
+      if (!actor.shouldDestroy()) {
+        newActors.push(actor);
+      }
+    }
+    return this.actors = newActors;
+  };
+
+  SplitStage.prototype.drawWall = function() {
+    var ctx, portal;
+    portal = Loader.getImage(Images.PORTAL);
+    ctx = this.getContext();
+    ctx.save();
+    ctx.drawImage(portal, this.wall.pos.x, this.wall.pos.y, SplitStage.wallWidth, this.height);
+    return ctx.restore();
+  };
+
+  SplitStage.prototype.drawGutter = function() {
+    var ctx, xPadding, yPadding;
+    ctx = this.getContext();
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, this.height, this.width, this.height + SplitStage.gutterHeight);
+    xPadding = 11;
+    yPadding = 22;
+    ctx.fillStyle = 'White';
+    ctx.font = 'normal 12pt Arial';
+    ctx.fillText('Anomalies resolved: ' + this.leftPlayer.score, xPadding, this.height + yPadding);
+    ctx.save();
+    ctx.scale(-1, 1);
+    ctx.fillStyle = 'White';
+    ctx.font = 'normal 12pt Arial';
+    ctx.fillText('Anomalies resolved: ' + this.rightPlayer.score, -this.width + xPadding, this.height + yPadding);
+    return ctx.restore();
+  };
+
+  SplitStage.prototype.testBulletCollisions = function() {
+    var bullet, bullets, collide, k, l, len, len1, monster, monsters, results;
+    bullets = this.actors.filter(this.isInstanceOfBullet);
+    for (k = 0, len = bullets.length; k < len; k++) {
+      bullet = bullets[k];
+      collide = SAT.testCirclePolygon(bullet.body, this.wall);
+      if (collide) {
+        bullet.destroy = true;
+      }
+    }
+    monsters = this.actors.filter(this.isInstanceOfMonster);
+    results = [];
+    for (l = 0, len1 = monsters.length; l < len1; l++) {
+      monster = monsters[l];
+      results.push((function() {
+        var len2, m, results1;
+        results1 = [];
+        for (m = 0, len2 = bullets.length; m < len2; m++) {
+          bullet = bullets[m];
+          collide = SAT.testCircleCircle(bullet.body, monster.body);
+          if (collide) {
+            if (bullet.firedBy instanceof Player) {
+              bullet.firedBy.addScore(1);
+            }
+            bullet.destroy = true;
+            results1.push(monster.destroy = true);
+          } else {
+            results1.push(void 0);
+          }
+        }
+        return results1;
+      })());
+    }
+    return results;
+  };
+
+  SplitStage.prototype.isInstanceOfBullet = function(clazz) {
+    return clazz instanceof Bullet;
+  };
+
+  SplitStage.prototype.isInstanceOfMonster = function(clazz) {
+    return clazz instanceof Monster;
+  };
+
+  return SplitStage;
+
+})(Stage);
+
+Monster = (function(superClass) {
+  extend(Monster, superClass);
+
+  function Monster(x, y, direction, color) {
+    if (direction == null) {
+      direction = 0;
+    }
+    this.color = color != null ? color : '#00FF00';
+    Monster.__super__.constructor.call(this, x, y, direction, 16);
+    this.speed = Math.round(Math.random() * 2) + 3;
+  }
+
+  Monster.prototype._render = function() {
+    return this.drawDebug(this.color);
+  };
+
+  Monster.prototype._update = function(step) {
+    var adjustedSpeed, moveVector, stepFraction;
+    stepFraction = step / 100;
+    adjustedSpeed = this.speed * stepFraction;
+    moveVector = new Vector(adjustedSpeed, 0);
+    moveVector.rotate(this.direction);
+    this.position.add(moveVector);
+    if (!this.stage.isCircleInBounds(this.body)) {
+      this.destroy = true;
+    }
+    return this.updateBody();
+  };
+
+  return Monster;
+
+})(CircleActor);
+
+Mode = {
+  MIRROR: 0,
+  FLIPPED: 1,
+  VARIANCE: 2
+};
+
+MonsterSpawner = (function(superClass) {
+  extend(MonsterSpawner, superClass);
+
+  function MonsterSpawner(x, y) {
+    this.updateMode = bind(this.updateMode, this);
+    this._update = bind(this._update, this);
+    MonsterSpawner.__super__.constructor.call(this, x, y);
+    this.mode = Mode.MIRROR;
+    this.spawnTimer = new Timer(2000);
+    this.modeTimer = new Timer(10000);
+  }
+
+  MonsterSpawner.prototype._update = function(step) {
+    this.spawnTimer.tick(step);
+    this.modeTimer.tick(step);
+    if (this.spawnTimer.hasEnded()) {
+      this.spawnTimer.restart();
+      this.spawnMonsters();
+    }
+    if (this.modeTimer.hasEnded()) {
+      this.modeTimer.restart();
+      return this.updateMode();
+    }
+  };
+
+  MonsterSpawner.prototype.spawnMonsters = function() {
+    var max, min, spawnA, spawnB;
+    min = 20;
+    max = this.stage.height - (min * 2);
+    spawnA = 0;
+    spawnB = 0;
+    switch (this.mode) {
+      case Mode.MIRROR:
+        spawnA = spawnB = Math.floor(Math.random() * max) + min;
+        break;
+      case Mode.FLIPPED:
+        spawnA = Math.floor(Math.random() * max) + min;
+        spawnB = this.stage.height - spawnA;
+        break;
+      case Mode.VARIANCE:
+        spawnA = Math.floor(Math.random() * max) + min;
+        spawnB = Math.floor(Math.random() * max) + min;
+        break;
+      default:
+        spawnA = spawnB = Math.floor(Math.random() * max) + min;
+    }
+    this.stage.addActor(new Monster(this.stage.width / 2, spawnA, 0, '#FF0000'));
+    return this.stage.addActor(new Monster(this.stage.width / 2, spawnB, MathHelpers.toRadians(180), '#0000FF'));
+  };
+
+  MonsterSpawner.prototype.updateMode = function() {
+    var index, modes;
+    modes = [Mode.MIRROR, Mode.FLIPPED, Mode.VARIANCE];
+    modes.splice(this.mode, 1);
+    index = Math.floor(Math.random() * modes.length);
+    return this.mode = modes[index];
+  };
+
+  return MonsterSpawner;
+
+})(Actor);
+
+Player = (function(superClass) {
+  extend(Player, superClass);
+
+  function Player(x, y) {
+    this.addScore = bind(this.addScore, this);
+    Player.__super__.constructor.call(this, x, y, 0, 16);
+    this.controller = Controller.get();
+    this.velx = 0;
+    this.vely = 0;
+    this.maxSpeed = 4;
+    this.score = 0;
+  }
+
+  Player.prototype.addScore = function(n) {
+    return this.score += n;
+  };
+
+  Player.prototype._render = function() {
+    return this.drawDebug();
+  };
+
+  return Player;
+
+})(CircleActor);
+
+LeftPlayer = (function(superClass) {
+  extend(LeftPlayer, superClass);
+
+  function LeftPlayer(x, y) {
+    this._update = bind(this._update, this);
+    LeftPlayer.__super__.constructor.call(this, x, y);
+    this.reloadTimer = new Timer(500);
+  }
+
+  LeftPlayer.prototype._render = function() {
+    var context;
+    context = this.stage.getContext();
+    context.save();
+    this.drawDebug();
+    return context.restore();
+  };
+
+  LeftPlayer.prototype._update = function(step) {
+    var acceleration, friction, newPosition, stepFraction, x, y;
+    this.reloadTimer.tick(step);
+    x = this.position.x;
+    y = this.position.y;
+    stepFraction = step / 100;
+    friction = 100;
+    acceleration = 2;
+    if (!this.controller.isPressed(Keys.D)) {
+      this.reloadTimer.end();
+    }
+    if (this.reloadTimer.hasEnded() && this.controller.isPressed(Keys.D)) {
+      this.reloadTimer.restart();
+      this.stage.addActor(new Bullet(this.position.x + 10, this.position.y, this.direction, this));
+    }
+    if (this.controller.isPressed(Keys.W)) {
+      if (this.vely > -this.maxSpeed) {
+        this.vely -= acceleration * stepFraction;
+        if (this.vely < -this.maxSpeed) {
+          this.vely = -this.maxSpeed;
+        }
+      }
+    } else if (this.vely < 0) {
+      this.vely += friction * stepFraction;
+      if (this.vely > 0) {
+        this.vely = 0;
+      }
+    }
+    if (this.controller.isPressed(Keys.S)) {
+      if (this.vely < this.maxSpeed) {
+        this.vely += acceleration * stepFraction;
+        if (this.vely > this.maxSpeed) {
+          this.vely = this.maxSpeed;
+        }
+      }
+    } else if (this.vely > 0) {
+      this.vely -= friction * stepFraction;
+      if (this.vely < 0) {
+        this.vely = 0;
+      }
+    }
+    newPosition = new Circle(new Vector(x, y + this.vely), this.radius);
+    if (this.stage.isCircleInBounds(newPosition)) {
+      this.setPosition(x, y + this.vely);
+    }
+    return this.updateBody();
+  };
+
+  return LeftPlayer;
+
+})(Player);
+
+RightPlayer = (function(superClass) {
+  extend(RightPlayer, superClass);
+
+  function RightPlayer(x, y) {
+    this._update = bind(this._update, this);
+    RightPlayer.__super__.constructor.call(this, x, y);
+    this.direction = MathHelpers.toRadians(180);
+    this.reloadTimer = new Timer(500);
+  }
+
+  RightPlayer.prototype._render = function() {
+    return this.drawDebug('#0000FF');
+  };
+
+  RightPlayer.prototype._update = function(step) {
+    var acceleration, friction, newPosition, stepFraction, x, y;
+    this.reloadTimer.tick(step);
+    x = this.position.x;
+    y = this.position.y;
+    stepFraction = step / 100;
+    friction = 100;
+    acceleration = 2;
+    if (!this.controller.isPressed(Keys.LEFT)) {
+      this.reloadTimer.end();
+    }
+    if (this.reloadTimer.hasEnded() && this.controller.isPressed(Keys.LEFT)) {
+      this.reloadTimer.restart();
+      this.stage.addActor(new Bullet(this.position.x - 10, this.position.y, this.direction, this));
+    }
+    if (this.controller.isPressed(Keys.UP)) {
+      if (this.vely > -this.maxSpeed) {
+        this.vely -= acceleration * stepFraction;
+        if (this.vely < -this.maxSpeed) {
+          this.vely = -this.maxSpeed;
+        }
+      }
+    } else if (this.vely < 0) {
+      this.vely += friction * stepFraction;
+      if (this.vely > 0) {
+        this.vely = 0;
+      }
+    }
+    if (this.controller.isPressed(Keys.DOWN)) {
+      if (this.vely < this.maxSpeed) {
+        this.vely += acceleration * stepFraction;
+        if (this.vely > this.maxSpeed) {
+          this.vely = this.maxSpeed;
+        }
+      }
+    } else if (this.vely > 0) {
+      this.vely -= friction * stepFraction;
+      if (this.vely < 0) {
+        this.vely = 0;
+      }
+    }
+    newPosition = new Circle(new Vector(x, y + this.vely), this.radius);
+    if (this.stage.isCircleInBounds(newPosition)) {
+      this.setPosition(x, y + this.vely);
+    }
+    return this.updateBody();
+  };
+
+  return RightPlayer;
+
+})(Player);
+
+Bullet = (function(superClass) {
+  extend(Bullet, superClass);
+
+  function Bullet(x, y, direction, firedBy) {
+    if (direction == null) {
+      direction = 0;
+    }
+    this.firedBy = firedBy;
+    Bullet.__super__.constructor.call(this, x, y, direction, 5);
+    this.bulletSpeed = 120;
+  }
+
+  Bullet.prototype._render = function() {
+    return this.drawDebug('#00FF00');
+  };
+
+  Bullet.prototype._update = function(step) {
+    var moveVector, speed, stepFraction;
+    stepFraction = step / 100;
+    speed = this.bulletSpeed * stepFraction;
+    moveVector = new Vector(speed, 0);
+    moveVector.rotate(this.direction);
+    this.position.add(moveVector);
+    if (!this.stage.isCircleInBounds(this.body)) {
+      this.destroy = true;
+    }
+    return this.updateBody();
+  };
+
+  return Bullet;
+
+})(CircleActor);

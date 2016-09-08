@@ -19,21 +19,9 @@ class SplitStage extends Stage
   @tileWidth: 32
   @wallWidth: SplitStage.tileWidth
   @gutterHeight: SplitStage.tileWidth
-  @portal: 'portal'
-  @portaldata:
-    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAEgCAYAAADVDXFAAAAB
-  e0lEQVR4Xu3dQRLBMBgG0DqCK9i5kOPIpMdxITtXcASmpR2ihChq5lkhzZ/PkzTdZVYVvm
-  KMh8uuIYRZSam2U1qspFBJnya0AAQI3Agsw7pdUfuSdfWgz/zcto11f9XgMpxsgN2LIovk
-  +rcFBJicQBoo/c8/PgcEIDCqQHPT2lSHq2e8dC9IBywN0N0gV9Xpaax/kBSAAAECBAgQIE
-  CAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQ
-  IECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBA
-  gQIECAAAECBAgQIECAAAECBAgQIECAAIGfCsQY+zPPl2HdHk3+qXPPt7Hujj6vQginw88F
-  IPCXAv1UvvNmkXw/P38ebRUI8HWB3IC59rfnQG6AXPvTAXKFxmwf3AvGHCBXSwAC0xHIzd
-  ah9ssdtGlvfk1JnSMv4vF75/xKqwAAAABJRU5ErkJggg=="
 
   constructor: (width, height, ctx) ->
     super(width, height - SplitStage.gutterHeight, ctx)
-    Loader.loadImage(SplitStage.portal, SplitStage.portaldata)
 
   _init: () =>
     cols = @width / SplitStage.tileWidth
@@ -69,14 +57,11 @@ class SplitStage extends Stage
     @actors = newActors
 
   drawWall: () ->
-    portal = Loader.getImage(SplitStage.portal)
-
-    unless portal
-      return
+    portal = Loader.getImage(Images.PORTAL)
 
     ctx = @getContext()
     ctx.save()
-    ctx.drawImage(Loader.getImage(SplitStage.portal),
+    ctx.drawImage(portal,
       @wall.pos.x,
       @wall.pos.y,
       SplitStage.wallWidth,

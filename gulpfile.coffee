@@ -9,10 +9,10 @@ coffeelint = require('gulp-coffeelint')
 concat = require('gulp-concat')
 cssmin = require('gulp-cssmin')
 gzip = require('gulp-gzip')
+mainBowerFiles = require('gulp-main-bower-files')
 tar = require('gulp-tar')
 sass = require('gulp-sass')
 sassLint = require('gulp-sass-lint')
-
 uglify = require('gulp-uglifyjs')
 
 # Clean ./dist dir
@@ -45,6 +45,7 @@ gulp.task 'coffeekup', ->
 # Game Engine specific
 gulp.task 'game-engine-coffee', ->
   gulp.src([
+    './src/game_engine/asset_loader.coffee'
     './src/game_engine/math_helpers.coffee',
     './src/game_engine/controller.coffee',
     './src/game_engine/actors/actor.coffee',
@@ -53,18 +54,19 @@ gulp.task 'game-engine-coffee', ->
     './src/game_engine/tile_map.coffee',
     './src/game_engine/timer.coffee',
     './src/game_engine/stage.coffee',
-    './src/game_engine/game_engine.coffee'
+    './src/game_engine/game_engine.coffee',
   ])
   .pipe(concat('game_engine.coffee'))
   .pipe(coffee(bare: true)
   .on('error', gutil.log))
-  .pipe(uglify())
+  #.pipe(uglify())
   .pipe gulp.dest('./dist/js')
   return
 
 # Game specific
 gulp.task 'game-coffee', ->
   gulp.src([
+    './src/game/images.coffee',
     './src/game/split_tile_map.coffee',
     './src/game/split_stage.coffee',
     './src/game/actors/monster.coffee',
@@ -72,17 +74,22 @@ gulp.task 'game-coffee', ->
     './src/game/actors/player.coffee',
     './src/game/actors/left_player.coffee',
     './src/game/actors/right_player.coffee',
-    './src/game/actors/bullet.coffee'
+    './src/game/actors/bullet.coffee',
   ])
   .pipe(concat('game.coffee'))
   .pipe(coffee(bare: true)
   .on('error', gutil.log))
-  .pipe(uglify())
+  #.pipe(uglify())
   .pipe gulp.dest('./dist/js')
   return
 
 # Compile coffescript to js
 gulp.task 'coffee', ['game-engine-coffee', 'game-coffee']
+
+gulp.task 'bower', ->
+  return gulp.src('./bower.json')
+  .pipe(mainBowerFiles( ))
+  .pipe(gulp.dest('vendor'))
 
 gulp.task 'vendorjs', ->
   gulp.src('./vendor/*.js')
@@ -125,6 +132,7 @@ gulp.task 'default', [
   'coffeekup'
   'coffee'
   'sass'
+  'bower'
   'vendorjs'
   'watch'
 ]
