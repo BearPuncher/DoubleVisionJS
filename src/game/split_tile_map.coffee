@@ -1,6 +1,6 @@
 class SplitTileMap extends TileMap
   constructor: (cols, rows, tileSize, tiles, ctx) ->
-    super(cols, rows, tileSize, tiles, ctx)
+    super(cols * 2, rows * 2, tileSize / 2, tiles, ctx)
 
   _render: () ->
     image = Loader.getImage(Images.TILES)

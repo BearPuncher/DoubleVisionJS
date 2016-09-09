@@ -14,6 +14,4 @@ class Monster extends CircleActor
     moveVector.rotate(@direction)
     @position.add(moveVector)
 
-    @destroy = true unless @stage.isCircleInBounds(@body)
-
     @updateBody()

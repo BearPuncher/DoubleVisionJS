@@ -19,6 +19,7 @@ class SplitStage extends Stage
   @tileWidth: 32
   @wallWidth: SplitStage.tileWidth
   @gutterHeight: SplitStage.tileWidth
+  @lives: 3
 
   constructor: (width, height, ctx) ->
     super(width, height - SplitStage.gutterHeight, ctx)
@@ -89,7 +90,7 @@ class SplitStage extends Stage
      -@width + xPadding, @height + yPadding)
     ctx.restore()
 
-  testBulletCollisions: () ->
+  testBulletCollisions: () =>
     bullets = @actors.filter(@isInstanceOfBullet)
     for bullet in bullets
       collide = SAT.testCirclePolygon(bullet.body, @wall)
@@ -104,6 +105,19 @@ class SplitStage extends Stage
             bullet.firedBy.addScore(1)
           bullet.destroy = true
           monster.destroy = true
+
+      # If collide with player, take life and kill monster
+      collideLeftPlayer = SAT.testCircleCircle(@leftPlayer.body, monster.body)
+      collideRightPlayer = SAT.testCircleCircle(@rightPlayer.body, monster.body)
+
+      if collideLeftPlayer or collideRightPlayer
+        @lives--
+        monster.destroy = true
+
+      if not @isCircleInBounds(monster.body)
+        @lives--
+        monster.destroy = true
+
 
   isInstanceOfBullet: (clazz) ->
     return clazz instanceof Bullet

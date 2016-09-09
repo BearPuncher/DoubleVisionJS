@@ -4,14 +4,16 @@ var Bullet, EMPTY, Images, LeftPlayer, Mode, Monster, MonsterSpawner, Player, RA
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 Images = {
+  HEART: 'heart',
+  HEART_DATA: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAA Bzenr0AAAAwElEQVRYR+2WSw6AIAxEy/0PjcGkpGIr/ahlgWun8xwQpkDyU5 L94RGgAlQOsACvs77fZt8ApCEjyAjh1XUA7QAKghARbQggsn8Q/gTwfEHEHL UNomSZd4gNsBPYCaSfAxtgiQQyIC6X0RIAf0LQMuNuRN7reGxSbCf86nTkuq RYSt+GkIqsqxVb45fM2VY8Do8m8WSuAoj8HTNzNYAHQmNuAsClmS2J1pg0Y+ uWkmu81dyVAMXFNDzGoQTsmcmKA+7qQBPPVyQkAAAAAElFTkSuQmCC',
   TILES: 'tiles',
-  TILES_DATA: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAA CqaXHeAAACEElEQVR4Xu1bQW6EMAzcfRXHqh/qseoTqh575i9Vj7xqq6C6Qj QwSewQB4YrOMQTz9gx4T6O4+N24eseAHh+Goog+PqeZrue7QkAI6BzCpTSL1 A3ULgqBd4/Pm9vry+b+mKhIV0AsAWEFoAi5V4YVY8ANEEC4CCNqjQArTC6vx cBSD9ExLR1iFsAEHiXAABFgVZD1CIoq4QmurWa4sA0TbvpEtmXpkJzAHKBsF hBFxoQHA/XXtETW8VlBCztU4G0AHAWwRTB2XpGwk8mszfWOlRTbNbjxcK9ZB wZlwDk7gYlPFPDdC8iYhTIGdeMAjkqmjNBRK3TZAHkaM001jQLWISg1gGtva oUJgAOdnOMAGVXmhTIrQOWik4NoAbwy9DMiJxK0guFQkU7DIPuu0BpBSh2LT RkWcqbNURKgWgFgPQe/gAodeAMdup+QO8gHF4IrTnYWkQPByA4LCC00IB1Fm oCQMss4AYAycOXpAAj4BcBaoCDzVQXIljrhIm6FD4yhGMgWLy/iwio2VYnAG yJdX5QUltIkQLa8wGet8OhVYfODpy2H5DifFg8UoBZgFmAv8zAf4Zqbka0eV xrrxJBbQq02MyYA2B5CAoBVBOAlNNs/7bDuc7XdACBF+6j9yMQov2AHBDQBJ ATHuxVGuDBAXMNQKvm5fN2CgWQL121xGLOWEQgKcC9gPJ/AcQz7/d/AFxCoC 6C3spXAAAAAElFTkSuQmCC',
+  TILES_DATA: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAA Bzenr0AAAAoklEQVRYR+2VUQqAIAyG8yKB97+Qb0IXKSYMxjBZ5ibKeqkHNz 9/7FtIKd3HxCcAQIxnF0LOV6n7U28KAMAAS9+mAJAWbo7f5gAUAmCmAOCFcw BPYI0EuDyoMtVMWDNWTbdqAFwWb65XBZBMp2EAks201hQVazWX9N1rFtBRKz n9GiJqnYT/BS1p1fp4AvslILn5fJjt5QFPwBPoTuBr4cj1DyDKSRC8Z4KSAA AAAElFTkSuQmCC',
   PORTAL: 'portal',
   PORTAL_DATA: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAEgCAYAAA DVDXFAAAABe0lEQVR4Xu3dQRLBMBgG0DqCK9i5kOPIpMdxITtXcASmpR2ihC hq5lkhzZ/PkzTdZVYVvmKMh8uuIYRZSam2U1qspFBJnya0AAQI3Agsw7pdUf uSdfWgz/zcto11f9XgMpxsgN2LIovk+rcFBJicQBoo/c8/PgcEIDCqQHPT2l SHq2e8dC9IBywN0N0gV9Xpaax/kBSAAAECBAgQIECAAAECBAgQIECAAAECBA gQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBA gQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBA gQIECAAAECBAgQIECAAAECBAgQIECAAIGfCsQY+zPPl2HdHk3+qXPPt7Hujj 6vQginw88FIPCXAv1UvvNmkXw/P38ebRUI8HWB3IC59rfnQG6AXPvTAXKFxm wf3AvGHCBXSwAC0xHIzdah9ssdtGlvfk1JnSMv4vF75/xKqwAAAABJRU5Erk Jggg==',
   P1: 'player1',
-  P1_DATA: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAgCAYAAA DtwH1UAAACeklEQVRoQ+1abZKDIAylJ9DbLUdsb6cnYCdaLB/5tNgZRWd/Wc gj7yURwj6c4QnOBcNw93Dw1+65Ij5LEOrw86lj1PtqnFWQHvBRATLHtYRLsi SCSEL0hF8JsDnfivhSmLcQlAi94WcCNHU+LUGlmIQIPeJ/LwBFdHyPZVJLAU 6OXwtgLT0U0VwGQFnyvtolLRnQGX47AYBUC3mtBTgp/vclSNr9YL+3LEEnx7 93QYWATTcCiuC7zwEISb88h9wnYaaE/eIkzgowDMPS+5mmaV3mw9baGYfBzf NcTQK72PuSix7wUUaj4xn5Oz524zhWAkTbnAA94WcCaBwHUls8VGZE21vWFW BXw98EqNIdYbmV89F0KkKv+JkAR0ddqWkpQI/4rACtI94qQA/4iwBc+h9BQl n/e8YXBQCBQIRpnutej/cOtppV6YDtKtKCpu4ApPp/ZfzqI1xtPePen2grlw LA8BCvguMc4RImzcLe8NFDUlqr0ch/t5PXg9b7kJZMAt7/fG5auoaM09Ot8C IGlnkXwiePtltZAALgSTPAe/d68v8gsQa98eiciNgLvtBbCCHynkZ0JB9Ipq 4APvcx+0Vw7vr4jABhCXHmRnGLV16EvQL0gc8KoCNWQ9QeET7RX54f0vJWfj OwNomm8Uc1Aqm2y8fmd/6LzTh5AesIiQgLCZItwIv2NGPT8ZQ/6XuNzdyfEI aB75FR/ou7IG7BR5CgcT6uCfC1448KAE3wpest+bwFQCJMIyrWSJSyCwuC0w ugiUBL9O+xpxGMKoNNBNAsWluHtc6U9qh5VvJjFFvtadatygBpARKR1oVTac s5tJdUqUS0+N3q/z9kqbE/560lDAAAAABJRU5ErkJgggAA',
+  P1_DATA: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAgCAYAAA DtwH1UAAAClElEQVRoQ+1aUZLCIAylJ2hvt1xCb+CXR/AS7u3aE7ADayoNCQ ktOtNSxy9NeeS9JIZgZwpezhhXYG4649/1XkfEzxJEOvx86hi1NrErFaQFfF KAheNawiVZIkEkIVrCTwSYna9FPBbmJQQnQmv4CwGqOh+XICwmI0KL+NsF4I iGz6lMqinAzvFTAUpLD0d0LgN8WbI26ZJCBjSGX08AT2oJebUF2Cn+9hIkdT /U9zVL0M7xzy4ICVi1EVAE33kOIEj65jnkPAlnStg3TuJZAfq+D7Of+/0etn m5Xosq7tD3ZpqmBMOvS32OF28BnxQAHAfyL5dLEfHe+PF4mNvtlggAa+cEaA l/IQB2PEQ9In8YhmIxqAe4zADbOesOjj8LkKQ7EfW1yAeSYxFaxV8IQEUdlJ IqYY8WwQK0iJ8IEJec2hGPRaQEaA0/CBCn/6dqfkw+rv8t44sCeOJ8JozTlM 56rDW+1RzHcRncXUfacncAOQGOjp/8CHuHF4R6MrlBFyGAN3dwFQzDOeESJs 7C1vDJQ1IczmTke4MX+dOEov81FP2xy6Wla0jAjFvhIAaVeQfCZ0/CQEQgAG eAteb3mf+DxH/QQ/qU91Ct4At/G3EOqkgc0UC+J5m7Anjfx6wXwZjj42cEcC HEMzeKc1jnRVgrQBv4WQF0xGqIWiPCO/pxAYvLG/7N0I49pKIorftupbf5Lw 7juI1yvbzWPkeA5Lx/FvA1trG9RDzuyHT+ONf3+RkZN3wUu6Dchj9BgpZQIF Vrrxl/c52YlFVb9nAKQLCrIZQaJErZRQXB7gXQlIyS6F+znkYwrgxWEUCzaW 0d1jqD1+OeKyVfKkPcepp9qzJA2oBEZC0icg6tJVUqETW+L/X/DwgFwz+ZMT uKAAAAAElFTkSuQmCC',
   P2: 'player2',
-  P2_DATA: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAgCAYAAA DtwH1UAAACXUlEQVRoQ+2abZaDIAxFdQW4u+kSO7vTFTAHNQqYT47aKejPmv IgN4QA9p3q8V5lthn1vc1esq5Xn3DUccDvt+Sk5f3rhdlZgbSjnwHYB651uI QlBSKBaE8/ArAM/izH52B2EBSENvVXAPjg4+g9AwwNoV19FkCc02MApWCsAF rQ3wBgEc45Gt5ZZ8byvzwNed+qPguAWmBLZ8Ae0ToALeiLKUiqcizvS1KQpX 3J9j/qP1XQRu0zVdizD0imzf37kGcnjOat+3biGwDnnJ+m6QBk+X2U0isaR8 MwzL9j7eYNtqqfAMCcFRwzjjYAsXMBggQi6LSofwBgCnXEmIIlgQAArenPAM 4aPDiPmzFYWmpZ/xIAEogAIV4XzgbwTfqXAqAccReAb9BPqp4rIhFLR1R11K I+uQ/ID8fCNj6vjpdIHg93CMHWuaGTFmS6PD0eztWqz27EAAKcofiuTyhQAO Jj5BiaVAntFVB6LFCzPnN5nsa7f/+iF76Dc+gsAAhhJsSPZlO22Lehr/p6wX edl+4q+9dPYgJRCwD0jj/uBGrWFwHMgw8PdfMSPL2+CxDgmWfMOg36LuSusq d2fdExbPTl36Aw11qlEGrXZwGw0bc6HxwrOaoEgKYshdR2hb5l/FJfqRRMAr A2KNlLh3F5gtK0F7epsbesQ1J74zSFvGo6S8P0UQCSODgLGtTaWyBo2wx90N pq9bXtWY9THgCGuwlNyVA1AM0p7VUzsGQGWPobwy1OQVb6edrSRBg3qCv1NQ Co9YT672mLMLeQcR23LIBaOJaF26pvdWRpn/8A7JDUP/ydXlgAAAAASUVORK 5CYIIA'
+  P2_DATA: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAgCAYAAA DtwH1UAAACiElEQVRoQ+2aYXaDIAzH8QR6u/USPUI/9Qb1Et3t9AT0RY0FJC ThabeCfNnbjPwlPxIIrDGiZq3IbDVqGp09Z12uPuGo7YCfT85J8/PLJWanBV KPfgDgPXCpwzksPhAORH36DoB58Hs5PgTzBkFBqFN/ARAfvDt79wBDQ6hXPw nAzekugFwwWgA16K8AYjM85Wh8po2M+b0wDVlbq34SALXA5kbAe0bLANSgz6 YgbpejeZ6TgjT9c7b/Uf/cBa3U/mYXdtYBXth8vg45K+Fo3vpcJb4CaNvWju O4ATL/feDSq/f88ein32+32/Qz1m/YYa36HoCYs8Ax9/vdXK9XFQQw7vt+hc CBAJ0a9TcA1F4OXhgGP1oAghsNFAgEUJv+BGCvwaPzQggYDVRaqln/EAAIIk xdbjS468LeAL5J/1AAsYjAdeETAL5B39v1HDETY2sCtTuqUZ+sA8LDMSjjw9 1x13UGtqgx27btDLUW8NvT7eFcqfrJQgwdi2co1jQeBQoAhP76jnObDPbY0r WBfyxQsn7i8tyf7/b5G73w7do2GgUIASLBbZKibLavQ1/03wvWGMvdVTaXH8 8EZy0CkDt+WwmUrM8CmAYPjbp5AU8vzwACtililjBoDOSuvFa6PuuY5OwL/w clca2VC6F0/SSA5OxbnI+O5RyVA0CyLcXUdoS+Zvzct1IpmASg7ZCzp86AqM Qk6c/tU2KvWYe4/oZxhLyqOkuL6UcBcOLhVlJqr4Eg7RMGJbWV6kv701bzJw DF3YRky1A0AHAANxPRAZydtg6R9hfOaO69XSNAS19WAW/nHTWoI/U5R6ZSme R73VGqF+HUQpb6cM0CKAn/mM2e+lpH5n7zCzmOFk5rUnzaAAAAAElFTkSuQm CC'
 };
 
 Loader.loadImage(Images.TILES, Images.TILES_DATA);
@@ -26,7 +28,7 @@ SplitTileMap = (function(superClass) {
   extend(SplitTileMap, superClass);
 
   function SplitTileMap(cols, rows, tileSize, tiles, ctx) {
-    SplitTileMap.__super__.constructor.call(this, cols, rows, tileSize, tiles, ctx);
+    SplitTileMap.__super__.constructor.call(this, cols * 2, rows * 2, tileSize / 2, tiles, ctx);
   }
 
   SplitTileMap.prototype._render = function() {
@@ -87,7 +89,10 @@ SplitStage = (function(superClass) {
 
   SplitStage.gutterHeight = SplitStage.tileWidth;
 
+  SplitStage.lives = 3;
+
   function SplitStage(width, height, ctx) {
+    this.testBulletCollisions = bind(this.testBulletCollisions, this);
     this._update = bind(this._update, this);
     this._init = bind(this._init, this);
     SplitStage.__super__.constructor.call(this, width, height - SplitStage.gutterHeight, ctx);
@@ -155,7 +160,7 @@ SplitStage = (function(superClass) {
   };
 
   SplitStage.prototype.testBulletCollisions = function() {
-    var bullet, bullets, collide, k, l, len, len1, monster, monsters, results;
+    var bullet, bullets, collide, collideLeftPlayer, collideRightPlayer, k, l, len, len1, len2, m, monster, monsters, results;
     bullets = this.actors.filter(this.isInstanceOfBullet);
     for (k = 0, len = bullets.length; k < len; k++) {
       bullet = bullets[k];
@@ -168,24 +173,29 @@ SplitStage = (function(superClass) {
     results = [];
     for (l = 0, len1 = monsters.length; l < len1; l++) {
       monster = monsters[l];
-      results.push((function() {
-        var len2, m, results1;
-        results1 = [];
-        for (m = 0, len2 = bullets.length; m < len2; m++) {
-          bullet = bullets[m];
-          collide = SAT.testCircleCircle(bullet.body, monster.body);
-          if (collide) {
-            if (bullet.firedBy instanceof Player) {
-              bullet.firedBy.addScore(1);
-            }
-            bullet.destroy = true;
-            results1.push(monster.destroy = true);
-          } else {
-            results1.push(void 0);
+      for (m = 0, len2 = bullets.length; m < len2; m++) {
+        bullet = bullets[m];
+        collide = SAT.testCircleCircle(bullet.body, monster.body);
+        if (collide) {
+          if (bullet.firedBy instanceof Player) {
+            bullet.firedBy.addScore(1);
           }
+          bullet.destroy = true;
+          monster.destroy = true;
         }
-        return results1;
-      })());
+      }
+      collideLeftPlayer = SAT.testCircleCircle(this.leftPlayer.body, monster.body);
+      collideRightPlayer = SAT.testCircleCircle(this.rightPlayer.body, monster.body);
+      if (collideLeftPlayer || collideRightPlayer) {
+        this.lives--;
+        monster.destroy = true;
+      }
+      if (!this.isCircleInBounds(monster.body)) {
+        this.lives--;
+        results.push(monster.destroy = true);
+      } else {
+        results.push(void 0);
+      }
     }
     return results;
   };
@@ -225,9 +235,6 @@ Monster = (function(superClass) {
     moveVector = new Vector(adjustedSpeed, 0);
     moveVector.rotate(this.direction);
     this.position.add(moveVector);
-    if (!this.stage.isCircleInBounds(this.body)) {
-      this.destroy = true;
-    }
     return this.updateBody();
   };
 

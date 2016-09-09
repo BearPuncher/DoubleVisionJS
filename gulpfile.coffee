@@ -9,7 +9,7 @@ coffeelint = require('gulp-coffeelint')
 concat = require('gulp-concat')
 cssmin = require('gulp-cssmin')
 gzip = require('gulp-gzip')
-mainBowerFiles = require('gulp-main-bower-files')
+# mainBowerFiles = require('gulp-main-bower-files')
 tar = require('gulp-tar')
 sass = require('gulp-sass')
 sassLint = require('gulp-sass-lint')
@@ -86,11 +86,6 @@ gulp.task 'game-coffee', ->
 # Compile coffescript to js
 gulp.task 'coffee', ['game-engine-coffee', 'game-coffee']
 
-gulp.task 'bower', ->
-  return gulp.src('./bower.json')
-  .pipe(mainBowerFiles( ))
-  .pipe(gulp.dest('vendor'))
-
 gulp.task 'vendorjs', ->
   gulp.src('./vendor/*.js')
   .pipe gulp.dest('./dist/js/vendor')
@@ -132,7 +127,6 @@ gulp.task 'default', [
   'coffeekup'
   'coffee'
   'sass'
-  'bower'
   'vendorjs'
   'watch'
 ]
