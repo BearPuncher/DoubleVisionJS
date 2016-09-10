@@ -19,7 +19,6 @@ class SplitStage extends Stage
   @tileWidth: 32
   @wallWidth: SplitStage.tileWidth
   @gutterHeight: SplitStage.tileWidth
-  @lives: 3
 
   constructor: (width, height, ctx) ->
     super(width, height - SplitStage.gutterHeight, ctx)
@@ -32,6 +31,8 @@ class SplitStage extends Stage
 
     @wall = new Box(new Vector(@width/2 - SplitStage.wallWidth/2, 0),
       SplitStage.wallWidth, @height).toPolygon()
+
+    @lives = 3
 
     @leftPlayer = new LeftPlayer(30, @height/2)
     @addActor(@leftPlayer)
@@ -48,6 +49,11 @@ class SplitStage extends Stage
     @drawGutter()
 
   _update: (step) =>
+    # If out of lives, finish game
+    if @lives <= 0
+      @state = STATE.finished
+      return
+
     @testBulletCollisions()
 
     # Copy to temp array, only keep actors we don't want to destroy

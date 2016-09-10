@@ -21,6 +21,7 @@ class Controller
     return Controller.pressed[keyCode]
 
 Keys = {
+  ENTER: 13
   LEFT: 37
   RIGHT: 39
   UP: 38

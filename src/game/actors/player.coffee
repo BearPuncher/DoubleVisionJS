@@ -5,7 +5,7 @@ class Player extends CircleActor
     @controller = Controller.get()
     @velx = 0
     @vely = 0
-    @maxSpeed = 4
+    @maxSpeed = 5
     @score = 0
 
   addScore: (n) =>

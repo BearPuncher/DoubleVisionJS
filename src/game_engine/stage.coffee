@@ -1,8 +1,13 @@
+STATE =
+  finished: 0
+  running: 1
+
 # Stage, containing actors
 class Stage
   constructor: (@width, @height, @ctx = undefined) ->
     @actors = []
     @bounds = new Box(new Vector(), @width, @height).toPolygon()
+    @state = STATE.running
 
   addActor: (actor) =>
     unless actor instanceof Actor
@@ -13,6 +18,8 @@ class Stage
     @actors.push actor
 
   init: () ->
+    @actors = []
+    @state = STATE.running
     if @_init
       @_init()
 

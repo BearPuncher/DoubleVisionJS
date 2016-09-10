@@ -33,7 +33,15 @@ html ->
           , canvas)
 
           STAGE = new SplitStage(640, 320)
+          GAME_OVER = new GameOverStage(640, 320)
+
           GAME.setStage(STAGE)
+          GAME.setStageTransition(() ->
+            if GAME.stage instanceof SplitStage
+              if GAME.stage.state == STATE.finished then GAME.setStage(GAME_OVER)
+            else if GAME.stage instanceof GameOverStage
+              if GAME.stage.state == STATE.finished then GAME.setStage(STAGE)
+          )
           GAME.start()
 
         ###  button = document.getElementById('start-button')

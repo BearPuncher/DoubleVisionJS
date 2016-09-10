@@ -40,7 +40,7 @@ class Game
     if @setup
       @setup()
 
-  setStage: (stage) =>
+  setStage: (stage, onFinish = undefined ) =>
     unless stage instanceof Stage
       console.log('ERROR: ' + stage + ' is not an Stage')
       return
@@ -48,6 +48,9 @@ class Game
     @stage = stage
     @stage.setContext(@canvas.ctx)
     @stage.init()
+
+  setStageTransition: (transition) ->
+    @_transition = transition
 
   # Change background color of @canvas
   backgroundColor: (color) =>
@@ -70,6 +73,9 @@ class Game
     if not Loader.doneLoading()
       return
 
+    if @_transition?
+      @_transition()
+
     if @stage?
       @stage.update(step)
 
@@ -82,10 +88,16 @@ class Game
 
     @canvas.ctx.save()
     @canvas.ctx.clearRect(0, 0, @canvas.width, @canvas.height)
+    @canvas.ctx.restore()
+
+
+    ###
+
+    @canvas.ctx.clearRect(0, 0, @canvas.width, @canvas.height)
     @canvas.ctx.fillStyle = "Black"
     @canvas.ctx.font = "normal 16pt Arial"
     @canvas.ctx.fillText(Math.round(@actualFps), @canvas.width - 30, 20)
-    @canvas.ctx.restore()
+    ###
 
     if @stage?
       @stage.render()
