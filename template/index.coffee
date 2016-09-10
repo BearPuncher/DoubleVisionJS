@@ -8,6 +8,7 @@ html ->
     link rel: 'stylesheet', href: 'css/reset.css'
     link rel: 'stylesheet', href: 'css/main.css'
 
+    script src: 'js/vendor/glitch-canvas.min.js'
     script src: 'js/vendor/SAT.min.js'
     script src: 'js/game_engine.js'
     script src: 'js/game.js'
@@ -32,12 +33,15 @@ html ->
             this.border '1px solid black'
           , canvas)
 
+          GAME_BEGIN = new StartStage(640, 320)
           STAGE = new SplitStage(640, 320)
           GAME_OVER = new GameOverStage(640, 320)
 
-          GAME.setStage(STAGE)
+          GAME.setStage(GAME_BEGIN)
           GAME.setStageTransition(() ->
-            if GAME.stage instanceof SplitStage
+            if GAME.stage instanceof StartStage
+              if GAME.stage.state == STATE.finished then GAME.setStage(STAGE)
+            else if GAME.stage instanceof SplitStage
               if GAME.stage.state == STATE.finished then GAME.setStage(GAME_OVER)
             else if GAME.stage instanceof GameOverStage
               if GAME.stage.state == STATE.finished then GAME.setStage(STAGE)
