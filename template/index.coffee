@@ -8,7 +8,6 @@ html ->
     link rel: 'stylesheet', href: 'css/reset.css'
     link rel: 'stylesheet', href: 'css/main.css'
 
-    script src: 'js/vendor/glitch-canvas.min.js'
     script src: 'js/vendor/SAT.min.js'
     script src: 'js/game_engine.js'
     script src: 'js/game.js'

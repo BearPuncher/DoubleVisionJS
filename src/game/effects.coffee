@@ -1,6 +1,8 @@
 Effects =
   anaglyph: (string, font, ctx, x, y, shiftx = 3) ->
     ctx.save()
+    ctx.textBaseline = 'middle'
+    ctx.textAlign = 'center'
     ctx.translate(x, y)
     ctx.globalAlpha = 0.8
     ctx.font = font
