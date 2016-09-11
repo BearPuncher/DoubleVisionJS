@@ -90,15 +90,6 @@ class Game
     @canvas.ctx.clearRect(0, 0, @canvas.width, @canvas.height)
     @canvas.ctx.restore()
 
-
-    ###
-
-    @canvas.ctx.clearRect(0, 0, @canvas.width, @canvas.height)
-    @canvas.ctx.fillStyle = "Black"
-    @canvas.ctx.font = "normal 16pt Arial"
-    @canvas.ctx.fillText(Math.round(@actualFps), @canvas.width - 30, 20)
-    ###
-
     if @stage?
       @stage.render()
 

@@ -42,11 +42,17 @@ gulp.task 'coffeekup', ->
   .pipe gulp.dest('./dist')
   return
 
+gulp.task 'images', ->
+  return gulp.src(['./images/**'])
+  .pipe(gulp.dest('./dist/images/'))
+  return
+
 # Game Engine specific
 gulp.task 'game-engine-coffee', ->
   gulp.src([
     './src/game_engine/asset_loader.coffee'
     './src/game_engine/math_helpers.coffee',
+    './src/game_engine/sprite.coffee',
     './src/game_engine/controller.coffee',
     './src/game_engine/actors/actor.coffee',
     './src/game_engine/actors/square_actor.coffee',
@@ -59,16 +65,19 @@ gulp.task 'game-engine-coffee', ->
   .pipe(concat('game_engine.coffee'))
   .pipe(coffee(bare: true)
   .on('error', gutil.log))
-  #.pipe(uglify())
+  .pipe(uglify())
   .pipe gulp.dest('./dist/js')
   return
 
 # Game specific
 gulp.task 'game-coffee', ->
   gulp.src([
+    './src/game/effects.coffee',
     './src/game/images.coffee',
     './src/game/split_tile_map.coffee',
     './src/game/split_stage.coffee',
+    './src/game/start_stage.coffee',
+    './src/game/game_over_stage.coffee',
     './src/game/actors/monster.coffee',
     './src/game/actors/monster_spawner.coffee',
     './src/game/actors/player.coffee',
@@ -79,7 +88,7 @@ gulp.task 'game-coffee', ->
   .pipe(concat('game.coffee'))
   .pipe(coffee(bare: true)
   .on('error', gutil.log))
-  #.pipe(uglify())
+  .pipe(uglify())
   .pipe gulp.dest('./dist/js')
   return
 
@@ -127,6 +136,7 @@ gulp.task 'default', [
   'coffeekup'
   'coffee'
   'sass'
+  'images'
   'vendorjs'
   'watch'
 ]
