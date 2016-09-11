@@ -2,7 +2,7 @@ doctype 5
 html ->
   head ->
     meta charset: 'utf-8'
-    title "js13kentry"
+    title "Double Vision"
     meta(name: 'description', content: '')
 
     link rel: 'stylesheet', href: 'css/reset.css'
@@ -16,11 +16,6 @@ html ->
   body ->
     div '.container', ->
       div '.centered', ->
-        h1 'DoubleVision'
-        #div '#overlay', ->
-          #
-          # button '#start-button', type: 'button', disabled: true, ->
-          #  'Start Game'
 
         canvas '#game-canvas', ->
 
@@ -28,14 +23,17 @@ html ->
 
           canvas = document.getElementById('game-canvas')
 
-          GAME = new Game(640, 320, () ->
+          width = 640
+          height = 360
+
+          GAME = new Game(width, height, () ->
             this.backgroundColor 'white'
             this.border '1px solid black'
           , canvas)
 
-          GAME_BEGIN = new StartStage(640, 320)
-          STAGE = new SplitStage(640, 320)
-          GAME_OVER = new GameOverStage(640, 320)
+          GAME_BEGIN = new StartStage(width, height)
+          STAGE = new SplitStage(width, height)
+          GAME_OVER = new GameOverStage(width, height)
 
           GAME.setStage(GAME_BEGIN)
           GAME.setStageTransition(() ->

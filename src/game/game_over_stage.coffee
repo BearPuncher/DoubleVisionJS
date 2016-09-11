@@ -5,7 +5,7 @@ class GameOverStage extends Stage
 
   _init: () =>
     @gameOverText = "GAME OVER"
-    @retryText = "Hit ENTER restart reality."
+    @retryText = "Hit ENTER play again"
     @background = @getNoise()
 
   _update: (step) =>
@@ -18,8 +18,8 @@ class GameOverStage extends Stage
     @background = @getNoise()
     @ctx.putImageData(@background, 0, 0)
 
-    EFFECTS.fillTextShadow(@gameOverText, '72px Georgia', @ctx, 80, 120)
-    EFFECTS.fillTextShadow(@retryText, '42px Georgia', @ctx, 40, 200)
+    Effects.anaglyph(@gameOverText, '72px Georgia', @ctx, 80, 120, 5)
+    Effects.anaglyph(@retryText, '42px Georgia', @ctx, 85, 180, 3)
 
     @ctx.restore()
 

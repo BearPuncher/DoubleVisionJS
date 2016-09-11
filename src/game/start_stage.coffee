@@ -14,8 +14,8 @@ class StartStage extends Stage
   _render: () ->
     @ctx.save()
 
-    EFFECTS.stereoscopic(@title, '72px Georgia', @ctx, 60, 140)
-    EFFECTS.stereoscopic(@entryText, '42px Georgia', @ctx, 100, 220)
+    Effects.anaglyph(@title, '72px Georgia', @ctx, 60, 120, 5)
+    Effects.anaglyph(@entryText, '42px Georgia', @ctx, 100, 180, 3)
 
     @ctx.restore()
 

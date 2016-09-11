@@ -1,13 +1,24 @@
+
+
 class RightPlayer extends Player
+  @STAND_CYCLE: [{col: 0, row: 0}]
+  @RUN_CYCLE = [{col: 1, row: 0 }, {col: 2, row: 0}]
+
   constructor: (x, y) ->
     super(x, y)
     @direction = MathHelpers.toRadians(180)
     @reloadTimer = new Timer(500)
+    @image = Loader.getImage(Images.P2)
+    @sprite = new Sprite(@image, 32)
+    @sprite.setCycle(RightPlayer.STAND_CYCLE)
+    @isStopped = false;
 
   _render: () ->
-    @drawDebug('#0000FF')
+    @sprite.draw(@position.x, @position.y, @stage.getContext())
 
   _update: (step) =>
+    @sprite.updateFrame(step)
+
     @reloadTimer.tick(step)
 
     x = @position.x
@@ -15,8 +26,8 @@ class RightPlayer extends Player
 
     stepFraction = (step / 100)
 
-    friction = 100
-    acceleration = 2
+    friction = 20
+    acceleration = 1
 
     if not @controller.isPressed(Keys.LEFT)
       @reloadTimer.end()
@@ -47,5 +58,12 @@ class RightPlayer extends Player
     newPosition = new Circle(new Vector(x, y + @vely), @radius)
     if @stage.isCircleInBounds(newPosition)
       @setPosition(x, y + @vely)
+
+    if @velx == 0 and @vely == 0 and not @isStopped
+      @isStopped = true
+      @sprite.setCycle(RightPlayer.STAND_CYCLE)
+    else if @velx != 0 or @vely != 0 and @isStopped
+      @isStopped = false
+      @sprite.setCycle(RightPlayer.RUN_CYCLE, 200)
 
     @updateBody()

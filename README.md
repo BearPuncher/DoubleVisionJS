@@ -5,14 +5,14 @@ but we've unknowingly unleashed a terrifying hoard of monsters!
 ## Controls 
 
 ### Left Guard
-W - Up
-S - Down
-D - Fire
+* W - Up
+* S - Down
+* D - Fire
 
 ### Right Guard
-UP - Up
-DOWN - Down
-LEFT - Fire
+* UP - Up
+* DOWN - Down
+* LEFT - Fire
 
 ## Dev
 ### Libraries
