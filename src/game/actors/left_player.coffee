@@ -8,7 +8,7 @@ class LeftPlayer extends Player
     @image = Loader.getImage(Images.P1)
     @sprite = new Sprite(@image, 32)
     @sprite.setCycle(RightPlayer.STAND_CYCLE)
-    @isStopped = false;
+    @isStopped = false
 
   _render: () ->
     @sprite.draw(@position.x - @radius, @position.y - @radius, @stage.getContext())
