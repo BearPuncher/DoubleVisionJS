@@ -3,18 +3,15 @@ class Sprite
     @frame = 0
     @timer = undefined
 
-  draw: (x, y, ctx, scale = 1) ->
+  draw: (x, y, ctx, opacity) ->
     cycle = @cycle[@frame]
 
     dx = cycle.col * @spriteSize
     dy = cycle.row * @spriteSize
 
-    x = Math.round(x)
-    y = Math.round(y)
-
     ctx.save()
-    ctx.translate(x - (@spriteSize / 2), y - (@spriteSize / 2))
-    ctx.scale(scale, scale)
+    ctx.translate(x, y)
+    ctx.globalAlpha = opacity
     ctx.drawImage(
       @image, dx, dy, @spriteSize, @spriteSize, 0, 0, @spriteSize, @spriteSize)
     ctx.restore()

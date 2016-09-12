@@ -14,8 +14,8 @@ class StartStage extends Stage
   _render: () ->
     @ctx.save()
 
-    beginH = (@height * 2) / 3
     heightInc = 32
+    beginH = (@height * 2) / 3
 
     beginW = @width / 4
     middle = @width / 2
@@ -52,7 +52,7 @@ class StartStage extends Stage
     Effects.anaglyph(
       @title, '72px Georgia', @ctx, @width / 2, @height / 4, 5)
     Effects.anaglyph(
-      @entryText, '36px Georgia', @ctx,  @width / 2, @height / 2 - 40, 3)
+      @entryText, '36px Georgia', @ctx,  @width / 2, @height / 2 - heightInc, 3)
 
     @ctx.restore()
 

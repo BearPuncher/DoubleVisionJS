@@ -11,7 +11,7 @@ class LeftPlayer extends Player
     @isStopped = false;
 
   _render: () ->
-    @sprite.draw(@position.x, @position.y, @stage.getContext())
+    @sprite.draw(@position.x - @radius, @position.y - @radius, @stage.getContext())
 
   _update: (step) =>
     @sprite.updateFrame(step)

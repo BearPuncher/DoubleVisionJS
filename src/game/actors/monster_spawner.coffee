@@ -14,7 +14,13 @@ class MonsterSpawner extends Actor
     @spawnTimer = new Timer(@spawnTime)
     @modeTimer = new Timer(6000)
 
-# Update timers
+  _init: () =>
+    @mode = Mode.MIRROR
+    @spawnTime = 3000
+    @spawnTimer = new Timer(@spawnTime)
+    @modeTimer = new Timer(6000)
+
+  # Update timers
   _update: (step) =>
     @spawnTimer.tick(step)
     @modeTimer.tick(step)
@@ -24,14 +30,13 @@ class MonsterSpawner extends Actor
       @spawnMonsters()
 
     if @modeTimer.hasEnded()
-      if @spawnTime <= 600
-        @spawnTime = 600
+      if @spawnTime <= 500
+        @spawnTime = 500
       else if @spawnTime <= 2000
         @spawnTime -= 100
       else
         @spawnTime -= 200
 
-      console.log(@spawnTime)
       @spawnTimer.timeout = @spawnTime
       @modeTimer.restart()
       @updateMode()
@@ -56,9 +61,8 @@ class MonsterSpawner extends Actor
       else
         spawnA = spawnB = Math.floor(Math.random() * max) + min
 
-    @stage.addActor(new Monster(@stage.width/2, spawnA, 0, '#FF0000'))
-    @stage.addActor(new Monster(@stage.width/2, spawnB,
-      MathHelpers.toRadians(180), '#0000FF'))
+    @stage.addActor(new Monster(@stage.width/2, spawnA, 0, false))
+    @stage.addActor(new Monster(@stage.width/2, spawnB, MathHelpers.toRadians(180), true))
 
   # Choose a new mode
   # From all modes, pick a new one and assign @node

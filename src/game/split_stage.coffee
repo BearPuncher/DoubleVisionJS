@@ -34,7 +34,7 @@ class SplitStage extends Stage
     @wall = new Rect(new Vector(@width/2 - SplitStage.wallWidth/2, 0),
       SplitStage.wallWidth, @height)
 
-    @lives = 3
+    @lives = 4
 
     @leftPlayer = new LeftPlayer(30, @height/2)
     @addActor(@leftPlayer)
