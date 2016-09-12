@@ -3,6 +3,11 @@
 $colour-1: #f00;
 $colour-2: #00f;
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 h1 {
   color: $colour-1;
   font-size: 3.2em;

@@ -1,5 +1,6 @@
 class Sprite
   constructor: (@image, @spriteSize) ->
+    @flipped = false
     @frame = 0
     @timer = undefined
 

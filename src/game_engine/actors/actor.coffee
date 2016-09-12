@@ -17,15 +17,6 @@ class Actor
     if @_render
       @_render()
 
-  setInit: (init = undefined) =>
-    @_init = init
-
-  setUpdate: (update = undefined) =>
-    @_update = update
-
-  setRender: (render = undefined) =>
-    @_render = render
-
   setStage: (@stage) =>
 
   setPosition: (x = 0, y = 0) =>

@@ -17,14 +17,4 @@ Effects =
     ctx.fillText(string, 0, 0)
     ctx.restore()
 
-  fillTextShadow: (string, font, ctx, x, y) ->
-    ctx.save()
-    ctx.translate(x, y)
-    ctx.font = font
-    ctx.fillStyle = 'cyan'
-    ctx.fillText(string, 3, 2)
-
-    ctx.fillStyle = 'red'
-    ctx.fillText(string, 0, 0)
-    ctx.restore()
 
