@@ -1,7 +1,6 @@
 class StartStage extends Stage
   constructor: (width, height, ctx) ->
     super(width, height, ctx)
-    @controller = Controller.get()
 
   _init: () =>
     @title = "Double Vision"

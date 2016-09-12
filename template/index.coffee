@@ -30,6 +30,7 @@ html ->
 
           PRELOAD = new PreloaderStage(width, height)
           GAME_BEGIN = new StartStage(width, height)
+          STORY = new StoryStage(width, height)
           STAGE = new SplitStage(width, height)
           GAME_OVER = new GameOverStage(width, height)
 
@@ -38,6 +39,8 @@ html ->
             if GAME.stage instanceof PreloaderStage
               if GAME.stage.state == STATE.finished then GAME.setStage(GAME_BEGIN)
             if GAME.stage instanceof StartStage
+              if GAME.stage.state == STATE.finished then GAME.setStage(STORY)
+            if GAME.stage instanceof StoryStage
               if GAME.stage.state == STATE.finished then GAME.setStage(STAGE)
             else if GAME.stage instanceof SplitStage
               if GAME.stage.state == STATE.finished then GAME.setStage(GAME_OVER)

@@ -8,6 +8,7 @@ class Stage
     @actors = []
     @bounds = new Rect(new Vector(), @width, @height)
     @state = STATE.running
+    @controller = Controller.get()
 
   addActor: (actor) =>
     unless actor instanceof Actor

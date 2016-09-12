@@ -77,6 +77,7 @@ gulp.task 'game-coffee', ->
     './src/game/images.coffee',
     './src/game/stages/split_tile_map.coffee',
     './src/game/stages/split_stage.coffee',
+    './src/game/stages/story_stage.coffee',
     './src/game/stages/start_stage.coffee',
     './src/game/stages/game_over_stage.coffee',
     './src/game/actors/monster.coffee',

@@ -1,7 +1,6 @@
 class GameOverStage extends Stage
   constructor: (width, height, ctx) ->
     super(width, height, ctx)
-    @controller = Controller.get()
 
   _init: () =>
     @gameOverText = "GAME OVER"
@@ -19,9 +18,9 @@ class GameOverStage extends Stage
     @ctx.putImageData(@background, 0, 0)
 
     Effects.anaglyph(
-      @gameOverText, '72px Georgia',@ctx, @width / 2, @height / 4, 5)
+      @gameOverText, '72px Georgia',@ctx, @width / 2, @height / 3, 5)
     Effects.anaglyph(
-      @retryText, '42px Georgia', @ctx, @width / 2, @height / 2, 3)
+      @retryText, '42px Georgia', @ctx, @width / 2, @height * 2 / 3, 3)
 
     @ctx.restore()
 
