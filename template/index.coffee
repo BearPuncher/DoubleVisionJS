@@ -30,12 +30,15 @@ html ->
             this.border '1px solid black'
           , canvas)
 
+          PRELOAD = new PreloaderStage(width, height)
           GAME_BEGIN = new StartStage(width, height)
           STAGE = new SplitStage(width, height)
           GAME_OVER = new GameOverStage(width, height)
 
-          GAME.setStage(GAME_BEGIN)
+          GAME.setStage(PRELOAD)
           GAME.setStageTransition(() ->
+            if GAME.stage instanceof PreloaderStage
+              if GAME.stage.state == STATE.finished then GAME.setStage(GAME_BEGIN)
             if GAME.stage instanceof StartStage
               if GAME.stage.state == STATE.finished then GAME.setStage(STAGE)
             else if GAME.stage instanceof SplitStage

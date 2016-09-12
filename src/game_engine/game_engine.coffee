@@ -40,7 +40,7 @@ class Game
     if @setup
       @setup()
 
-  setStage: (stage, onFinish = undefined ) =>
+  setStage: (stage) =>
     unless stage instanceof Stage
       console.log('ERROR: ' + stage + ' is not an Stage')
       return
@@ -70,9 +70,6 @@ class Game
     window.onEachFrame(@render)
 
   update: (step) ->
-    if not Loader.doneLoading()
-      return
-
     if @_transition?
       @_transition()
 
@@ -80,9 +77,6 @@ class Game
       @stage.update(step)
 
   render: () =>
-    if not Loader.doneLoading()
-      return
-
     unless @running?
       return
 
