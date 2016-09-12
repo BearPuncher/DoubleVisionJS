@@ -23,7 +23,7 @@ class LeftPlayer extends Player
     stepFraction = (step / 100)
 
     friction = 100
-    acceleration = 1
+    acceleration = 1.5
 
     # If not firing, instantly reload
     if not @controller.isPressed(Keys.D)

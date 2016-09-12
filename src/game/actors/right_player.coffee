@@ -24,7 +24,7 @@ class RightPlayer extends Player
     stepFraction = (step / 100)
 
     friction = 20
-    acceleration = 1
+    acceleration = 1.5
 
     if not @controller.isPressed(Keys.LEFT)
       @reloadTimer.end()

@@ -60,6 +60,7 @@ gulp.task 'game-engine-coffee', ->
     './src/game_engine/tile_map.coffee',
     './src/game_engine/timer.coffee',
     './src/game_engine/stage.coffee',
+    './src/game_engine/preloader_stage.coffee',
     './src/game_engine/game_engine.coffee',
   ])
   .pipe(concat('game_engine.coffee'))

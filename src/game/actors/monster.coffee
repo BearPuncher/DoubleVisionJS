@@ -1,7 +1,7 @@
 class Monster extends CircleActor
   constructor: (x, y, direction = 0, @color = '#00FF00') ->
     super(x, y, direction, 16)
-    @speed = Math.round(Math.random() * 2) + 3
+    @speed = Math.round(Math.random() * 2) + 2.5
 
   _render: () ->
     @drawDebug(@color)

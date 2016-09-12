@@ -9,9 +9,10 @@ class MonsterSpawner extends Actor
   constructor: (x, y) ->
     super(x, y)
     @mode = Mode.MIRROR
+    @spawnTime = 3000
 
-    @spawnTimer = new Timer(2000)
-    @modeTimer = new Timer(10000)
+    @spawnTimer = new Timer(@spawnTime)
+    @modeTimer = new Timer(6000)
 
 # Update timers
   _update: (step) =>
@@ -23,6 +24,15 @@ class MonsterSpawner extends Actor
       @spawnMonsters()
 
     if @modeTimer.hasEnded()
+      if @spawnTime <= 600
+        @spawnTime = 600
+      else if @spawnTime <= 2000
+        @spawnTime -= 100
+      else
+        @spawnTime -= 200
+
+      console.log(@spawnTime)
+      @spawnTimer.timeout = @spawnTime
       @modeTimer.restart()
       @updateMode()
 
