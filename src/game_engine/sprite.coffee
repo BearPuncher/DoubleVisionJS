@@ -3,7 +3,7 @@ class Sprite
     @frame = 0
     @timer = undefined
 
-  draw: (x, y, ctx) ->
+  draw: (x, y, ctx, scale = 1) ->
     cycle = @cycle[@frame]
 
     dx = cycle.col * @spriteSize
@@ -14,6 +14,7 @@ class Sprite
 
     ctx.save()
     ctx.translate(x - (@spriteSize / 2), y - (@spriteSize / 2))
+    ctx.scale(scale, scale)
     ctx.drawImage(
       @image, dx, dy, @spriteSize, @spriteSize, 0, 0, @spriteSize, @spriteSize)
     ctx.restore()
