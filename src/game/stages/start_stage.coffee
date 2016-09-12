@@ -29,31 +29,36 @@ class StartStage extends Stage
     @ctx.fillRect(0, @height / 2, @width, @height / 2)
 
     @ctx.fillStyle = 'red'
-    @ctx.fillText('Red Guard', beginW, beginH)
+    @drawText('Red Guard', beginW, beginH)
 
     @ctx.fillStyle = 'white'
-    @ctx.fillText('W', beginW, beginH + heightInc)
-    @ctx.fillText('S', beginW, beginH + heightInc * 2)
-    @ctx.fillText('D', beginW, beginH + heightInc * 3)
+    @drawText('W', beginW, beginH + heightInc)
+    @drawText('S', beginW, beginH + heightInc * 2)
+    @drawText('D', beginW, beginH + heightInc * 3)
 
-    @ctx.fillText('CONTROLS', middle, beginH - heightInc)
-    @ctx.fillText('- Move Up -', middle, beginH + heightInc)
-    @ctx.fillText('- Move Down - ', middle, beginH + heightInc * 2)
-    @ctx.fillText('- Fire -', middle, beginH + heightInc * 3)
+    @drawText('CONTROLS', middle, beginH - heightInc)
+    @drawText('- Move Up -', middle, beginH + heightInc)
+    @drawText('- Move Down - ', middle, beginH + heightInc * 2)
+    @drawText('- Fire -', middle, beginH + heightInc * 3)
 
     @ctx.fillStyle = 'cyan'
-    @ctx.fillText('Blue Guard', endWidth, beginH)
+    @drawText('Blue Guard', endWidth, beginH)
 
     @ctx.fillStyle = 'white'
-    @ctx.fillText('UP', endWidth, beginH + heightInc)
-    @ctx.fillText('DOWN', endWidth, beginH + heightInc * 2)
-    @ctx.fillText('LEFT', endWidth, beginH + heightInc * 3)
+    @drawText('UP', endWidth, beginH + heightInc)
+    @drawText('DOWN', endWidth, beginH + heightInc * 2)
+    @drawText('LEFT', endWidth, beginH + heightInc * 3)
 
     Effects.anaglyph(
-      @title, '72px Georgia', @ctx, @width / 2, @height / 4, 5)
+      @title, '72px Georgia', @ctx, @width / 2, @height / 5, 5)
     Effects.anaglyph(
-      @entryText, '36px Georgia', @ctx,  @width / 2, @height / 2 - heightInc, 3)
+      @entryText, '36px Georgia', @ctx,  @width / 2, @height * 2 / 5, 3)
 
     @ctx.restore()
+
+  drawText: (string, x, y) ->
+    @ctx.fillText(string, x, y)
+
+
 
 
