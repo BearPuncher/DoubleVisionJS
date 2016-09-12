@@ -25,10 +25,13 @@ class StartStage extends Stage
     @ctx.textAlign = 'center'
     @ctx.font = '24px Georgia'
 
+    @ctx.fillStyle = 'black'
+    @ctx.fillRect(0, @height / 2, @width, @height / 2)
+
     @ctx.fillStyle = 'red'
     @ctx.fillText('Red Guard', beginW, beginH)
 
-    @ctx.fillStyle = 'black'
+    @ctx.fillStyle = 'white'
     @ctx.fillText('W', beginW, beginH + heightInc)
     @ctx.fillText('S', beginW, beginH + heightInc * 2)
     @ctx.fillText('D', beginW, beginH + heightInc * 3)
@@ -38,10 +41,10 @@ class StartStage extends Stage
     @ctx.fillText('- Move Down - ', middle, beginH + heightInc * 2)
     @ctx.fillText('- Fire -', middle, beginH + heightInc * 3)
 
-    @ctx.fillStyle = 'blue'
+    @ctx.fillStyle = 'cyan'
     @ctx.fillText('Blue Guard', endWidth, beginH)
 
-    @ctx.fillStyle = 'black'
+    @ctx.fillStyle = 'white'
     @ctx.fillText('UP', endWidth, beginH + heightInc)
     @ctx.fillText('DOWN', endWidth, beginH + heightInc * 2)
     @ctx.fillText('LEFT', endWidth, beginH + heightInc * 3)
