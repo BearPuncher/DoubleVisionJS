@@ -1,6 +1,8 @@
 # DoubleVisionJS
-We've successfully create a portal to a parallel dimension,
+They've successfully create a portal to a parallel dimension,
 but we've unknowingly unleashed a terrifying hoard of monsters!
+
+Fight the horde for as long as possible!
 
 ## Controls 
 
