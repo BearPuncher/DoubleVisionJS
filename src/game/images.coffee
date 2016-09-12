@@ -1,4 +1,7 @@
-Images = {
+Images =
+  BULLET: 'bullet'
+  BULLET_DATA: '../images/bullet.png'
+
   TILES: 'tiles'
   TILES_DATA: '../images/tiles_small.png'
 
@@ -13,8 +16,8 @@ Images = {
 
   P2: 'player2'
   P2_DATA: '../images/player2.png'
-}
 
+Loader.loadImage(Images.BULLET, Images.BULLET_DATA)
 Loader.loadImage(Images.TILES, Images.TILES_DATA)
 Loader.loadImage(Images.MONSTER, Images.MONSTER_DATA)
 Loader.loadImage(Images.PORTAL, Images.PORTAL_DATA)

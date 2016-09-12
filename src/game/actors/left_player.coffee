@@ -32,7 +32,7 @@ class LeftPlayer extends Player
     # D - FIRE, if our reload timer is over
     if @reloadTimer.hasEnded() and @controller.isPressed(Keys.D)
       @reloadTimer.restart()
-      @stage.addActor(new Bullet(position.x + 10, position.y, @direction, @))
+      @stage.addActor(new Bullet(position.x + 10, position.y, @direction, @, false))
 
     # W - UP
     if @controller.isPressed(Keys.W)
