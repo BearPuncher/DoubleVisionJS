@@ -7,6 +7,7 @@ class SquareActor extends Actor
   updateBody: () =>
     @body = new Rect(@position, @width, @height)
 
+###
   drawDebug: () ->
     unless @stage? or @stage.getContext()?
       console.log('Stage context cannot is null, or there is no context set')
@@ -33,3 +34,4 @@ class SquareActor extends Actor
     context.closePath()
 
     context.restore()
+  ###

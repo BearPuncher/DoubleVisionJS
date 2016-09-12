@@ -19,7 +19,7 @@ for i in [0..179]
 
 class SplitStage extends Stage
   @tileWidth: 32
-  @wallWidth: SplitStage.tileWidth
+  @wallWidth: SplitStage.tileWidth + 8
   @gutterHeight: SplitStage.tileWidth
 
   constructor: (width, height, ctx) ->
@@ -28,6 +28,12 @@ class SplitStage extends Stage
   _init: () =>
     cols = @width / SplitStage.tileWidth
     rows = @height / SplitStage.tileWidth
+
+    @cross = Loader.getImage(Images.CROSS)
+    console.log(@cross)
+    @sprite = new Sprite(@cross, 32)
+    @sprite.setCycle([col: 0, row: 0])
+
     @tilemap = new SplitTileMap(
       cols, rows, SplitStage.tileWidth, RANDOM_TILES, @ctx)
 
@@ -49,6 +55,7 @@ class SplitStage extends Stage
     @tilemap.render()
     @drawWall()
     @drawGutter()
+    @drawCrosses()
 
   _update: (step) =>
     # If out of lives, finish game
@@ -70,12 +77,27 @@ class SplitStage extends Stage
 
     ctx = @getContext()
     ctx.save()
+    ctx.fillStyle
     ctx.drawImage(portal,
       @wall.position.x,
       @wall.position.y,
       SplitStage.wallWidth,
       @height)
     ctx.restore()
+
+  drawCrosses: () ->
+    x = @width / 2
+    y = @height
+    tileSize = SplitStage.tileWidth
+
+    if @lives >= 4
+      @sprite.draw(x - tileSize * 2, y, @getContext())
+    if @lives >= 3
+      @sprite.draw(x + tileSize, y, @getContext())
+    if @lives >= 2
+      @sprite.draw(x, y, @getContext())
+    if @lives >= 1
+      @sprite.draw(x - tileSize, y, @getContext())
 
   drawGutter: () ->
     ctx = @getContext()
@@ -124,7 +146,6 @@ class SplitStage extends Stage
       if not @isCircleInBounds(monster.body)
         @lives--
         monster.destroy = true
-
 
   isInstanceOfBullet: (clazz) ->
     return clazz instanceof Bullet

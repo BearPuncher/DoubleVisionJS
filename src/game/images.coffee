@@ -2,6 +2,9 @@ Images =
   BULLET: 'bullet'
   BULLET_DATA: '../images/bullet.png'
 
+  CROSS: 'cross'
+  CROSS_DATA: '../images/cross.png'
+
   TILES: 'tiles'
   TILES_DATA: '../images/tiles_small.png'
 
@@ -18,6 +21,7 @@ Images =
   P2_DATA: '../images/player2.png'
 
 Loader.loadImage(Images.BULLET, Images.BULLET_DATA)
+Loader.loadImage(Images.CROSS, Images.CROSS_DATA)
 Loader.loadImage(Images.TILES, Images.TILES_DATA)
 Loader.loadImage(Images.MONSTER, Images.MONSTER_DATA)
 Loader.loadImage(Images.PORTAL, Images.PORTAL_DATA)
