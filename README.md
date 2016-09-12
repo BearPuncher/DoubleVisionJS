@@ -16,7 +16,7 @@ but we've unknowingly unleashed a terrifying hoard of monsters!
 
 ## Dev
 ### Libraries
-[SAT.js](https://github.com/jriecken/sat-js)
+[SAT.js](https://github.com/jriecken/sat-js) [No longer a dependency, library was too large, but was great early]
 
 ### Language
 [coffeescript](https://github.com/jashkenas/coffeescript)
