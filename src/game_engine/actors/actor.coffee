@@ -3,7 +3,6 @@ class Actor
   constructor: (x, y, @direction = 0) ->
     @position = new Vector(x, y)
     @stage = null
-    @body = null
     @destroy = false
 
   init: () ->

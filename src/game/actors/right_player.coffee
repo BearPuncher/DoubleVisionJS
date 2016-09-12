@@ -1,5 +1,3 @@
-
-
 class RightPlayer extends Player
   @STAND_CYCLE: [{col: 0, row: 0}]
   @RUN_CYCLE = [{col: 1, row: 0 }, {col: 2, row: 0}]
@@ -21,8 +19,7 @@ class RightPlayer extends Player
 
     @reloadTimer.tick(step)
 
-    x = @position.x
-    y = @position.y
+    position = @position
 
     stepFraction = (step / 100)
 
@@ -35,7 +32,7 @@ class RightPlayer extends Player
     # LEFT - FIRE, if our reload timer is over
     if @reloadTimer.hasEnded() and @controller.isPressed(Keys.LEFT)
       @reloadTimer.restart()
-      @stage.addActor(new Bullet(@position.x - 10, @position.y, @direction, @))
+      @stage.addActor(new Bullet(position.x - 10, position.y, @direction, @))
 
     # Up - UP
     if @controller.isPressed(Keys.UP)
@@ -55,9 +52,9 @@ class RightPlayer extends Player
       @vely -= friction * stepFraction
       @vely = 0 if @vely < 0
 
-    newPosition = new Circle(new Vector(x, y + @vely), @radius)
+    newPosition = new Circle(new Vector(position.x, position.y + @vely), @radius)
     if @stage.isCircleInBounds(newPosition)
-      @setPosition(x, y + @vely)
+      @setPosition(position.x, position.y + @vely)
 
     if @velx == 0 and @vely == 0 and not @isStopped
       @isStopped = true

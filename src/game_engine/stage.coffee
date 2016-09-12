@@ -6,7 +6,7 @@ STATE =
 class Stage
   constructor: (@width, @height, @ctx = undefined) ->
     @actors = []
-    @bounds = new Box(new Vector(), @width, @height).toPolygon()
+    @bounds = new Rect(new Vector(), @width, @height)
     @state = STATE.running
 
   addActor: (actor) =>
@@ -41,8 +41,7 @@ class Stage
   isCircleInBounds: (circle)->
     unless circle instanceof Circle
       retrun false
-    response = new SAT.Response()
-    collided = SAT.testCirclePolygon(circle, @bounds, response)
-    if collided and response.aInB
-      return true
-    return false
+    #response = new SAT.Response()
+    #collided = SAT.testCirclePolygon(circle, @bounds, response)
+    #if collided and response.aInB
+    return MathHelpers.isCircleInRect(circle, @bounds)

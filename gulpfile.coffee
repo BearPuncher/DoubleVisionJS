@@ -113,7 +113,7 @@ gulp.task 'sass', ->
   .pipe(sassLint.failOnError())
   .pipe(sass.sync()
   .on('error', sass.logError))
-# .pipe(concat('main.css'))
+  #.pipe(concat('main.css'))
   .pipe(cssmin())
   .pipe gulp.dest('./dist/css')
   return
@@ -137,6 +137,5 @@ gulp.task 'default', [
   'coffee'
   'sass'
   'images'
-  'vendorjs'
   'watch'
 ]

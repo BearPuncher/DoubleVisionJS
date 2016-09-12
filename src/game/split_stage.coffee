@@ -31,8 +31,8 @@ class SplitStage extends Stage
     @tilemap = new SplitTileMap(
       cols, rows, SplitStage.tileWidth, RANDOM_TILES, @ctx)
 
-    @wall = new Box(new Vector(@width/2 - SplitStage.wallWidth/2, 0),
-      SplitStage.wallWidth, @height).toPolygon()
+    @wall = new Rect(new Vector(@width/2 - SplitStage.wallWidth/2, 0),
+      SplitStage.wallWidth, @height)
 
     @lives = 3
 
@@ -71,8 +71,8 @@ class SplitStage extends Stage
     ctx = @getContext()
     ctx.save()
     ctx.drawImage(portal,
-      @wall.pos.x,
-      @wall.pos.y,
+      @wall.position.x,
+      @wall.position.y,
       SplitStage.wallWidth,
       @height)
     ctx.restore()
@@ -101,22 +101,21 @@ class SplitStage extends Stage
   testBulletCollisions: () =>
     bullets = @actors.filter(@isInstanceOfBullet)
     for bullet in bullets
-      collide = SAT.testCirclePolygon(bullet.body, @wall)
+      collide = MathHelpers.doesCircleRectIntersect(bullet.body, @wall)
       if collide then bullet.destroy = true
 
     monsters = @actors.filter(@isInstanceOfMonster)
     for monster in monsters
       for bullet in bullets
-        collide = SAT.testCircleCircle(bullet.body, monster.body)
-        if collide
+        if MathHelpers.doesCircleCircleIntersect(bullet.body, monster.body)
           if bullet.firedBy instanceof Player
             bullet.firedBy.addScore(1)
           bullet.destroy = true
           monster.destroy = true
 
       # If collide with player, take life and kill monster
-      collideLeftPlayer = SAT.testCircleCircle(@leftPlayer.body, monster.body)
-      collideRightPlayer = SAT.testCircleCircle(@rightPlayer.body, monster.body)
+      collideLeftPlayer = MathHelpers.doesCircleCircleIntersect(@leftPlayer.body, monster.body)
+      collideRightPlayer = MathHelpers.doesCircleCircleIntersect(@rightPlayer.body, monster.body)
 
       if collideLeftPlayer or collideRightPlayer
         @lives--

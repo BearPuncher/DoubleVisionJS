@@ -18,8 +18,7 @@ class LeftPlayer extends Player
 
     @reloadTimer.tick(step)
 
-    x = @position.x
-    y = @position.y
+    position = @position
 
     stepFraction = (step / 100)
 
@@ -33,7 +32,7 @@ class LeftPlayer extends Player
     # D - FIRE, if our reload timer is over
     if @reloadTimer.hasEnded() and @controller.isPressed(Keys.D)
       @reloadTimer.restart()
-      @stage.addActor(new Bullet(@position.x + 10, @position.y, @direction, @))
+      @stage.addActor(new Bullet(position.x + 10, position.y, @direction, @))
 
     # W - UP
     if @controller.isPressed(Keys.W)
@@ -53,9 +52,9 @@ class LeftPlayer extends Player
       @vely -= friction * stepFraction
       @vely = 0 if @vely < 0
 
-    newPosition = new Circle(new Vector(x, y + @vely), @radius)
+    newPosition = new Circle(new Vector(position.x, position.y + @vely), @radius)
     if @stage.isCircleInBounds(newPosition)
-      @setPosition(x, y + @vely)
+      @setPosition(position.x, position.y + @vely)
 
     if @velx == 0 and @vely == 0 and not @isStopped
       @isStopped = true

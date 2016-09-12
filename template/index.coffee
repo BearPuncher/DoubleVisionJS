@@ -8,7 +8,7 @@ html ->
     link rel: 'stylesheet', href: 'css/reset.css'
     link rel: 'stylesheet', href: 'css/main.css'
 
-    script src: 'js/vendor/SAT.min.js'
+   # script src: 'js/vendor/SAT.min.js'
     script src: 'js/game_engine.js'
     script src: 'js/game.js'
 
@@ -45,10 +45,3 @@ html ->
           )
           GAME.start()
 
-        ###  button = document.getElementById('start-button')
-          button.disabled = false
-          button.addEventListener('click', (e) ->
-            document.getElementById('overlay').className = 'hidden'
-            GAME.start()
-          )
-        ###
