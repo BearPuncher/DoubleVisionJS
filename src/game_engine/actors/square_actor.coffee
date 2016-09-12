@@ -2,10 +2,10 @@
 class SquareActor extends Actor
   constructor: (x, y, direction = 0, @width = 0, @height = 0) ->
     super(x, y, direction)
-    @body = new Rect(@position, @width, @height)
+    @body = new Box(@position, @width, @height)
 
   updateBody: () =>
-    @body = new Rect(@position, @width, @height)
+    @body = new Box(@position, @width, @height)
 
 ###
   drawDebug: () ->

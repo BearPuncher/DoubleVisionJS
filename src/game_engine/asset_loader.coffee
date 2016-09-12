@@ -19,4 +19,4 @@ Loader =
     return Loader.numberComplete / Loader.numberOfImages
 
   doneLoading: () ->
-    return @getProgress() == 1 # 100% done
+    return Loader.getProgress() == 1 # 100% done

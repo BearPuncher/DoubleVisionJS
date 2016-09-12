@@ -37,7 +37,7 @@ class SplitStage extends Stage
     @tilemap = new SplitTileMap(
       cols, rows, SplitStage.tileWidth, RANDOM_TILES, @ctx)
 
-    @wall = new Rect(new Vector(@width/2 - SplitStage.wallWidth/2, 0),
+    @wall = new Box(new Vector(@width/2 - SplitStage.wallWidth/2, 0),
       SplitStage.wallWidth, @height)
 
     @lives = 4
@@ -77,7 +77,6 @@ class SplitStage extends Stage
 
     ctx = @getContext()
     ctx.save()
-    ctx.fillStyle
     ctx.drawImage(portal,
       @wall.position.x,
       @wall.position.y,

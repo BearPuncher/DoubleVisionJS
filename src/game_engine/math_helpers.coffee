@@ -26,13 +26,13 @@ class Circle extends Shape
   constructor: (vector, @radius = 0) ->
     super(vector)
 
-class Rect extends Shape
+class Box extends Shape
   constructor: (vector, @w = 0, @h = 0) ->
     super(vector)
 
 MathHelpers =
   isCircleInRect: (circle, rect) ->
-    unless circle instanceof Circle and rect instanceof Rect
+    unless circle instanceof Circle and rect instanceof Box
       return
     rectMinX = rect.position.x
     rectMaxX = rectMinX + rect.w
@@ -50,7 +50,7 @@ MathHelpers =
       return true
 
   doesCircleRectIntersect: (circle, rect) ->
-    unless circle instanceof Circle and rect instanceof Rect
+    unless circle instanceof Circle and rect instanceof Box
       return
     circlePos = circle.position
     rectPos = rect.position
