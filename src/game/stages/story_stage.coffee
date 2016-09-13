@@ -28,7 +28,7 @@ class StoryStage extends Stage
     @ctx.font = '18px Georgia'
     @text = "They successfully opened a portal to a parallel dimension."
     @text1 = "What they didn't anticipate were the anomalies..."
-    @text2 = "Once opened, portal WON'T CLOSE!"
+    @text2 = "Once it was opened we couldn't close it. We're both doomed."
     @footer = "Destroy as many intruders as you can before we're overwhelmed"
     @footerFinal = "Press Enter to Fight"
 

@@ -119,7 +119,6 @@ class SplitStage extends Stage
         SplitStage.tileWidth,
       )
 
-
     ctx.restore()
 
   drawCrosses: () ->
