@@ -54,6 +54,7 @@ class SplitStage extends Stage
 
   _render: () ->
     @tilemap.render()
+    @drawColorOverlay()
     @drawWall()
     @drawGutter()
     @drawCrosses()
@@ -73,6 +74,19 @@ class SplitStage extends Stage
       newActors.push actor unless actor.shouldDestroy()
 
     @actors = newActors
+
+
+  drawColorOverlay: () ->
+    ctx = @getContext()
+    ctx.save()
+    ctx.globalAlpha = 0.1
+    ctx.fillStyle = 'cyan'
+    ctx.fillRect(0, 0, @width / 2, @height)
+
+    ctx.fillStyle = 'red'
+    ctx.fillRect(@width / 2, 0, @width / 2, @height)
+
+    ctx.restore()
 
   drawWall: () ->
     ctx = @getContext()
