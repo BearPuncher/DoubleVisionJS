@@ -48,6 +48,11 @@ gulp.task 'images', ->
   .pipe(gulp.dest('./dist/images/'))
   return
 
+gulp.task 'sounds', ->
+  return gulp.src(['./sounds/**'])
+  .pipe(gulp.dest('./dist/sounds/'))
+  return
+
 # Game Engine specific
 gulp.task 'game-engine-coffee', ->
   gulp.src([
@@ -140,5 +145,6 @@ gulp.task 'default', [
   'coffee'
   'sass'
   'images'
+  'sounds'
   'watch'
 ]
