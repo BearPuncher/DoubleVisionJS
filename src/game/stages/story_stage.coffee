@@ -5,8 +5,11 @@ class StoryStage extends Stage
     @opacity = 0
 
   _init: () =>
-    @title = "Double Vision"
-    @entryText = "Hit ENTER to begin"
+    @text = "They successfully opened a portal to a parallel dimension."
+    @text1 = "What they didn't anticipate were the anomalies..."
+    @text2 = "There was a glitch, and now we can't close it. We're both doomed."
+    @footer = "Destroy as many intruders as you can before we're overwhelmed"
+    @enterText = "Press Enter to Fight"
 
   _update: (step) =>
     @showFooterTimer.tick(step)
@@ -26,11 +29,6 @@ class StoryStage extends Stage
     @ctx.textAlign = 'center'
     @ctx.fillStyle = 'white'
     @ctx.font = '18px Georgia'
-    @text = "They successfully opened a portal to a parallel dimension."
-    @text1 = "What they didn't anticipate were the anomalies..."
-    @text2 = "Once it was opened we couldn't close it. We're both doomed."
-    @footer = "Destroy as many intruders as you can before we're overwhelmed"
-    @footerFinal = "Press Enter to Fight"
 
     @ctx.fillText(@text, @width/2, 60)
     @ctx.fillText(@text1, @width/2, 120)
@@ -40,7 +38,7 @@ class StoryStage extends Stage
       @ctx.globalAlpha = @opacity
       @ctx.fillText(@footer, @width/2, 250)
       @ctx.fillStyle = 'red'
-      @ctx.fillText(@footerFinal, @width/2, 300)
+      @ctx.fillText(@enterText, @width/2, 300)
 
       if @controller.isPressed(Keys.ENTER)
         @state = STATE.finished
