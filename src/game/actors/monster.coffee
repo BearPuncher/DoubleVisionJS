@@ -1,14 +1,14 @@
 class Monster extends CircleActor
-  @CREEP_LEFT_CYCLE: [{col: 0, row: 0}, {col: 1, row: 0}, {col: 2, row: 0},
-    {col: 3, row: 0}, {col: 2, row: 0}, {col: 1, row: 0}]
+  @CREEP_LEFT_CYCLE: [{col: 0, row: 2}, {col: 1, row: 2}, {col: 2, row: 2},
+    {col: 3, row: 2}, {col: 2, row: 2}, {col: 1, row: 2}]
 
-  @CREEP_RIGHT_CYCLE: [{col: 0, row: 1}, {col: 1, row: 1}, {col: 2, row: 1},
-      {col: 3, row: 1}, {col: 2, row: 1}, {col: 1, row: 1}]
+  @CREEP_RIGHT_CYCLE: [{col: 0, row: 3}, {col: 1, row: 3}, {col: 2, row: 3},
+      {col: 3, row: 3}, {col: 2, row: 3}, {col: 1, row: 3}]
 
   constructor: (x, y, direction = 0, @left) ->
     super(x, y, direction, 16)
     @speed = Math.round(Math.random() * 2) + 2.5
-    @image = Loader.getImage(Images.MONSTER)
+    @image = Loader.getImage(Images.SPRITEMAP)
     @sprite = new Sprite(@image, 32)
     @opacity = 0
 

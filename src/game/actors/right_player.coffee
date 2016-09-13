@@ -6,7 +6,7 @@ class RightPlayer extends Player
     super(x, y)
     @direction = MathHelpers.toRadians(180)
     @reloadTimer = new Timer(500)
-    @image = Loader.getImage(Images.P2)
+    @image = Loader.getImage(Images.SPRITEMAP)
     @sprite = new Sprite(@image, 32)
     @sprite.setCycle(RightPlayer.STAND_CYCLE)
     @isStopped = false;
