@@ -3,5 +3,5 @@ Score =
   lastScore: 0
 
   setScore: (score) ->
-    Score.lastScore =
+    Score.lastScore = score
     Score.highScore = score if score > Score.highScore
