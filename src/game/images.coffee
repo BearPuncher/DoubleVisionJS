@@ -14,5 +14,4 @@ Images =
 Loader.loadImage(Images.BULLET, Images.BULLET_DATA)
 Loader.loadImage(Images.TILES, Images.TILES_DATA)
 Loader.loadImage(Images.SPRITEMAP, Images.SPRITEMAP_DATA)
-Loader.loadImage(Images.MONSTER, Images.MONSTER_DATA)
 Loader.loadImage(Images.PORTAL, Images.PORTAL_DATA)

@@ -13,17 +13,29 @@ class MonsterSpawner extends Actor
 
     @spawnTimer = new Timer(@spawnTime)
     @modeTimer = new Timer(6000)
+    @animate = new Timer(1000)
 
   _init: () =>
     @mode = Mode.MIRROR
     @spawnTime = 3000
     @spawnTimer = new Timer(@spawnTime)
     @modeTimer = new Timer(6000)
+    @animate  = new Timer(1000)
+    @animate.end()
 
-  # Update timers
+  _render: () ->
+    if not @animate.hasEnded()
+      ctx = @stage.getContext()
+      pSize = 28
+      pLength = @stage.height - 16
+      portalFuzz = Effects.generateNoise(ctx, pSize, pLength)
+      ctx.putImageData(portalFuzz, @stage.width / 2 - pSize / 2, 8)
+
+# Update timers
   _update: (step) =>
     @spawnTimer.tick(step)
     @modeTimer.tick(step)
+    @animate.tick(step)
 
     if @spawnTimer.hasEnded()
       @spawnTimer.restart()
@@ -39,6 +51,7 @@ class MonsterSpawner extends Actor
 
       @spawnTimer.timeout = @spawnTime
       @modeTimer.restart()
+      @animate.restart()
       @updateMode()
 
   # Spawn monsters according to @mode settings

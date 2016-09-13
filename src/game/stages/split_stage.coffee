@@ -87,33 +87,33 @@ class SplitStage extends Stage
     ctx = @getContext()
     ctx.save()
 
-    size = SplitStage.tileWidth
+    tWidth = SplitStage.tileWidth
 
-    width = @width / 2 - size / 2
-    rows = @height / size - 1
+    width = @width / 2 - tWidth / 2
+    rows = @height / tWidth - 1
 
     # TOP
     ctx.drawImage(@portal,
       0,
       0,
-      size,
-      size,
+      tWidth,
+      tWidth,
       width,
       0,
-      size,
-      size,
+      tWidth,
+      tWidth,
     )
 
     # Bottom
     ctx.drawImage(@portal,
       0,
-      size * 2,
-      size,
-      size,
+      tWidth * 2,
+      tWidth,
+      tWidth,
       width,
-      rows * size,
-      size,
-      size,
+      rows * tWidth,
+      tWidth,
+      tWidth,
     )
 
     # Draw rows inbetween
@@ -121,14 +121,15 @@ class SplitStage extends Stage
     for i in [1..row]
       ctx.drawImage(@portal,
         0,
-        size,
-        size,
-        size,
+        tWidth,
+        tWidth,
+        tWidth,
         width,
-        size * i,
-        size,
-        size,
+        tWidth * i,
+        tWidth,
+        tWidth,
       )
+
     ctx.restore()
 
   drawCrosses: () ->
