@@ -17,10 +17,17 @@ class GameOverStage extends Stage
     @background = @getNoise()
     @ctx.putImageData(@background, 0, 0)
 
+    scoreHighscore = 'High Score: ' + Score.highScore
+    scoreCurret = 'Last Score: ' + Score.lastScore
+
     Effects.anaglyph(
-      @gameOverText, '72px Georgia',@ctx, @width / 2, @height / 3, 5)
+      @gameOverText, '54px Georgia',@ctx, @width / 2, @height / 5, 5)
     Effects.anaglyph(
-      @retryText, '42px Georgia', @ctx, @width / 2, @height * 2 / 3, 3)
+      scoreHighscore, '32px Georgia',@ctx, @width / 2, @height * 2 / 5, 5)
+    Effects.anaglyph(
+      scoreCurret, '32px Georgia',@ctx, @width / 2, @height * 3 / 5, 5)
+    Effects.anaglyph(
+      @retryText, '32px Georgia', @ctx, @width / 2, @height * 4 / 5, 3)
 
     @ctx.restore()
 

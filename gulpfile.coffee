@@ -73,6 +73,7 @@ gulp.task 'game-engine-coffee', ->
 # Game specific
 gulp.task 'game-coffee', ->
   gulp.src([
+    './src/game/score.coffee'
     './src/game/effects.coffee',
     './src/game/images.coffee',
     './src/game/stages/split_tile_map.coffee',

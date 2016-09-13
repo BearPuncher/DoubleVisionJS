@@ -30,7 +30,6 @@ class SplitStage extends Stage
     rows = @height / SplitStage.tileWidth
 
     @cross = Loader.getImage(Images.CROSS)
-    console.log(@cross)
     @sprite = new Sprite(@cross, 32)
     @sprite.setCycle([col: 0, row: 0])
 
@@ -63,6 +62,7 @@ class SplitStage extends Stage
     # If out of lives, finish game
     if @lives <= 0
       @state = STATE.finished
+      Score.setScore(@leftPlayer.score + @rightPlayer.score)
       return
 
     @testBulletCollisions()
@@ -106,7 +106,6 @@ class SplitStage extends Stage
     )
 
     row = rows - 1
-    console.log(row)
 
     for i in [1..row]
       ctx.drawImage(@portal,
