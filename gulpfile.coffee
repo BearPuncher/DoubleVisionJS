@@ -14,6 +14,7 @@ tar = require('gulp-tar')
 sass = require('gulp-sass')
 sassLint = require('gulp-sass-lint')
 uglify = require('gulp-uglifyjs')
+zip = require('gulp-zip')
 
 # Clean ./dist dir
 gulp.task 'clean', ->
@@ -128,9 +129,8 @@ gulp.task 'watch', ->
   return
 
 gulp.task 'compress', ->
-  gulp.src('./dist/**/*')
-  .pipe(tar('release.tar'))
-  .pipe(gzip())
+  return gulp.src('dist/**/*')
+  .pipe(zip('release.zip'))
   .pipe(gulp.dest('.'))
 
 gulp.task 'default', [

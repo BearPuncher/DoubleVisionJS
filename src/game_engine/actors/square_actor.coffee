@@ -1,4 +1,5 @@
 # A Square actor
+###
 class SquareActor extends Actor
   constructor: (x, y, direction = 0, @width = 0, @height = 0) ->
     super(x, y, direction)
@@ -7,7 +8,7 @@ class SquareActor extends Actor
   updateBody: () =>
     @body = new Box(@position, @width, @height)
 
-###
+
   drawDebug: () ->
     unless @stage? or @stage.getContext()?
       console.log('Stage context cannot is null, or there is no context set')

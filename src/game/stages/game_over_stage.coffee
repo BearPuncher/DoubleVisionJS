@@ -32,16 +32,5 @@ class GameOverStage extends Stage
     @ctx.restore()
 
   getNoise: () ->
-    imageData = @ctx.createImageData(@width, @height)
-
-    i = 0
-    while i < imageData.data.length
-      # shade = 255 / Math.ceil(Math.random() * 4)
-      color = (Math.random() * 120)|0
-      imageData.data[i++] = 0
-      imageData.data[i++] = 0
-      imageData.data[i++] = 0
-      imageData.data[i++] = color
-
-    return imageData
+    return Effects.generateNoise(@ctx, @width, @height)
 

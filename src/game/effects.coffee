@@ -17,4 +17,17 @@ Effects =
     ctx.fillText(string, 0, 0)
     ctx.restore()
 
+  generateNoise: (ctx, w, h) ->
+    imageData = ctx.createImageData(w, h)
+
+    i = 0
+    while i < imageData.data.length
+    # shade = 255 / Math.ceil(Math.random() * 4)
+      color = (Math.random() * 120)|0
+      imageData.data[i++] = 0
+      imageData.data[i++] = 0
+      imageData.data[i++] = 0
+      imageData.data[i++] = color
+
+    return imageData
 

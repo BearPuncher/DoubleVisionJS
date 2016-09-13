@@ -29,10 +29,6 @@ class SplitStage extends Stage
     cols = @width / SplitStage.tileWidth
     rows = @height / SplitStage.tileWidth
 
-    @cross = Loader.getImage(Images.CROSS)
-    @sprite = new Sprite(@cross, 32)
-    @sprite.setCycle([col: 0, row: 0])
-
     @tilemap = new SplitTileMap(
       cols, rows, SplitStage.tileWidth, RANDOM_TILES, @ctx)
 
@@ -75,7 +71,6 @@ class SplitStage extends Stage
 
     @actors = newActors
 
-
   drawColorOverlay: () ->
     ctx = @getContext()
     ctx.save()
@@ -92,62 +87,73 @@ class SplitStage extends Stage
     ctx = @getContext()
     ctx.save()
 
-    width = @width / 2 - SplitStage.tileWidth / 2
-    rows = @height / SplitStage.tileWidth - 1
+    size = SplitStage.tileWidth
+
+    width = @width / 2 - size / 2
+    rows = @height / size - 1
 
     # TOP
     ctx.drawImage(@portal,
       0,
       0,
-      SplitStage.tileWidth,
-      SplitStage.tileWidth,
+      size,
+      size,
       width,
       0,
-      SplitStage.tileWidth,
-      SplitStage.tileWidth,
+      size,
+      size,
     )
 
     # Bottom
     ctx.drawImage(@portal,
       0,
-      SplitStage.tileWidth * 2,
-      SplitStage.tileWidth,
-      SplitStage.tileWidth,
+      size * 2,
+      size,
+      size,
       width,
-      rows * SplitStage.tileWidth,
-      SplitStage.tileWidth,
-      SplitStage.tileWidth,
+      rows * size,
+      size,
+      size,
     )
 
+    # Draw rows inbetween
     row = rows - 1
-
     for i in [1..row]
       ctx.drawImage(@portal,
         0,
-        SplitStage.tileWidth,
-        SplitStage.tileWidth,
-        SplitStage.tileWidth,
+        size,
+        size,
+        size,
         width,
-        SplitStage.tileWidth * i,
-        SplitStage.tileWidth,
-        SplitStage.tileWidth,
+        size * i,
+        size,
+        size,
       )
-
     ctx.restore()
 
   drawCrosses: () ->
     x = @width / 2
-    y = @height + 6
+    y = @height + 8
     tileSize = SplitStage.tileWidth
 
     if @lives >= 4
-      @sprite.draw(x - tileSize * 2, y, @getContext())
+      @drawCross(x - tileSize * 2, y)
     if @lives >= 3
-      @sprite.draw(x + tileSize, y, @getContext())
+      @drawCross(x + tileSize, y)
     if @lives >= 2
-      @sprite.draw(x, y, @getContext())
+      @drawCross(x, y)
     if @lives >= 1
-      @sprite.draw(x - tileSize, y, @getContext())
+      @drawCross(x - tileSize, y)
+
+  drawCross: (x, y) ->
+    ctx = @getContext()
+    size = SplitStage.tileWidth - 6
+    cross = 8
+    dx = x + size / 2
+    dy = y + size / 2
+    ctx.fillStyle = 'red'
+    ctx.fillRect(dx - cross / 2, y, cross, size)
+    ctx.fillRect(x, dy - cross / 2, size, cross)
 
   drawGutter: () ->
     ctx = @getContext()
