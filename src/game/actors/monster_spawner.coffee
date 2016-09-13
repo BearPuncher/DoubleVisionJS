@@ -13,14 +13,14 @@ class MonsterSpawner extends Actor
 
     @spawnTimer = new Timer(@spawnTime)
     @modeTimer = new Timer(6000)
-    @animate = new Timer(1000)
+    @animate = new Timer(100)
 
   _init: () =>
     @mode = Mode.MIRROR
     @spawnTime = 3000
     @spawnTimer = new Timer(@spawnTime)
     @modeTimer = new Timer(6000)
-    @animate  = new Timer(1000)
+    @animate  = new Timer(100)
     @animate.end()
 
   _render: () ->
