@@ -1,8 +1,9 @@
 # DoubleVisionJS
-They've successfully create a portal to a parallel dimension,
-but we've unknowingly unleashed a terrifying hoard of monsters!
+They've successfully create a portal to a parallel dimension, but we've unknowingly unleashed a terrifying horde of monsters!
 
-Fight the horde for as long as possible!
+You control the guards in both dimensions, requiring hand-eye coordination, and quick reflexes, to hold back the ever increasing horde of anomalies.
+
+Top down, retro style shooter. Requires both hands, or, 2 people to play.
 
 ## Controls 
 
