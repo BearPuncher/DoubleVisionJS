@@ -20,7 +20,7 @@ for i in [0..179]
 class SplitStage extends Stage
   @tileWidth: 32
   @wallWidth: SplitStage.tileWidth + 8
-  @gutterHeight: SplitStage.tileWidth
+  @gutterHeight: SplitStage.tileWidth + 8
 
   constructor: (width, height, ctx) ->
     super(width, height - SplitStage.gutterHeight, ctx)
@@ -125,7 +125,7 @@ class SplitStage extends Stage
 
   drawCrosses: () ->
     x = @width / 2
-    y = @height
+    y = @height + 6
     tileSize = SplitStage.tileWidth
 
     if @lives >= 4
@@ -143,7 +143,7 @@ class SplitStage extends Stage
     ctx.fillRect(0, @height, @width, @height + SplitStage.gutterHeight)
 
     xPadding = 11
-    yPadding = 22
+    yPadding = 27
 
     ctx.fillStyle = 'White'
     ctx.font = 'normal 12pt Arial'

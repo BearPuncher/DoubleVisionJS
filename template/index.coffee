@@ -17,22 +17,21 @@ html ->
         canvas '#game-canvas', ->
 
         coffeescript ->
-
           canvas = document.getElementById('game-canvas')
 
-          width = 640
-          height = 352
+          w = 640
+          h = 360
 
-          GAME = new Game(width, height, () ->
+          GAME = new Game(w, h, () ->
             this.backgroundColor 'white'
             this.border '1px solid black'
           , canvas)
 
-          PRELOAD = new PreloaderStage(width, height)
-          GAME_BEGIN = new StartStage(width, height)
-          STORY = new StoryStage(width, height)
-          STAGE = new SplitStage(width, height)
-          GAME_OVER = new GameOverStage(width, height)
+          PRELOAD = new PreloaderStage(w, h)
+          GAME_BEGIN = new StartStage(w, h)
+          STORY = new StoryStage(w, h)
+          STAGE = new SplitStage(w, h)
+          GAME_OVER = new GameOverStage(w, h)
 
           GAME.setStage(PRELOAD)
           GAME.setStageTransition(() ->
