@@ -40,6 +40,8 @@ class SplitStage extends Stage
     @wall = new Box(new Vector(@width/2 - SplitStage.wallWidth/2, 0),
       SplitStage.wallWidth, @height)
 
+    @portal = Loader.getImage(Images.PORTAL)
+
     @lives = 4
 
     @leftPlayer = new LeftPlayer(30, @height/2)
@@ -73,15 +75,52 @@ class SplitStage extends Stage
     @actors = newActors
 
   drawWall: () ->
-    portal = Loader.getImage(Images.PORTAL)
-
     ctx = @getContext()
     ctx.save()
-    ctx.drawImage(portal,
-      @wall.position.x,
-      @wall.position.y,
-      SplitStage.wallWidth,
-      @height)
+
+    width = @width / 2 - SplitStage.tileWidth / 2
+    rows = @height / SplitStage.tileWidth - 1
+
+    # TOP
+    ctx.drawImage(@portal,
+      0,
+      0,
+      SplitStage.tileWidth,
+      SplitStage.tileWidth,
+      width,
+      0,
+      SplitStage.tileWidth,
+      SplitStage.tileWidth,
+    )
+
+    # Bottom
+    ctx.drawImage(@portal,
+      0,
+      SplitStage.tileWidth * 2,
+      SplitStage.tileWidth,
+      SplitStage.tileWidth,
+      width,
+      rows * SplitStage.tileWidth,
+      SplitStage.tileWidth,
+      SplitStage.tileWidth,
+    )
+
+    row = rows - 1
+    console.log(row)
+
+    for i in [1..row]
+      ctx.drawImage(@portal,
+        0,
+        SplitStage.tileWidth,
+        SplitStage.tileWidth,
+        SplitStage.tileWidth,
+        width,
+        SplitStage.tileWidth * i,
+        SplitStage.tileWidth,
+        SplitStage.tileWidth,
+      )
+
+
     ctx.restore()
 
   drawCrosses: () ->

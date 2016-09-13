@@ -21,7 +21,7 @@ html ->
           canvas = document.getElementById('game-canvas')
 
           width = 640
-          height = 360
+          height = 352
 
           GAME = new Game(width, height, () ->
             this.backgroundColor 'white'
