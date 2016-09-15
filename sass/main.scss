@@ -1,18 +1,17 @@
 // Main.scss
 
-$colour-1: #f00;
-$colour-2: #00f;
+$black: #000;
+$red: #f00;
+$blue: #00f;
+$cyan: #0ff;
 
 * {
   margin: 0;
   padding: 0;
 }
 
-h1 {
-  color: $colour-1;
-  font-size: 3.2em;
-  margin-bottom: .2em;
-  text-shadow: 2px 2px $colour-2;
+body {
+  background: $black;
 }
 
 .hidden {
@@ -28,10 +27,11 @@ h1 {
 }
 
 #game-canvas {
+  bottom: 0;
   cursor: none;
-}
-
-#overlay {
-  position: fixed;
-  width: 100%;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
 }

@@ -13,7 +13,6 @@ html ->
   body ->
     div '.container', ->
       div '.centered', ->
-
         canvas '#game-canvas', ->
 
         coffeescript ->
@@ -47,4 +46,3 @@ html ->
               if GAME.stage.state == STATE.finished then GAME.setStage(STAGE)
           )
           GAME.start()
-
